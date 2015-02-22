@@ -59,30 +59,64 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleButtonCam1Bigger(ActionEvent event) {
+        //resize
+        firstRowSizeIncrease(this.row1Con, this.row2Con);
+        firstColumnSizeIncrease(this.colCon1, this.colCon2);
+        
+        //apply our resized properties
+        resizeRows(row1Con, row2Con);
+        resizeCollums(colCon1, colCon2);
         
         System.out.println("cam1 is now BIG");
     }
     
     @FXML
     private void handleButtonCam2Bigger(ActionEvent event) {
+        //resize
+        firstRowSizeIncrease(row1Con, row1Con);
+        secondColumnSizeIncrease(colCon1, colCon2);
+        
+        //apply our resized properties
+        resizeRows(row1Con, row2Con);
+        resizeCollums(colCon1, colCon2);
         
         System.out.println("cam2 is now BIG");
     }
     
     @FXML
     private void handleButtonCam3Bigger(ActionEvent event) {
+        //resize
+        secondRowSizeIncrease(row1Con, row1Con);
+        firstColumnSizeIncrease(colCon1, colCon2);
+        
+        //apply our resized properties
+        resizeRows(row1Con, row2Con);
+        resizeCollums(colCon1, colCon2);
         
         System.out.println("cam3 is now BIG");
     }
     
     @FXML
     private void handleButtonCam4Bigger(ActionEvent event) {
+        //resize
+        secondRowSizeIncrease(row1Con, row1Con);
+        secondColumnSizeIncrease(colCon1, colCon2);
+        
+        //apply our resized properties
+        resizeRows(row1Con, row2Con);
+        resizeCollums(colCon1, colCon2);
         
         System.out.println("cam4 is now BIG");
     }
     
     @FXML
     private void handleButtonCamDefault(ActionEvent event) {
+        //resize
+        setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
+        
+        //apply our resized properties
+        resizeRows(row1Con, row2Con);
+        resizeCollums(colCon1, colCon2);
         
         System.out.println("cameras are all the same size");
     }
@@ -169,30 +203,9 @@ public class FXMLDocumentController implements Initializable {
         row2Con.setPercentHeight(50);
         
         //set columns
-        colCon1.setPercentWidth(25);
-        colCon2.setPercentWidth(75);
+        colCon1.setPercentWidth(50);
+        colCon2.setPercentWidth(50);
     }
-    
-    /*
-    private void resizGrid(){
- 
-         ColumnConstraints col1 = new ColumnConstraints();
-         col1.setPercentWidth(75);
-         ColumnConstraints col2 = new ColumnConstraints();
-         col2.setPercentWidth(25);
-         cameraGrid.getColumnConstraints().clear();
-         cameraGrid.getColumnConstraints().addAll(col1,col2);
-
-         RowConstraints row1 = new RowConstraints();
-         row1.setPercentHeight(75);
-         RowConstraints row2 = new RowConstraints();
-         row2.setPercentHeight(25);
-         cameraGrid.getRowConstraints().clear();
-         cameraGrid.getRowConstraints().addAll(row1,row2);
-         
-    }*/
-    
-    
  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
