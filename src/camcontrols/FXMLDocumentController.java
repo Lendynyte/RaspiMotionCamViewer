@@ -5,7 +5,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 /**
  *
@@ -15,17 +19,155 @@ import javafx.scene.control.Label;
 public class FXMLDocumentController implements Initializable {
     
     @FXML
-    private Label label;
+    private GridPane cameraGrid;
+    
+    //TESTING VARIABLES AND METHODS
+    @FXML
+    private Pane pane1;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private Pane pane2;
+    
+    @FXML
+    private Pane pane3;
+    
+    @FXML
+    private Pane pane4;
+    
+    @FXML 
+    private Button btnCamera1Bigger;
+    
+    @FXML 
+    private Button btnCamera2Bigger;
+    
+    @FXML 
+    private Button btnCamera3Bigger;
+    
+    @FXML 
+    private Button btnCamera4Bigger;
+    
+    @FXML 
+    private Button btnDefaultCameraSize;
+       
+    //column Constrains declaration
+    private  ColumnConstraints colCon1 = new ColumnConstraints();
+    private  ColumnConstraints colCon2 = new ColumnConstraints();
+    
+    //row Constrains declrataion
+    private RowConstraints row1Con = new RowConstraints();
+    private RowConstraints row2Con = new RowConstraints();
+    
+    @FXML
+    private void handleButtonCam1Bigger(ActionEvent event) {
+        
+        System.out.println("cam1 is now BIG");
     }
     
+    @FXML
+    private void handleButtonCam2Bigger(ActionEvent event) {
+        
+        System.out.println("cam2 is now BIG");
+    }
+    
+    @FXML
+    private void handleButtonCam3Bigger(ActionEvent event) {
+        
+        System.out.println("cam3 is now BIG");
+    }
+    
+    @FXML
+    private void handleButtonCam4Bigger(ActionEvent event) {
+        
+        System.out.println("cam4 is now BIG");
+    }
+    
+    @FXML
+    private void handleButtonCamDefault(ActionEvent event) {
+        
+        System.out.println("cameras are all the same size");
+    }
+    
+    //TESTING VARIABLES AND METHODS END
+    /**
+     * This method increases height of row1 and decrases height of row2
+     * 
+     * @param rowCon1 constrains of row1
+     * @param rowCon2 constrains of row2
+     */
+    private void firstRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2){
+         row1Con.setPercentHeight(75);
+         row2Con.setPercentHeight(25);
+    }
+    
+    /**
+     * This method increases height of row2 and decrases height of row1
+     * 
+     * @param rowCon1 constrains of row1
+     * @param rowCon2 constrains of row2
+     */
+    private void secondRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2){
+        row1Con.setPercentHeight(25);
+        row2Con.setPercentHeight(75);
+    }
+    
+    /**
+     * This method increases width of col1 and decrases height of col2
+     * 
+     * @param colCon1 constrains of col1
+     * @param colCon2 constrains of col2
+     */
+    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2){
+         colCon1.setPercentWidth(75);
+         colCon2.setPercentWidth(25);
+    }
+    
+    /**
+     * This method increases width of col1 and decrases height of col2
+     * 
+     * @param colCon1 constrains of col1
+     * @param colCon2 constrains of col2
+     */
+    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2){
+        colCon1.setPercentWidth(25);
+        colCon2.setPercentWidth(75);
+    }
+    
+    /**
+     * 
+     * @param colCon1
+     * @param colCon2
+     * @param rowCon1
+     * @param rowCon2 
+     */
+    private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2,
+                                RowConstraints rowCon1, RowConstraints rowCon2){
+        
+    }
+    
+    
+    private void resizGrid(){
+ 
+         ColumnConstraints col1 = new ColumnConstraints();
+         col1.setPercentWidth(75);
+         ColumnConstraints col2 = new ColumnConstraints();
+         col2.setPercentWidth(25);
+         cameraGrid.getColumnConstraints().clear();
+         cameraGrid.getColumnConstraints().addAll(col1,col2);
+
+         RowConstraints row1 = new RowConstraints();
+         row1.setPercentHeight(75);
+         RowConstraints row2 = new RowConstraints();
+         row2.setPercentHeight(25);
+         cameraGrid.getRowConstraints().clear();
+         cameraGrid.getRowConstraints().addAll(row1,row2);
+         
+    }
+    
+    
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO(Dominik): Inicialization
     }    
     
 }
