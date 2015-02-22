@@ -88,6 +88,29 @@ public class FXMLDocumentController implements Initializable {
     }
     
     //TESTING VARIABLES AND METHODS END
+    
+    /**
+     * This method changes contents of cameraGrid collumn constrains observable list to change size of camera views
+     * 
+     * @param colCon1 constrains of column1
+     * @param colCon2 constrains of column2
+     */
+    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2){
+        cameraGrid.getColumnConstraints().clear();
+        cameraGrid.getColumnConstraints().addAll(colCon1, colCon2);
+    }
+    
+    /**
+     * This method changes contents of cameraGrid collumn constrains observable list to change size of camera views
+     * 
+     * @param rowCon1 constrains of row1
+     * @param rowCon2 constrains of row2
+     */
+    private void resizeRows(RowConstraints rowCon1, RowConstraints rowCon2){
+        cameraGrid.getRowConstraints().clear();
+        cameraGrid.getRowConstraints().addAll(rowCon1,rowCon2);
+    }
+    
     /**
      * This method increases height of row1 and decrases height of row2
      * 
@@ -134,17 +157,23 @@ public class FXMLDocumentController implements Initializable {
     
     /**
      * 
-     * @param colCon1
-     * @param colCon2
-     * @param rowCon1
-     * @param rowCon2 
+     * @param colCon1 constrains of column1
+     * @param colCon2 constrains of column2
+     * @param rowCon1 constrains of row1
+     * @param rowCon2 constrains of row2
      */
     private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2,
                                 RowConstraints rowCon1, RowConstraints rowCon2){
+        //set rows
+        row1Con.setPercentHeight(50);
+        row2Con.setPercentHeight(50);
         
+        //set columns
+        colCon1.setPercentWidth(25);
+        colCon2.setPercentWidth(75);
     }
     
-    
+    /*
     private void resizGrid(){
  
          ColumnConstraints col1 = new ColumnConstraints();
@@ -161,7 +190,7 @@ public class FXMLDocumentController implements Initializable {
          cameraGrid.getRowConstraints().clear();
          cameraGrid.getRowConstraints().addAll(row1,row2);
          
-    }
+    }*/
     
     
  
