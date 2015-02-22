@@ -6,10 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  *
@@ -21,19 +24,25 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane cameraGrid;
     
+    @FXML
+    private MenuBar menuBar;
+    
     //TESTING VARIABLES AND METHODS
+    
+    //webView containers
     @FXML
-    private Pane pane1;
+    private AnchorPane pane1;
     
     @FXML
-    private Pane pane2;
+    private AnchorPane pane2;
     
     @FXML
-    private Pane pane3;
+    private AnchorPane pane3;
     
     @FXML
-    private Pane pane4;
+    private AnchorPane pane4;
     
+    //test buttons
     @FXML 
     private Button btnCamera1Bigger;
     
@@ -49,13 +58,44 @@ public class FXMLDocumentController implements Initializable {
     @FXML 
     private Button btnDefaultCameraSize;
        
+    @FXML
+    private Button btnTestStream;
+    
+    //webViews
+    @FXML
+    private WebView webView1;
+    
+    @FXML
+    private WebView webView2;
+    
+    @FXML
+    private WebView webView3;
+    
+    @FXML
+    private WebView webView4;
+    
+    //webView webEngines
+   /* private WebEngine webEngine1;
+    private WebEngine webEngine2;
+    private WebEngine webEngine3;
+    private WebEngine webEngine4;*/
+    
+    //camera instances
+     //TODO: move create initialize method
+    private final MotionCamera cam1 = new MotionCamera();
+    private final MotionCamera cam2 = new MotionCamera();
+    private final MotionCamera cam3 = new MotionCamera();
+    private final MotionCamera cam4 = new MotionCamera();
+    
+    
+    
     //column Constrains declaration
-    private  ColumnConstraints colCon1 = new ColumnConstraints();
-    private  ColumnConstraints colCon2 = new ColumnConstraints();
+    private final  ColumnConstraints colCon1 = new ColumnConstraints();
+    private final  ColumnConstraints colCon2 = new ColumnConstraints();
     
     //row Constrains declrataion
-    private RowConstraints row1Con = new RowConstraints();
-    private RowConstraints row2Con = new RowConstraints();
+    private final RowConstraints row1Con = new RowConstraints();
+    private final RowConstraints row2Con = new RowConstraints();
     
     @FXML
     private void handleButtonCam1Bigger(ActionEvent event) {
@@ -120,6 +160,52 @@ public class FXMLDocumentController implements Initializable {
         
         System.out.println("cameras are all the same size");
     }
+    
+    @FXML
+    private void handleButtonTestStream(ActionEvent event) {
+        startTestStream(event);
+    }
+    
+    private void startTestStream(ActionEvent event){
+        cam1.setURL("http://www.seznam.cz");
+        cam1.setName("cam1");
+        
+        WebEngine webEngine1 = this.webView1.getEngine();
+        webEngine1.load(cam1.getURL());
+
+        //TODO: move creating cameras to initializing method
+        //MotionCam cam2 = new MotionCam();
+       // cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam2.setURL("http://www.seznam.cz");
+        cam2.setName("cam2");
+        
+        WebEngine webEngine2 = this.webView2.getEngine();
+        webEngine2.load(cam2.getURL());
+        
+        
+        //TODO: move creating cameras to initializing method
+        //MotionCam cam3 = new MotionCam();
+        //cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam3.setURL("http://www.seznam.cz");
+        cam3.setName("cam3");
+        
+        WebEngine webEngine3 = this.webView3.getEngine();
+        webEngine3.load(cam3.getURL());
+        
+        
+        
+        //TODO: move creating cameras to initializing method
+        //MotionCam cam4 = new MotionCam();
+        //cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam4.setURL("http://www.seznam.cz");
+        cam4.setName("cam4");
+        
+        WebEngine webEngine4 = this.webView4.getEngine();
+        webEngine4.load(cam4.getURL());
+    }
+    
+    
+    
     
     //TESTING VARIABLES AND METHODS END
     
@@ -207,6 +293,20 @@ public class FXMLDocumentController implements Initializable {
         colCon2.setPercentWidth(50);
     }
  
+    
+    //TODO(IMPORTANT): DOES NOT WORK
+    //TODO: test if this actually closes the window
+    /**
+     * Control usef In menubar to close window
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCloseAction(final ActionEvent event) {
+        System.out.println("Closing...");
+        this.menuBar.getScene().getWindow().hide();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO(Dominik): Inicialization
