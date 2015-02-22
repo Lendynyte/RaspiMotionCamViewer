@@ -1,0 +1,20 @@
+    
+    private void resizGrid(){
+ 
+         ColumnConstraints col1 = new ColumnConstraints();
+         col1.setPercentWidth(75);
+         ColumnConstraints col2 = new ColumnConstraints();
+         col2.setPercentWidth(25);
+         cameraGrid.getColumnConstraints().clear();
+         cameraGrid.getColumnConstraints().addAll(col1,col2);
+
+         RowConstraints row1 = new RowConstraints();
+         row1.setPercentHeight(75);
+         RowConstraints row2 = new RowConstraints();
+         row2.setPercentHeight(25);
+         cameraGrid.getRowConstraints().clear();
+         cameraGrid.getRowConstraints().addAll(row1,row2);
+         
+    }
+    
+    
