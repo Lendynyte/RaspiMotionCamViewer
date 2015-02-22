@@ -3,16 +3,25 @@ package camcontrols;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -20,6 +29,9 @@ import javafx.scene.web.WebView;
  * @version 0.2
  */
 public class FXMLDocumentController implements Initializable {
+    
+    @FXML
+    private AnchorPane mainPane;
     
     @FXML
     private GridPane cameraGrid;
@@ -166,6 +178,8 @@ public class FXMLDocumentController implements Initializable {
         startTestStream(event);
     }
     
+    
+    //TODO(Dominik): rework this to work better
     private void startTestStream(ActionEvent event){
         cam1.setURL("http://www.seznam.cz");
         cam1.setName("cam1");
@@ -293,18 +307,34 @@ public class FXMLDocumentController implements Initializable {
         colCon2.setPercentWidth(50);
     }
  
-    
-    //TODO(IMPORTANT): DOES NOT WORK
-    //TODO: test if this actually closes the window
     /**
-     * Control usef In menubar to close window
+     * Control used in menuBar to close window
      *
      * @param event
      */
     @FXML
     private void handleMenuCloseAction(final ActionEvent event) {
         System.out.println("Closing...");
-        this.menuBar.getScene().getWindow().hide();
+        this.mainPane.getScene().getWindow().hide();
+    }
+    
+    //TODO(Dominik): Make actually usable
+    /**
+     * This methods show basic about popup window
+     * @param event 
+     */
+    @FXML
+    private void handleMenuAboutAction(final ActionEvent event) {
+        Stage dialog = new Stage();
+        dialog.initStyle(StageStyle.UTILITY);
+        Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!")));
+        
+        //temp
+        dialog.setHeight(100);
+        dialog.setWidth(300);
+        
+        dialog.setScene(scene);
+        dialog.show();
     }
     
     @Override
