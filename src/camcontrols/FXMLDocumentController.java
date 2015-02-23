@@ -26,7 +26,8 @@ import javafx.stage.StageStyle;
  * @author Dominik Pauli
  * @version 0.2
  */
-public class FXMLDocumentController implements Initializable {
+public class FXMLDocumentController implements Initializable
+{
 
     @FXML
     private AnchorPane mainPane;
@@ -104,7 +105,8 @@ public class FXMLDocumentController implements Initializable {
     private final RowConstraints row2Con = new RowConstraints();
 
     @FXML
-    private void handleButtonCam1Bigger(final ActionEvent event) {
+    private void handleButtonCam1Bigger(final ActionEvent event)
+    {
         //resize
         firstRowSizeIncrease(this.row1Con, this.row2Con);
         firstColumnSizeIncrease(this.colCon1, this.colCon2);
@@ -117,7 +119,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleButtonCam2Bigger(ActionEvent event) {
+    private void handleButtonCam2Bigger(ActionEvent event)
+    {
         //resize
         firstRowSizeIncrease(row1Con, row1Con);
         secondColumnSizeIncrease(colCon1, colCon2);
@@ -130,7 +133,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleButtonCam3Bigger(ActionEvent event) {
+    private void handleButtonCam3Bigger(ActionEvent event)
+    {
         //resize
         secondRowSizeIncrease(row1Con, row1Con);
         firstColumnSizeIncrease(colCon1, colCon2);
@@ -143,7 +147,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleButtonCam4Bigger(ActionEvent event) {
+    private void handleButtonCam4Bigger(ActionEvent event)
+    {
         //resize
         secondRowSizeIncrease(row1Con, row1Con);
         secondColumnSizeIncrease(colCon1, colCon2);
@@ -156,7 +161,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleButtonCamDefault(ActionEvent event) {
+    private void handleButtonCamDefault(ActionEvent event)
+    {
         //resize
         setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
 
@@ -168,12 +174,14 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void handleButtonTestStream(ActionEvent event) {
+    private void handleButtonTestStream(ActionEvent event)
+    {
         startTestStream(event);
     }
 
     //TODO(Dominik): rework this to work better
-    private void startTestStream(ActionEvent event) {
+    private void startTestStream(ActionEvent event)
+    {
         cam1.setURL("http://www.seznam.cz");
         cam1.setName("cam1");
 
@@ -212,7 +220,8 @@ public class FXMLDocumentController implements Initializable {
      *
      * @param event
      */
-    private void handleCam1HighlightEvent(final ActionEvent event) {
+    private void handleCam1HighlightEvent(final ActionEvent event)
+    {
         //test for mouse and style
 //  this.pane1.setStyle("-fx-backgroundColor: red");
     }
@@ -224,20 +233,21 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleCam1FocusEvent(MouseEvent mouseEvent) {
-       /* if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-            if (this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
-                //TODO(Dominik): maybe move camera focusing into motionCamera?
-                this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
-                this.cam1.setIsFocused(false);
-            } else if (!this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
-                //TODO(Dominik): Create makeBigger method for cameras and get rid of button methods
-                this.handleButtonCam1Bigger(null);
-                this.cam1.setIsFocused(true);
+    private void handleCam1FocusEvent(MouseEvent mouseEvent)
+    {
+        /* if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+         if (this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
+         //TODO(Dominik): maybe move camera focusing into motionCamera?
+         this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
+         this.cam1.setIsFocused(false);
+         } else if (!this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
+         //TODO(Dominik): Create makeBigger method for cameras and get rid of button methods
+         this.handleButtonCam1Bigger(null);
+         this.cam1.setIsFocused(true);
 
-            }
-        }*/
-        
+         }
+         }*/
+
         System.out.println("Clickyty click");
     }
 
@@ -249,7 +259,8 @@ public class FXMLDocumentController implements Initializable {
      * @param colCon1 constrains of column1
      * @param colCon2 constrains of column2
      */
-    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         cameraGrid.getColumnConstraints().clear();
         cameraGrid.getColumnConstraints().addAll(colCon1, colCon2);
     }
@@ -261,7 +272,8 @@ public class FXMLDocumentController implements Initializable {
      * @param rowCon1 constrains of row1
      * @param rowCon2 constrains of row2
      */
-    private void resizeRows(RowConstraints rowCon1, RowConstraints rowCon2) {
+    private void resizeRows(RowConstraints rowCon1, RowConstraints rowCon2)
+    {
         cameraGrid.getRowConstraints().clear();
         cameraGrid.getRowConstraints().addAll(rowCon1, rowCon2);
     }
@@ -272,7 +284,8 @@ public class FXMLDocumentController implements Initializable {
      * @param rowCon1 constrains of row1
      * @param rowCon2 constrains of row2
      */
-    private void firstRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2) {
+    private void firstRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2)
+    {
         row1Con.setPercentHeight(75);
         row2Con.setPercentHeight(25);
     }
@@ -283,7 +296,8 @@ public class FXMLDocumentController implements Initializable {
      * @param rowCon1 constrains of row1
      * @param rowCon2 constrains of row2
      */
-    private void secondRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2) {
+    private void secondRowSizeIncrease(RowConstraints rowCon1, RowConstraints rowCon2)
+    {
         row1Con.setPercentHeight(25);
         row2Con.setPercentHeight(75);
     }
@@ -294,7 +308,8 @@ public class FXMLDocumentController implements Initializable {
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
      */
-    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         colCon1.setPercentWidth(75);
         colCon2.setPercentWidth(25);
     }
@@ -305,7 +320,8 @@ public class FXMLDocumentController implements Initializable {
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
      */
-    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         colCon1.setPercentWidth(25);
         colCon2.setPercentWidth(75);
     }
@@ -318,7 +334,8 @@ public class FXMLDocumentController implements Initializable {
      * @param rowCon2 constrains of row2
      */
     private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2,
-            RowConstraints rowCon1, RowConstraints rowCon2) {
+                                RowConstraints rowCon1, RowConstraints rowCon2)
+    {
         //set rows
         row1Con.setPercentHeight(50);
         row2Con.setPercentHeight(50);
@@ -334,7 +351,8 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuResetCameraSizesAction(final ActionEvent event) {
+    private void handleMenuResetCameraSizesAction(final ActionEvent event)
+    {
         this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
         System.out.println("Camera sizes reseted...");
     }
@@ -345,7 +363,8 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuCloseAction(final ActionEvent event) {
+    private void handleMenuCloseAction(final ActionEvent event)
+    {
         System.out.println("Closing...");
         this.mainPane.getScene().getWindow().hide();
     }
@@ -357,7 +376,8 @@ public class FXMLDocumentController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuAboutAction(final ActionEvent event) {
+    private void handleMenuAboutAction(final ActionEvent event)
+    {
         Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
         Scene scene = new Scene(new Group(new Text(25, 25, "This thing.. its a thing")));
@@ -373,7 +393,8 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO(Dominik): Inicialization
     }
 
