@@ -42,7 +42,7 @@
                <children>
                   <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
                      <children>
-                        <WebView fx:id="webView1" layoutX="39.0" layoutY="45.0" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <WebView fx:id="webView1" layoutX="39.0" layoutY="45.0" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onMouseClicked="#handleCam1FocusEvent" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="pane2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="1">

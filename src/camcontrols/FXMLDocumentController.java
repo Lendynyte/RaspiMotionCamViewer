@@ -3,14 +3,11 @@ package camcontrols;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -19,7 +16,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -218,7 +214,33 @@ public class FXMLDocumentController implements Initializable {
         webEngine4.load(cam4.getURL());
     }
     
+    /**
+     * 
+     * @param event 
+     */
+    private void handleCam1HighlightEvent(final ActionEvent event){
+        
+    }
     
+    
+    //TODO(Dominik): Broken mess fix this thing illegal action exception
+    /**
+     * 
+     * @param event 
+     */
+    @FXML
+    private void handleCam1FocusEvent(final ActionEvent event){
+       if(this.cam1.isIsFocused() && this.cam1.isIsHighlighted()){
+           //TODO(Dominik): maybe move camera focusing into motionCamera?
+           this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
+           this.cam1.setIsFocused(false);
+       } 
+       else if(!this.cam1.isIsFocused() && this.cam1.isIsHighlighted()){
+           //TODO(Dominik): Create makeBigger method for cameras and get rid of button methods
+           this.handleButtonCam1Bigger(null);
+           this.cam1.setIsFocused(true);
+       }
+    }
     
     
     //TESTING VARIABLES AND METHODS END
@@ -327,7 +349,7 @@ public class FXMLDocumentController implements Initializable {
     private void handleMenuAboutAction(final ActionEvent event) {
         Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
-        Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!")));
+        Scene scene = new Scene(new Group(new Text(25, 25, "This thing.. its a thing")));
         
         //temp
         dialog.setHeight(100);

@@ -16,7 +16,8 @@ public class MotionCamera {
     private boolean isHighlighted;
 
     public MotionCamera(){
-        
+        this.isFocused  = false;
+        this.isHighlighted = false;
     }
     
     public boolean isIsFocused() {
