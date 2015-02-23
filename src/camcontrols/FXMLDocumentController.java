@@ -1,20 +1,28 @@
 package camcontrols;
 
+import com.sun.deploy.uitoolkit.ui.DialogHook;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -378,16 +386,43 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleMenuAboutAction(final ActionEvent event)
     {
+        //initialize dialog
         Stage dialog = new Stage();
         dialog.initStyle(StageStyle.UTILITY);
-        Scene scene = new Scene(new Group(new Text(25, 25, "This thing.. its a thing")));
 
-        //temp
-        //TODO(Dominik): use relative height/width
-        dialog.setHeight(100);
-        dialog.setWidth(300);
+        //Create button
+        Button btnClose = new Button("Close");
+        btnClose.setAlignment(Pos.BOTTOM_CENTER);
 
-        //TODO:(Dominik): Add close button
+        //hand close operation of the button
+        btnClose.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                System.out.println("Closing the about window...");
+                dialog.close();
+            }
+        });
+
+        //create Label with about
+        Label lbl = new Label("This is a thing yo no \n ff fsdf sdf\nwffefef\njijijij\njojjjo\nffgfg\nw");
+
+        //put vBox in stage
+        VBox vbHelp = new VBox();
+        vbHelp.setSpacing(50);
+
+        //set everything to center and make tex label expand
+        VBox.setVgrow(lbl, Priority.ALWAYS);
+        vbHelp.alignmentProperty().set(Pos.TOP_CENTER);
+
+        //add everzthing to vBox
+        vbHelp.getChildren().addAll(lbl, btnClose);
+
+        //add everything to scene
+        Scene scene = new Scene(vbHelp, 300, 250);
+
+        //show dialog
         dialog.setScene(scene);
         dialog.show();
     }
