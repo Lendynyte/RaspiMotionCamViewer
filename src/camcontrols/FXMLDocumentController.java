@@ -219,7 +219,8 @@ public class FXMLDocumentController implements Initializable {
      * @param event 
      */
     private void handleCam1HighlightEvent(final ActionEvent event){
-        
+        //test for mouse and style
+//  this.pane1.setStyle("-fx-backgroundColor: red");
     }
     
     
