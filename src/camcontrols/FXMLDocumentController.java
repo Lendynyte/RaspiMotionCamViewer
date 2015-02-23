@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -224,16 +225,96 @@ public class FXMLDocumentController implements Initializable
         webEngine4.load(cam4.getURL());
     }
 
+    //TODO(Dominik):rework this is just for now because black do not initialize webengine again
+    private void setBlackStartingColor()
+    {
+       // webView1.setBlendMode(BlendMode.OVERLAY);
+      //  webView2.setBlendMode(BlendMode.OVERLAY);
+      //  webView3.setBlendMode(BlendMode.OVERLAY);
+      //  webView4.setBlendMode(BlendMode.OVERLAY);
+    }
+    
+
     /**
      *
      * @param event
      */
-    private void handleCam1HighlightEvent(final ActionEvent event)
+    @FXML
+    private void handleCam1HighlightEvent(final MouseEvent mouseEvent)
     {
-        //test for mouse and style
-//  this.pane1.setStyle("-fx-backgroundColor: red");
+        this.pane1.setStyle("-fx-background-color: orange;");
     }
 
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam1UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane1.setStyle("-fx-background-color: black;");
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam2HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane2.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam2UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane2.setStyle("-fx-background-color: black;");
+    }
+    
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam3HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane3.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam3UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane3.setStyle("-fx-background-color: black;");
+    }
+    
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam4HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane4.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam4UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane4.setStyle("-fx-background-color: black;");
+    }
+    
     //TODO(Dominik): Broken mess fix this thing illegal action exception
     //TODO(Dominik): fix by changing methods and removing them from buttons that breaks everything
     /**
@@ -241,7 +322,7 @@ public class FXMLDocumentController implements Initializable
      * @param event
      */
     @FXML
-    private void handleCam1FocusEvent(MouseEvent mouseEvent)
+    private void handleCam1FocusEvent(final MouseEvent mouseEvent)
     {
         /* if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
          if (this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
@@ -377,7 +458,7 @@ public class FXMLDocumentController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
-    //TODO(Dominik): Make actually usable
+    //TODO(Dominik): Move to help menu class
     /**
      * This methods show basic about popup window
      *
@@ -431,6 +512,7 @@ public class FXMLDocumentController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO(Dominik): Inicialization
+        setBlackStartingColor();
     }
 
 }

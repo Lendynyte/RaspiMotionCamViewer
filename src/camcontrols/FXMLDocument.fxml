@@ -41,22 +41,22 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;">
+                        <AnchorPane fx:id="pane1" onMouseEntered="#handleCam1HighlightEvent" onMouseExited="#handleCam1UnHighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;">
                             <children>
                                 <WebView fx:id="webView1" layoutX="39.0" layoutY="45.0" onMouseClicked="#handleCam1FocusEvent" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane2" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="1">
+                        <AnchorPane fx:id="pane2" onMouseEntered="#handleCam2HighlightEvent" onMouseExited="#handleCam2UnHighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1">
                             <children>
                                 <WebView fx:id="webView2" layoutX="204.0" layoutY="53.0" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane3" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="pane3" onMouseEntered="#handleCam3HighlightEvent" onMouseExited="#handleCam3UnHighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.rowIndex="1">
                             <children>
                                 <WebView fx:id="webView3" layoutX="56.0" prefHeight="317.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane4" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="pane4" onMouseEntered="#handleCam4HighlightEvent" onMouseExited="#handleCam4UnHighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
                                 <WebView fx:id="webView4" layoutX="155.0" layoutY="7.0" prefHeight="317.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
