@@ -9,7 +9,6 @@ public class MotionCamera
 {
 
     //Name of camera for folders
-
     private String name;
     //URL to camera stream
     private String URL;

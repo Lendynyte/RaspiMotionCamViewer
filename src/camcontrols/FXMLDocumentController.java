@@ -1,30 +1,23 @@
 package camcontrols;
 
-import com.sun.deploy.uitoolkit.ui.DialogHook;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -98,6 +91,7 @@ public class FXMLDocumentController implements Initializable
      private WebEngine webEngine2;
      private WebEngine webEngine3;
      private WebEngine webEngine4;*/
+    
     //camera instances
     //TODO: move create initialize method
     private final MotionCamera cam1 = new MotionCamera();
@@ -314,8 +308,7 @@ public class FXMLDocumentController implements Initializable
     {
         this.pane4.setStyle("-fx-background-color: black;");
     }
-    
-    //TODO(Dominik): Broken mess fix this thing illegal action exception
+
     //TODO(Dominik): fix by changing methods and removing them from buttons that breaks everything
     /**
      *
@@ -512,7 +505,7 @@ public class FXMLDocumentController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO(Dominik): Inicialization
-        setBlackStartingColor();
+        //setBlackStartingColor();
     }
 
 }
