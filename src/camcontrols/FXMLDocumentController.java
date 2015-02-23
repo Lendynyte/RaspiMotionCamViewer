@@ -330,6 +330,17 @@ public class FXMLDocumentController implements Initializable {
     }
  
     /**
+     * This method resets camera sizes
+     * 
+     * @param event 
+     */
+    @FXML
+    private void handleMenuResetCameraSizesAction(final ActionEvent event){
+        this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
+        System.out.println("Camera sizes reseted...");
+    }
+    
+    /**
      * Control used in menuBar to close window
      *
      * @param event
@@ -352,8 +363,11 @@ public class FXMLDocumentController implements Initializable {
         Scene scene = new Scene(new Group(new Text(25, 25, "This thing.. its a thing")));
         
         //temp
+        //TODO(Dominik): use relative height/width
         dialog.setHeight(100);
         dialog.setWidth(300);
+        
+        //TODO:(Dominik): Add close button
         
         dialog.setScene(scene);
         dialog.show();
