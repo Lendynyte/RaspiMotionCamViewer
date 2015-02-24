@@ -2,6 +2,7 @@ package camcontrols;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -92,7 +93,6 @@ public class FXMLDocumentController implements Initializable
      private WebEngine webEngine2;
      private WebEngine webEngine3;
      private WebEngine webEngine4;*/
-    
     //camera instances
     //TODO: move create initialize method
     private final MotionCamera cam1 = new MotionCamera();
@@ -108,8 +108,8 @@ public class FXMLDocumentController implements Initializable
     private final RowConstraints row1Con = new RowConstraints();
     private final RowConstraints row2Con = new RowConstraints();
 
-    @FXML
-    private void handleButtonCam1Bigger(final ActionEvent event)
+    //TODO(Dominik):create method makeCamBig that takes care of these
+    private void makeCam1Big()
     {
         //resize
         firstRowSizeIncrease(this.row1Con, this.row2Con);
@@ -122,8 +122,7 @@ public class FXMLDocumentController implements Initializable
         System.out.println("cam1 is now BIG");
     }
 
-    @FXML
-    private void handleButtonCam2Bigger(ActionEvent event)
+    private void makeCam2Big()
     {
         //resize
         firstRowSizeIncrease(row1Con, row1Con);
@@ -136,8 +135,7 @@ public class FXMLDocumentController implements Initializable
         System.out.println("cam2 is now BIG");
     }
 
-    @FXML
-    private void handleButtonCam3Bigger(ActionEvent event)
+    private void makeCam3Big()
     {
         //resize
         secondRowSizeIncrease(row1Con, row1Con);
@@ -150,8 +148,7 @@ public class FXMLDocumentController implements Initializable
         System.out.println("cam3 is now BIG");
     }
 
-    @FXML
-    private void handleButtonCam4Bigger(ActionEvent event)
+    private void makeCam4Big()
     {
         //resize
         secondRowSizeIncrease(row1Con, row1Con);
@@ -164,8 +161,7 @@ public class FXMLDocumentController implements Initializable
         System.out.println("cam4 is now BIG");
     }
 
-    @FXML
-    private void handleButtonCamDefault(ActionEvent event)
+    private void makeCamDefaultSize()
     {
         //resize
         setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
@@ -224,60 +220,129 @@ public class FXMLDocumentController implements Initializable
     private void setBlackStartingColor()
     {
        // webView1.setBlendMode(BlendMode.OVERLAY);
-      //  webView2.setBlendMode(BlendMode.OVERLAY);
-      //  webView3.setBlendMode(BlendMode.OVERLAY);
-      //  webView4.setBlendMode(BlendMode.OVERLAY);
+        //  webView2.setBlendMode(BlendMode.OVERLAY);
+        //  webView3.setBlendMode(BlendMode.OVERLAY);
+        //  webView4.setBlendMode(BlendMode.OVERLAY);
     }
-    
-    
-    //TODO(Dominik): fix by changing methods and removing them from buttons that breaks everything
+
+    //TODO(Dominik):chánge
+    private void setNames()
+    {
+        this.cam1.setName("cam1");
+        this.cam2.setName("cam2");
+        this.cam3.setName("cam3");
+        this.cam4.setName("cam4");
+    }
+
+    //TODO(Dominik):change
+    private void setIDs()
+    {
+        this.pane1.setId(this.cam1.getName());
+        this.pane2.setId(this.cam2.getName());
+        this.pane3.setId(this.cam3.getName());
+        this.pane4.setId(this.cam4.getName());
+    }
+
+    //TODO(Dominik): still terible but it works
+    //TODO(Dominik):make this thing shorter
     /**
-     *
+     * This method handle mouse input on camera panes on first click in increases their size
+     * afterthey are set to bigger size next click reset the size
+     * 
      * @param event
      */
     @FXML
-    private void handleCam1FocusEvent(final MouseEvent mouseEvent)
+    private void handleCamFocusEvent(final MouseEvent mouseEvent)
     {
-        /* if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-         if (this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
-         //TODO(Dominik): maybe move camera focusing into motionCamera?
-         this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
-         this.cam1.setIsFocused(false);
-         } else if (!this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
-         //TODO(Dominik): Create makeBigger method for cameras and get rid of button methods
-         this.handleButtonCam1Bigger(null);
-         this.cam1.setIsFocused(true);
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getName()))
+        {
+            if(!this.cam1.isIsFocused()){
+                makeCam1Big();
+                this.cam1.setIsFocused(true);
+                this.cam2.setIsFocused(false);
+                this.cam3.setIsFocused(false);
+                this.cam4.setIsFocused(false);
+           }
+            else
+           {
+               makeCamDefaultSize();
+               this.cam1.setIsFocused(false);
+           }   
+        }
 
-         }
-         }*/
-
-        System.out.println("Clickyty click");
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getName()))
+        {
+            if(!this.cam2.isIsFocused()){
+                makeCam2Big();
+                this.cam2.setIsFocused(true);
+                this.cam1.setIsFocused(false);
+                this.cam3.setIsFocused(false);
+                this.cam4.setIsFocused(false);
+           }
+            else
+           {
+               makeCamDefaultSize();
+               this.cam2.setIsFocused(false);
+           }
+        }
+        
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getName()))
+        {
+           if(!this.cam3.isIsFocused()){
+                makeCam3Big();
+                this.cam3.setIsFocused(true);
+                this.cam1.setIsFocused(false);
+                this.cam2.setIsFocused(false);
+                this.cam4.setIsFocused(false);
+           }
+           else 
+           {
+               makeCamDefaultSize();
+               this.cam3.setIsFocused(false);
+           }
+            
+        }
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getName()))
+        {
+           if(!this.cam4.isIsFocused()){
+                makeCam4Big();
+                this.cam4.setIsFocused(true);
+                this.cam1.setIsFocused(false);
+                this.cam2.setIsFocused(false);
+                this.cam3.setIsFocused(false);
+           }
+           else
+           {
+               makeCamDefaultSize();
+               this.cam4.setIsFocused(false);
+           }
+        }
     }
 
     //TESTING VARIABLES AND METHODS END
-    
     /**
      * This method changes Anchor pane color to orange to highlight it
-     * 
-     * @param mouseEvent mouse entered object boundaries 
+     *
+     * @param mouseEvent mouse entered object boundaries
      */
     @FXML
-    private void handleCamHighlightEvent(final MouseEvent mouseEvent){
-        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
+    private void handleCamHighlightEvent(final MouseEvent mouseEvent)
+    {
+        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
     }
-    
+
     /**
-     * This method changes Anchor pane background color to black to unhighlight it
-     * 
+     * This method changes Anchor pane background color to black to unhighlight
+     * it
+     *
      * @param mouseEvent mouse left object boundaries
      */
     @FXML
-    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent){
-        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: black;");
+    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
+    {
+        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
     }
 
-
-    
     /**
      * This method changes contents of cameraGrid collumn constrains observable
      * list to change size of camera views
@@ -450,6 +515,8 @@ public class FXMLDocumentController implements Initializable
     {
         // TODO(Dominik): Inicialization
         //setBlackStartingColor();
+        setNames();
+        setIDs();
     }
 
 }

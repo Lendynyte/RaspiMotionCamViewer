@@ -17,6 +17,19 @@
          
     }
     
+ /* if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+         if (this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
+         //TODO(Dominik): maybe move camera focusing into motionCamera?
+         this.setDefaultGrid(colCon1, colCon2, row1Con, row2Con);
+         this.cam1.setIsFocused(false);
+         } else if (!this.cam1.isIsFocused() && this.cam1.isIsHighlighted()) {
+         //TODO(Dominik): Create makeBigger method for cameras and get rid of button methods
+         this.handleButtonCam1Bigger(null);
+         this.cam1.setIsFocused(true);
+
+         }
+         }*/
+
 
 
     /**
