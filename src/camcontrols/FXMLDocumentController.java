@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -176,42 +177,20 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleButtonTestStream(ActionEvent event)
     {
-        startTestStream(event);
+        startStream();
     }
 
     //TODO(Dominik): rework this to work better
-    private void startTestStream(ActionEvent event)
+    private void startStream()
     {
-        cam1.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        //cam1.setURL("http://www.seznam.cz");
-        cam1.setName("cam1");
-
         WebEngine webEngine1 = this.webView1.getEngine();
         webEngine1.load(cam1.getURL());
-
-        //TODO: move creating cameras to initializing method
-        //MotionCam cam2 = new MotionCam();
-        cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        //cam2.setURL("http://www.seznam.cz");
-        cam2.setName("cam2");
 
         WebEngine webEngine2 = this.webView2.getEngine();
         webEngine2.load(cam2.getURL());
 
-        //TODO: move creating cameras to initializing method
-        //MotionCam cam3 = new MotionCam();
-        cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        //cam3.setURL("http://www.seznam.cz");
-        cam3.setName("cam3");
-
         WebEngine webEngine3 = this.webView3.getEngine();
         webEngine3.load(cam3.getURL());
-
-        //TODO: move creating cameras to initializing method
-        //MotionCam cam4 = new MotionCam();
-        cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        //cam4.setURL("http://www.seznam.cz");
-        cam4.setName("cam4");
 
         WebEngine webEngine4 = this.webView4.getEngine();
         webEngine4.load(cam4.getURL());
@@ -244,6 +223,15 @@ public class FXMLDocumentController implements Initializable
         this.pane4.setId(this.cam4.getHandle());
     }
 
+    //TODO(Dominik):check solution for the random zooming this does not help may be caused by the image site i use in preload now
+    private void resetZooms()
+    {
+        webView1.setZoom(1);
+        webView2.setZoom(1);
+        webView3.setZoom(1);
+        webView4.setZoom(1);
+    }
+
     //TODO(Dominik): still terible but it works
     //TODO(Dominik):make this thing shorter
     /**
@@ -256,7 +244,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleCamFocusEvent(final MouseEvent mouseEvent)
     {
-        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()))
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
         {
             if (!this.cam1.isIsFocused())
             {
@@ -269,11 +257,15 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
+
+                //TODO(Dominik):check if this helps
+                resetZooms();
+
                 this.cam1.setIsFocused(false);
             }
         }
 
-        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getHandle()))
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
         {
             if (!this.cam2.isIsFocused())
             {
@@ -286,11 +278,15 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
+
+                //TODO(Dominik):check if this helps
+                resetZooms();
+
                 this.cam2.setIsFocused(false);
             }
         }
 
-        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getHandle()))
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
         {
             if (!this.cam3.isIsFocused())
             {
@@ -303,11 +299,15 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
+
+                //TODO(Dominik):check if this helps
+                resetZooms();
+
                 this.cam3.setIsFocused(false);
             }
 
         }
-        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getHandle()))
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
         {
             if (!this.cam4.isIsFocused())
             {
@@ -320,6 +320,10 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
+
+                //TODO(Dominik):check if this helps
+                resetZooms();
+
                 this.cam4.setIsFocused(false);
             }
         }
@@ -442,6 +446,18 @@ public class FXMLDocumentController implements Initializable
         colCon2.setPercentWidth(50);
     }
 
+    //TODO(Dominik): Make this link to our logo file
+    /**
+     * This method sets stream screens to starting Image
+     */
+    private void preloadStream()
+    {
+        cam1.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+    }
+
     /**
      * This method resets camera sizes
      *
@@ -479,6 +495,32 @@ public class FXMLDocumentController implements Initializable
         hlpc.createAboutWindow();
     }
 
+    //TODO(Dominik): create method setCameraURLs
+    @FXML
+    private void handleMenuStartStreamAction(final ActionEvent event)
+    {
+        //setCameraURLs
+        //startStream();
+    }
+
+    @FXML
+    private void handleMenuStopStreamAction(final ActionEvent event)
+    {
+        preloadStream();
+        startStream();
+    }
+
+    /*  public void pressButton(ActionEvent event) throws Exception {               
+     try {
+     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/A.fxml"));
+     Parent root1 = (Parent) fxmlLoader.load();
+     Stage stage = new Stage();
+     stage.setScene(new Scene(root1));  
+     stage.show();
+     } catch(Exception e) {
+     e.printStackTrace();
+     }
+     }*/
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -486,6 +528,8 @@ public class FXMLDocumentController implements Initializable
         //setBlackStartingColor();
         setHandles();
         setIDs();
+        preloadStream();
+        startStream();
     }
 
 }

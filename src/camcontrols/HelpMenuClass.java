@@ -24,7 +24,6 @@ public class HelpMenuClass
     /**
      * This methods show basic about popup window
      *
-     * @param event
      */
     public void createAboutWindow()
     {

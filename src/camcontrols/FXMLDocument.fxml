@@ -15,6 +15,8 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuStartStreamAction" text="Start stream" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuStopStreamAction" text="Stop stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCloseAction" text="Close" />
                             </items>
                         </Menu>
@@ -41,22 +43,22 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <AnchorPane fx:id="pane1" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" onMouseClicked="#handleCamFocusEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;">
+                        <AnchorPane fx:id="pane1" onMouseClicked="#handleCamFocusEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;">
                             <children>
                                 <WebView fx:id="webView1" layoutX="39.0" layoutY="45.0" onMouseClicked="#handleCamFocusEvent" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane2" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" onMouseClicked="#handleCamFocusEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1">
+                        <AnchorPane fx:id="pane2" onMouseClicked="#handleCamFocusEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1">
                             <children>
                                 <WebView fx:id="webView2" layoutX="204.0" layoutY="53.0" prefHeight="318.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane3" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" onMouseClicked="#handleCamFocusEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="pane3" onMouseClicked="#handleCamFocusEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.rowIndex="1">
                             <children>
                                 <WebView fx:id="webView3" layoutX="56.0" prefHeight="317.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pane4" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" onMouseClicked="#handleCamFocusEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <AnchorPane fx:id="pane4" onMouseClicked="#handleCamFocusEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
                                 <WebView fx:id="webView4" layoutX="155.0" layoutY="7.0" prefHeight="317.0" prefWidth="640.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                             </children>
@@ -71,8 +73,9 @@
                         <Button fx:id="btnCamera3Bigger" layoutX="150.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleButtonCam3Bigger" text="3BIG" />
                         <Button fx:id="btnCamera4Bigger" layoutX="209.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleButtonCam4Bigger" text="4BIG" />
                         <Button fx:id="btnDefaultCameraSize" layoutX="283.0" layoutY="-2.0" mnemonicParsing="false" onAction="#handleButtonCamDefault" text="DEFAULT" />
-                        -->
+                        
                         <Button fx:id="btnTestStream" layoutX="422.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleButtonTestStream" text="TEST STREAM" />
+                        -->
                     </children>
                 </Pane>
             </children>
