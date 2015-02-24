@@ -182,7 +182,8 @@ public class FXMLDocumentController implements Initializable
     //TODO(Dominik): rework this to work better
     private void startTestStream(ActionEvent event)
     {
-        cam1.setURL("http://www.seznam.cz");
+        cam1.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        //cam1.setURL("http://www.seznam.cz");
         cam1.setName("cam1");
 
         WebEngine webEngine1 = this.webView1.getEngine();
@@ -190,8 +191,8 @@ public class FXMLDocumentController implements Initializable
 
         //TODO: move creating cameras to initializing method
         //MotionCam cam2 = new MotionCam();
-        // cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam2.setURL("http://www.seznam.cz");
+        cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        //cam2.setURL("http://www.seznam.cz");
         cam2.setName("cam2");
 
         WebEngine webEngine2 = this.webView2.getEngine();
@@ -199,8 +200,8 @@ public class FXMLDocumentController implements Initializable
 
         //TODO: move creating cameras to initializing method
         //MotionCam cam3 = new MotionCam();
-        //cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam3.setURL("http://www.seznam.cz");
+        cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        //cam3.setURL("http://www.seznam.cz");
         cam3.setName("cam3");
 
         WebEngine webEngine3 = this.webView3.getEngine();
@@ -208,8 +209,8 @@ public class FXMLDocumentController implements Initializable
 
         //TODO: move creating cameras to initializing method
         //MotionCam cam4 = new MotionCam();
-        //cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam4.setURL("http://www.seznam.cz");
+        cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        //cam4.setURL("http://www.seznam.cz");
         cam4.setName("cam4");
 
         WebEngine webEngine4 = this.webView4.getEngine();
@@ -219,7 +220,7 @@ public class FXMLDocumentController implements Initializable
     //TODO(Dominik):rework this is just for now because black do not initialize webengine again
     private void setBlackStartingColor()
     {
-       // webView1.setBlendMode(BlendMode.OVERLAY);
+        // webView1.setBlendMode(BlendMode.OVERLAY);
         //  webView2.setBlendMode(BlendMode.OVERLAY);
         //  webView3.setBlendMode(BlendMode.OVERLAY);
         //  webView4.setBlendMode(BlendMode.OVERLAY);
@@ -246,9 +247,10 @@ public class FXMLDocumentController implements Initializable
     //TODO(Dominik): still terible but it works
     //TODO(Dominik):make this thing shorter
     /**
-     * This method handle mouse input on camera panes on first click in increases their size
-     * afterthey are set to bigger size next click reset the size
-     * 
+     * This method handle mouse input on camera panes on first click in
+     * increases their size afterthey are set to bigger size next click reset
+     * the size
+     *
      * @param event
      */
     @FXML
@@ -256,66 +258,70 @@ public class FXMLDocumentController implements Initializable
     {
         if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()))
         {
-            if(!this.cam1.isIsFocused()){
+            if (!this.cam1.isIsFocused())
+            {
                 makeCam1Big();
                 this.cam1.setIsFocused(true);
                 this.cam2.setIsFocused(false);
                 this.cam3.setIsFocused(false);
                 this.cam4.setIsFocused(false);
-           }
+            }
             else
-           {
-               makeCamDefaultSize();
-               this.cam1.setIsFocused(false);
-           }   
+            {
+                makeCamDefaultSize();
+                this.cam1.setIsFocused(false);
+            }
         }
 
         if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getHandle()))
         {
-            if(!this.cam2.isIsFocused()){
+            if (!this.cam2.isIsFocused())
+            {
                 makeCam2Big();
                 this.cam2.setIsFocused(true);
                 this.cam1.setIsFocused(false);
                 this.cam3.setIsFocused(false);
                 this.cam4.setIsFocused(false);
-           }
+            }
             else
-           {
-               makeCamDefaultSize();
-               this.cam2.setIsFocused(false);
-           }
+            {
+                makeCamDefaultSize();
+                this.cam2.setIsFocused(false);
+            }
         }
-        
+
         else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getHandle()))
         {
-           if(!this.cam3.isIsFocused()){
+            if (!this.cam3.isIsFocused())
+            {
                 makeCam3Big();
                 this.cam3.setIsFocused(true);
                 this.cam1.setIsFocused(false);
                 this.cam2.setIsFocused(false);
                 this.cam4.setIsFocused(false);
-           }
-           else 
-           {
-               makeCamDefaultSize();
-               this.cam3.setIsFocused(false);
-           }
-            
+            }
+            else
+            {
+                makeCamDefaultSize();
+                this.cam3.setIsFocused(false);
+            }
+
         }
         else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getHandle()))
         {
-           if(!this.cam4.isIsFocused()){
+            if (!this.cam4.isIsFocused())
+            {
                 makeCam4Big();
                 this.cam4.setIsFocused(true);
                 this.cam1.setIsFocused(false);
                 this.cam2.setIsFocused(false);
                 this.cam3.setIsFocused(false);
-           }
-           else
-           {
-               makeCamDefaultSize();
-               this.cam4.setIsFocused(false);
-           }
+            }
+            else
+            {
+                makeCamDefaultSize();
+                this.cam4.setIsFocused(false);
+            }
         }
     }
 

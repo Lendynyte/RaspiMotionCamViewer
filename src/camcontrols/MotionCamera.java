@@ -7,7 +7,9 @@ package camcontrols;
  */
 public class MotionCamera
 {
+
     //Handle for camera used for GUI
+
     private String handle;
     //Name of camera for folders
     private String name;
@@ -33,7 +35,7 @@ public class MotionCamera
     {
         this.handle = handle;
     }
-    
+
     public boolean isIsFocused()
     {
         return isFocused;
