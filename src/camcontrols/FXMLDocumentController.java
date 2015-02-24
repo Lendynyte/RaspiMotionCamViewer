@@ -229,27 +229,7 @@ public class FXMLDocumentController implements Initializable
       //  webView4.setBlendMode(BlendMode.OVERLAY);
     }
     
-    /**
-     * This method changes Anchor pane color to orange to highlight it
-     * 
-     * @param mouseEvent mouse entered object boundaries 
-     */
-    @FXML
-    private void handleCamHighlightEvent(final MouseEvent mouseEvent){
-        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
-    }
     
-    /**
-     * This method changes Anchor pane background color to black to unhighlight it
-     * 
-     * @param mouseEvent mouse left object boundaries
-     */
-    @FXML
-    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent){
-        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: black;");
-    }
-
-
     //TODO(Dominik): fix by changing methods and removing them from buttons that breaks everything
     /**
      *
@@ -275,6 +255,29 @@ public class FXMLDocumentController implements Initializable
     }
 
     //TESTING VARIABLES AND METHODS END
+    
+    /**
+     * This method changes Anchor pane color to orange to highlight it
+     * 
+     * @param mouseEvent mouse entered object boundaries 
+     */
+    @FXML
+    private void handleCamHighlightEvent(final MouseEvent mouseEvent){
+        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
+    }
+    
+    /**
+     * This method changes Anchor pane background color to black to unhighlight it
+     * 
+     * @param mouseEvent mouse left object boundaries
+     */
+    @FXML
+    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent){
+        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: black;");
+    }
+
+
+    
     /**
      * This method changes contents of cameraGrid collumn constrains observable
      * list to change size of camera views
