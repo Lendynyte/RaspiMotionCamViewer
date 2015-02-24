@@ -7,7 +7,8 @@ package camcontrols;
  */
 public class MotionCamera
 {
-
+    //Handle for camera used for GUI
+    private String handle;
     //Name of camera for folders
     private String name;
     //URL to camera stream
@@ -23,6 +24,16 @@ public class MotionCamera
         this.isHighlighted = false;
     }
 
+    public String getHandle()
+    {
+        return handle;
+    }
+
+    public void setHandle(String handle)
+    {
+        this.handle = handle;
+    }
+    
     public boolean isIsFocused()
     {
         return isFocused;

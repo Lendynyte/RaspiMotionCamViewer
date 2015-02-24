@@ -226,21 +226,21 @@ public class FXMLDocumentController implements Initializable
     }
 
     //TODO(Dominik):chánge
-    private void setNames()
+    private void setHandles()
     {
-        this.cam1.setName("cam1");
-        this.cam2.setName("cam2");
-        this.cam3.setName("cam3");
-        this.cam4.setName("cam4");
+        this.cam1.setHandle("cam1");
+        this.cam2.setHandle("cam2");
+        this.cam3.setHandle("cam3");
+        this.cam4.setHandle("cam4");
     }
 
     //TODO(Dominik):change
     private void setIDs()
     {
-        this.pane1.setId(this.cam1.getName());
-        this.pane2.setId(this.cam2.getName());
-        this.pane3.setId(this.cam3.getName());
-        this.pane4.setId(this.cam4.getName());
+        this.pane1.setId(this.cam1.getHandle());
+        this.pane2.setId(this.cam2.getHandle());
+        this.pane3.setId(this.cam3.getHandle());
+        this.pane4.setId(this.cam4.getHandle());
     }
 
     //TODO(Dominik): still terible but it works
@@ -254,7 +254,7 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleCamFocusEvent(final MouseEvent mouseEvent)
     {
-        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getName()))
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()))
         {
             if(!this.cam1.isIsFocused()){
                 makeCam1Big();
@@ -270,7 +270,7 @@ public class FXMLDocumentController implements Initializable
            }   
         }
 
-        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getName()))
+        if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getHandle()))
         {
             if(!this.cam2.isIsFocused()){
                 makeCam2Big();
@@ -286,7 +286,7 @@ public class FXMLDocumentController implements Initializable
            }
         }
         
-        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getName()))
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam3.getHandle()))
         {
            if(!this.cam3.isIsFocused()){
                 makeCam3Big();
@@ -302,7 +302,7 @@ public class FXMLDocumentController implements Initializable
            }
             
         }
-        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getName()))
+        else if (((Styleable) mouseEvent.getSource()).getId().equals(cam4.getHandle()))
         {
            if(!this.cam4.isIsFocused()){
                 makeCam4Big();
@@ -515,7 +515,7 @@ public class FXMLDocumentController implements Initializable
     {
         // TODO(Dominik): Inicialization
         //setBlackStartingColor();
-        setNames();
+        setHandles();
         setIDs();
     }
 
