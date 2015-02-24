@@ -475,45 +475,8 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleMenuAboutAction(final ActionEvent event)
     {
-        //initialize dialog
-        Stage dialog = new Stage();
-        dialog.initStyle(StageStyle.UTILITY);
-
-        //Create button
-        Button btnClose = new Button("Close");
-        btnClose.setAlignment(Pos.BOTTOM_CENTER);
-
-        //hand close operation of the button
-        btnClose.setOnAction(new EventHandler<ActionEvent>()
-        {
-            @Override
-            public void handle(ActionEvent event)
-            {
-                System.out.println("Closing the about window...");
-                dialog.close();
-            }
-        });
-
-        //create Label with about
-        Label lbl = new Label("This is a thing yo no \n ff fsdf sdf\nwffefef\njijijij\njojjjo\nffgfg\nw");
-
-        //put vBox in stage
-        VBox vbHelp = new VBox();
-        vbHelp.setSpacing(50);
-
-        //set everything to center and make tex label expand
-        VBox.setVgrow(lbl, Priority.ALWAYS);
-        vbHelp.alignmentProperty().set(Pos.TOP_CENTER);
-
-        //add everzthing to vBox
-        vbHelp.getChildren().addAll(lbl, btnClose);
-
-        //add everything to scene
-        Scene scene = new Scene(vbHelp, 300, 250);
-
-        //show dialog
-        dialog.setScene(scene);
-        dialog.show();
+        HelpMenuClass hlpc = new HelpMenuClass();
+        hlpc.createAboutWindow();
     }
 
     @Override
