@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -228,86 +229,26 @@ public class FXMLDocumentController implements Initializable
       //  webView4.setBlendMode(BlendMode.OVERLAY);
     }
     
-
     /**
-     *
-     * @param event
+     * This method changes Anchor pane color to orange to highlight it
+     * 
+     * @param mouseEvent mouse entered object boundaries 
      */
     @FXML
-    private void handleCam1HighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane1.setStyle("-fx-background-color: orange;");
-    }
-
-    /**
-     *
-     * @param mouseEvent
-     */
-    @FXML
-    private void handleCam1UnHighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane1.setStyle("-fx-background-color: black;");
-    }
-
-    /**
-     *
-     * @param event
-     */
-    @FXML
-    private void handleCam2HighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane2.setStyle("-fx-background-color: orange;");
-    }
-
-    /**
-     *
-     * @param mouseEvent
-     */
-    @FXML
-    private void handleCam2UnHighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane2.setStyle("-fx-background-color: black;");
+    private void handleCamHighlightEvent(final MouseEvent mouseEvent){
+        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
     }
     
     /**
-     *
-     * @param event
+     * This method changes Anchor pane background color to black to unhighlight it
+     * 
+     * @param mouseEvent mouse left object boundaries
      */
     @FXML
-    private void handleCam3HighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane3.setStyle("-fx-background-color: orange;");
+    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent){
+        ((Node)mouseEvent.getSource()).setStyle("-fx-background-color: black;");
     }
 
-    /**
-     *
-     * @param mouseEvent
-     */
-    @FXML
-    private void handleCam3UnHighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane3.setStyle("-fx-background-color: black;");
-    }
-    
-    /**
-     *
-     * @param event
-     */
-    @FXML
-    private void handleCam4HighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane4.setStyle("-fx-background-color: orange;");
-    }
-
-    /**
-     *
-     * @param mouseEvent
-     */
-    @FXML
-    private void handleCam4UnHighlightEvent(final MouseEvent mouseEvent)
-    {
-        this.pane4.setStyle("-fx-background-color: black;");
-    }
 
     //TODO(Dominik): fix by changing methods and removing them from buttons that breaks everything
     /**

@@ -17,4 +17,85 @@
          
     }
     
+
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam1HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane1.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam1UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane1.setStyle("-fx-background-color: black;");
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam2HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane2.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam2UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane2.setStyle("-fx-background-color: black;");
+    }
+    
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam3HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane3.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam3UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane3.setStyle("-fx-background-color: black;");
+    }
+    
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCam4HighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane4.setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     *
+     * @param mouseEvent
+     */
+    @FXML
+    private void handleCam4UnHighlightEvent(final MouseEvent mouseEvent)
+    {
+        this.pane4.setStyle("-fx-background-color: black;");
+    }
     
