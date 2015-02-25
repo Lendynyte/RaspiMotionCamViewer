@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class CamControl
 {
 
+    //TODO(Dominik):this thing needs to be reworked
     private Parser parser;
 
     /**

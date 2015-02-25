@@ -18,7 +18,7 @@ public class ConfParser
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+   /* public static void main(String[] args)
     {
         ArrayList<String> radky = new ArrayList<>();
         Parser pars = new Parser();
@@ -45,6 +45,6 @@ public class ConfParser
 
         //pars.vytvorSoubor(radky, path);
         // System.out.println(startDaemon.ON.status);
-    }
+    }*/
 
 }
