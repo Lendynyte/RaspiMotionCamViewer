@@ -1,4 +1,24 @@
     
+//test buttons
+    @FXML
+    private Button btnCamera1Bigger;
+
+    @FXML
+    private Button btnCamera2Bigger;
+
+    @FXML
+    private Button btnCamera3Bigger;
+
+    @FXML
+    private Button btnCamera4Bigger;
+
+    @FXML
+    private Button btnDefaultCameraSize;
+
+    @FXML
+    private Button btnTestStream;
+
+
     private void resizGrid(){
  
          ColumnConstraints col1 = new ColumnConstraints();

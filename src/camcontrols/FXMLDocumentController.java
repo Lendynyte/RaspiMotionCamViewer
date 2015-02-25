@@ -49,25 +49,6 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private AnchorPane pane4;
 
-    //test buttons
-    @FXML
-    private Button btnCamera1Bigger;
-
-    @FXML
-    private Button btnCamera2Bigger;
-
-    @FXML
-    private Button btnCamera3Bigger;
-
-    @FXML
-    private Button btnCamera4Bigger;
-
-    @FXML
-    private Button btnDefaultCameraSize;
-
-    @FXML
-    private Button btnTestStream;
-
     //webViews
     @FXML
     private WebView webView1;
@@ -82,7 +63,7 @@ public class FXMLDocumentController implements Initializable
     private WebView webView4;
 
     //camera instances
-    //TODO: move create initialize method
+    //TODO: move create initialize method use different constructor
     private final MotionCamera cam1 = new MotionCamera();
     private final MotionCamera cam2 = new MotionCamera();
     private final MotionCamera cam3 = new MotionCamera();
@@ -192,7 +173,7 @@ public class FXMLDocumentController implements Initializable
         //  webView4.setBlendMode(BlendMode.OVERLAY);
     }
 
-    //TODO(Dominik):chánge
+    //TODO(Dominik):chánge, create in constructor
     private void setHandles()
     {
         this.cam1.setHandle("cam1");
@@ -210,6 +191,7 @@ public class FXMLDocumentController implements Initializable
         this.pane4.setId(this.cam4.getHandle());
     }
 
+    //TODO(Dominik):does not work
     //TODO(Dominik):check solution for the random zooming this does not help may be caused by the image site i use in preload now
     private void resetZooms()
     {
@@ -265,10 +247,6 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
-
-                //TODO(Dominik):check if this helps
-                resetZooms();
-
                 this.cam2.setIsFocused(false);
             }
         }
@@ -286,10 +264,6 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
-
-                //TODO(Dominik):check if this helps
-                resetZooms();
-
                 this.cam3.setIsFocused(false);
             }
 
@@ -307,10 +281,6 @@ public class FXMLDocumentController implements Initializable
             else
             {
                 makeCamDefaultSize();
-
-                //TODO(Dominik):check if this helps
-                resetZooms();
-
                 this.cam4.setIsFocused(false);
             }
         }
@@ -469,7 +439,6 @@ public class FXMLDocumentController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
-    //TODO(Dominik): Move to help menu class
     /**
      * This methods show basic about popup window
      *

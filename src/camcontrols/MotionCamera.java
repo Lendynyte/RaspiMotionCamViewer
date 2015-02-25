@@ -9,7 +9,6 @@ public class MotionCamera
 {
 
     //Handle for camera used for GUI
-
     private String handle;
     //Name of camera for folders
     private String name;
