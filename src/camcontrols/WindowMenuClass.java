@@ -28,8 +28,8 @@ public class WindowMenuClass
     public void createAboutWindow()
     {
         //initialize dialog
-        Stage dialog = new Stage();
-        dialog.initStyle(StageStyle.UTILITY);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UTILITY);
 
         //Create button
         Button btnClose = new Button("Close");
@@ -42,7 +42,7 @@ public class WindowMenuClass
             public void handle(ActionEvent event)
             {
                 System.out.println("Closing the about window...");
-                dialog.close();
+                stage.close();
             }
         });
 
@@ -64,8 +64,9 @@ public class WindowMenuClass
         Scene scene = new Scene(vbHelp, 200, 250);
 
         //show dialog
-        dialog.setScene(scene);
-        dialog.show();
+        stage.setScene(scene);
+        stage.setTitle("Help");
+        stage.show();
     }
 
     /**
@@ -79,6 +80,7 @@ public class WindowMenuClass
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
+            stage.setTitle("Camera options");
             stage.show();
         } catch (Exception e)
         {

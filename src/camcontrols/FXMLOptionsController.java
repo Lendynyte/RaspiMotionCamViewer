@@ -37,7 +37,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik): use tab pane or just pick camera from list ? probably cam from list cuz its easier
-    
+    //TODO(Dominik): when the window for options is open make camera views noninteractive
     /**
      * This method closes the options window
      *

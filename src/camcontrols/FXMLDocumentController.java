@@ -476,6 +476,7 @@ public class FXMLDocumentController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        //TODO(Dominik):change pref widh height and min height inside gridview so it does not obscure options pane
         // TODO(Dominik): Inicialization
         //setBlackStartingColor();
         setHandles();
