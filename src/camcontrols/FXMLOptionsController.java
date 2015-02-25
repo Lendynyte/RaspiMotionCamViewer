@@ -36,7 +36,8 @@ public class FXMLOptionsController implements Initializable
         System.out.println("apply button");
     }
 
-    //TODO(Dominik): use tab pane or just pick camera from list ? probably cam from list cuz its easier
+    //TODO(Dominik):Use single menu or use checkbox to show advanced?
+    //TODO(Dominik): reimplement cameras as singletons? use somethind to comunicate betweeen classes?
     //TODO(Dominik): when the window for options is open make camera views noninteractive
     /**
      * This method closes the options window
