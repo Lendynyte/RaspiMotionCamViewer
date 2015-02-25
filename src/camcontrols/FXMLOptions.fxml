@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLOptionsController">
-    
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="camcontrols.FXMLOptionsController">
+    <children>
+        <VBox layoutX="259.0" layoutY="71.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <Tab text="Cam1">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="185.0" prefWidth="600.0" style="-fx-background-color: RED;" />
+                            </content>
+                        </Tab>
+                        <Tab text="Cam2">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+                            </content>
+                        </Tab>
+                        <Tab text="Cam3">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: green;" />
+                            </content>
+                        </Tab>
+                        <Tab text="Cam4">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: yellow;" />
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <AnchorPane prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: purple;">
+                    <children>
+                        <HBox alignment="CENTER" layoutX="177.0" layoutY="-34.0" prefHeight="66.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <Button fx:id="applyButton" mnemonicParsing="false" onAction="#handleButtonApplyButton" text="Apply" />
+                                <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleButtonCancelButton" text="Cancel" />
+                            </children>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </HBox>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
