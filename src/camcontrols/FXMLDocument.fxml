@@ -23,7 +23,7 @@
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuResetCameraSizesAction" text="Reset Cam size" />
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuOptionsMenu"  text="Camera options" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

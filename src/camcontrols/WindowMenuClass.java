@@ -2,8 +2,9 @@ package camcontrols;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ import javafx.stage.StageStyle;
  * @author Dominik Pauli
  * @version 0.1
  */
-public class HelpMenuClass
+public class WindowMenuClass
 {
     //TODO(Dominik): move here the creatin of help and about functions to make controller shorter and organized
 
@@ -68,4 +69,23 @@ public class HelpMenuClass
         dialog.show();
     }
 
+    /**
+     * This method creates options window from fxml file
+     */
+    public void createOptionsWindow()
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOptions.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (Exception e)
+        {
+            System.err.println("There was an error loading options menu FXML file");
+            e.printStackTrace();
+        }
+    }
+    
 }

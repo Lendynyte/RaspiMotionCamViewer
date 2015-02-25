@@ -4,27 +4,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.css.Styleable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -89,11 +81,6 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private WebView webView4;
 
-    //webView webEngines
-   /* private WebEngine webEngine1;
-     private WebEngine webEngine2;
-     private WebEngine webEngine3;
-     private WebEngine webEngine4;*/
     //camera instances
     //TODO: move create initialize method
     private final MotionCamera cam1 = new MotionCamera();
@@ -491,8 +478,8 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void handleMenuAboutAction(final ActionEvent event)
     {
-        HelpMenuClass hlpc = new HelpMenuClass();
-        hlpc.createAboutWindow();
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createAboutWindow();
     }
 
     //TODO(Dominik): create method setCameraURLs
@@ -510,17 +497,13 @@ public class FXMLDocumentController implements Initializable
         startStream();
     }
 
-    /*  public void pressButton(ActionEvent event) throws Exception {               
-     try {
-     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/A.fxml"));
-     Parent root1 = (Parent) fxmlLoader.load();
-     Stage stage = new Stage();
-     stage.setScene(new Scene(root1));  
-     stage.show();
-     } catch(Exception e) {
-     e.printStackTrace();
-     }
-     }*/
+    @FXML
+    private void handleMenuOptionsMenu(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createOptionsWindow();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
