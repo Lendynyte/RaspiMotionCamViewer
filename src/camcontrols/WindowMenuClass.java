@@ -20,8 +20,7 @@ import javafx.stage.StageStyle;
  */
 public class WindowMenuClass
 {
-    //TODO(Dominik): move here the creatin of help and about functions to make controller shorter and organized
-
+    //TODO(Dominik):Maybe make this as fxml window too ?
     /**
      * This methods show basic about popup window
      *
@@ -48,7 +47,7 @@ public class WindowMenuClass
         });
 
         //create Label with about
-        Label lbl = new Label("This is a thing yo no \n ff fsdf sdf\nwffefef\njijijij\njojjjo\nffgfg\nw");
+        Label lbl = new Label("Help Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\n");
 
         //put vBox in stage
         VBox vbHelp = new VBox();
@@ -62,7 +61,7 @@ public class WindowMenuClass
         vbHelp.getChildren().addAll(lbl, btnClose);
 
         //add everything to scene
-        Scene scene = new Scene(vbHelp, 300, 250);
+        Scene scene = new Scene(vbHelp, 200, 250);
 
         //show dialog
         dialog.setScene(scene);

@@ -40,6 +40,8 @@ public class FXMLOptionsController implements Initializable
         System.out.println("apply button");
     }
 
+    //TODO(Dominik): use tab pane or just pick camera from list ? probably cam from list cuz its easier
+    
     /**
      * This method closes the options window
      *
