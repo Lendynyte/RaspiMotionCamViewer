@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -409,10 +408,11 @@ public class FXMLDocumentController implements Initializable
      */
     private void preloadStream()
     {
-        cam1.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam2.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam3.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
-        cam4.setURL("http://i97.photobucket.com/albums/l238/ssj3fox/catgirlurday/1adfba6dc32b30883c14e5d0b5e0a4fd.png");
+        //TODO(Dominik):make the path relative
+        cam1.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
+        cam2.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
+        cam3.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
+        cam4.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
     }
 
     /**
@@ -456,7 +456,7 @@ public class FXMLDocumentController implements Initializable
     private void handleMenuStartStreamAction(final ActionEvent event)
     {
         //setCameraURLs
-        //startStream();
+        startStream();
     }
 
     @FXML
