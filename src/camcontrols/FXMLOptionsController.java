@@ -37,6 +37,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):Use single menu or use checkbox to show advanced?
+    //TODO(Dominik):Think about options categorization
     //TODO(Dominik): reimplement cameras as singletons? use somethind to comunicate betweeen classes?
     //TODO(Dominik): when the window for options is open make camera views noninteractive
     /**
