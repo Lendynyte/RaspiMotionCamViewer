@@ -13,7 +13,7 @@
             <children>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="50.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="470.0" prefWidth="450.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                        <GridPane alignment="CENTER" layoutX="50.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="470.0" prefWidth="450.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -37,14 +37,28 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <ComboBox fx:id="cBoxCam" prefHeight="26.0" prefWidth="170.0" promptText="Camera #" GridPane.columnIndex="1">
+                                <ComboBox fx:id="cBoxCam" prefHeight="25.0" prefWidth="205.0" promptText="Camera #" GridPane.columnIndex="1">
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin>
                                 </ComboBox>
                                 <Label text="Camera to edit:" />
                         <Label text="Resolution:" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cBoxResolution" prefHeight="26.0" prefWidth="170.0" promptText="Resolution" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cBoxResolution" prefHeight="25.0" prefWidth="205.0" promptText="Resolution" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Framerate:" GridPane.rowIndex="2" />
+                        <TextField promptText="Framerate 2-100" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Auto brightness:" GridPane.rowIndex="3" />
+                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Brightness:" GridPane.rowIndex="4" />
+                        <Slider showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Contrast:" GridPane.rowIndex="5" />
+                        <Slider showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Slider showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Slider showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="Hue:" GridPane.rowIndex="6" />
+                        <Label text="Saturation:" GridPane.rowIndex="7" />
+                        <Label text="Quality:" GridPane.rowIndex="8" />
+                        <Slider blockIncrement="25.0" min="50.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                             </children>
                         </GridPane>
                     </children>

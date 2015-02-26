@@ -19,7 +19,6 @@ public class FXMLHelpWindowController implements Initializable
 {
 
     //main Anchor pane
-
     @FXML
     private AnchorPane mainPane;
 
