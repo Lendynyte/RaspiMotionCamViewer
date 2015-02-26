@@ -17,13 +17,17 @@ public class CamControls extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+      /*  Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 
         Scene scene = new Scene(root);
 
         stage.setTitle("Raspberry pi surveillance camera system");
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
+        
+        //TODO(Dominik):change back to cameras now we use this for testing options menu
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createOptionsWindow();
     }
 
     /**
