@@ -43,6 +43,8 @@
                                     </GridPane.margin>
                                 </ComboBox>
                                 <Label text="Camera to edit:" />
+                        <Label text="Resolution:" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cBoxResolution" prefHeight="26.0" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                     </children>

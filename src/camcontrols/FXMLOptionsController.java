@@ -35,6 +35,10 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private ComboBox<String> cBoxCam;
 
+    //Combo box for picking camera resolution
+    @FXML
+    private ComboBox<String> cBoxResolution;
+
     //TODO(Dominik): Create implementation
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
@@ -59,7 +63,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     * This method initializes Combobox for camera picking
+     * This method initializes Combobox for picking camera
      */
     private void InitializeCBoxCam()
     {
@@ -70,12 +74,24 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
+     * This method initializes Combobox for picking resolution
+     */
+    private void InitializeCBoxResolution()
+    {
+        //TODO(Dominik): test resolutions and pick which i want to use
+        ObservableList<String> resolutions = FXCollections.observableArrayList("1920 x 1080", "1280 x 720", "1024 x 768", "800 x 600", "640 x 480", "320 x 240");
+        this.cBoxResolution.getItems().addAll(resolutions);
+        this.cBoxResolution.getSelectionModel().selectFirst();
+    }
+
+    /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         InitializeCBoxCam();
+        InitializeCBoxResolution();
     }
 
 }
