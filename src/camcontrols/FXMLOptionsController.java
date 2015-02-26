@@ -84,6 +84,7 @@ public class FXMLOptionsController implements Initializable
         this.cBoxResolution.getSelectionModel().selectFirst();
     }
 
+    //TODO(Dominik): Maybe add tooltips to cameras and buttons ? may be nice
     /**
      * Initializes the controller class.
      */
