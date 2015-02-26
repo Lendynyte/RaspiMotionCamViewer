@@ -2,23 +2,25 @@ package camcontrols;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version  0.2
+ * @version 0.2
  */
 public class FXMLOptionsController implements Initializable
 {
 
     //control buttons
-
     @FXML
     private Button applyButton;
 
@@ -28,6 +30,9 @@ public class FXMLOptionsController implements Initializable
     //main anchor pane
     @FXML
     private AnchorPane mainPane;
+
+    @FXML
+    private ComboBox<String> cBoxCam;
 
     //TODO(Dominik): Create implementation
     @FXML
@@ -52,13 +57,26 @@ public class FXMLOptionsController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
+    //TODO(Dominik): check what causes the exceptions
+    /**
+     * This method initializes Combobox for camera picking
+     */
+    private void InitializeCBoxCam()
+    {
+        //TODO(Dominik):does not work but does not crash now changed setItems to getItems add alll
+        //TODO(Dominik):Maybe load from cam instances or singletons ? decide on implementation
+        ObservableList<String> cameras = FXCollections.observableArrayList("+", "-", "*", "/");
+        this.cBoxCam.getItems().addAll("+", "-", "*", "/");
+        this.cBoxCam.getSelectionModel().selectFirst();
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+      //  InitializeCBoxCam();    
     }
 
 }
