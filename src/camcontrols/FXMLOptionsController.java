@@ -57,16 +57,14 @@ public class FXMLOptionsController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
-    //TODO(Dominik): check what causes the exceptions
     /**
      * This method initializes Combobox for camera picking
      */
     private void InitializeCBoxCam()
     {
-        //TODO(Dominik):does not work but does not crash now changed setItems to getItems add alll
         //TODO(Dominik):Maybe load from cam instances or singletons ? decide on implementation
-        ObservableList<String> cameras = FXCollections.observableArrayList("+", "-", "*", "/");
-        this.cBoxCam.getItems().addAll("+", "-", "*", "/");
+        ObservableList<String> cameras = FXCollections.observableArrayList("Camera 1", "Camera 2", "Camera 3", "Camera 4");
+        this.cBoxCam.getItems().addAll(cameras);
         this.cBoxCam.getSelectionModel().selectFirst();
     }
 
@@ -76,7 +74,7 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-      //  InitializeCBoxCam();    
+       InitializeCBoxCam();    
     }
 
 }
