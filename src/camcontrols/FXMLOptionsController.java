@@ -31,6 +31,7 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private AnchorPane mainPane;
 
+    //Combo box for picking camera to edit
     @FXML
     private ComboBox<String> cBoxCam;
 
@@ -74,7 +75,7 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-       InitializeCBoxCam();    
+        InitializeCBoxCam();
     }
 
 }
