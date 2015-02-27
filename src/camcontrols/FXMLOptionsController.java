@@ -8,7 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -39,6 +41,14 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private ComboBox<String> cBoxResolution;
 
+    //auto brightness on/off
+    @FXML
+    private CheckBox chckAutoBrightness;
+    
+    //Slider for camera brightness
+    @FXML
+    private Slider sldrBrightness;
+    
     //TODO(Dominik): Create implementation
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
@@ -62,6 +72,19 @@ public class FXMLOptionsController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
+    @FXML
+    private void handleCheckBoxAutoBrightnessCheckBox(final ActionEvent event)
+    {
+        if(this.chckAutoBrightness.isSelected())
+        {
+            this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
+        }
+        else
+        {
+            this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
+        }
+    }
+    
     /**
      * This method initializes Combobox for picking camera
      */

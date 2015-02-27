@@ -11,10 +11,10 @@
                 <dependency dependsOn="jar" target="profile"/>
                 <dependency dependsOn="jar" target="run"/>
             </extension>
+            <extension file="remote-platform-impl.xml" id="remote-platform-1"/>
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>CamControls</name>
-            <explicit-platform explicit-source-supported="true"/>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
