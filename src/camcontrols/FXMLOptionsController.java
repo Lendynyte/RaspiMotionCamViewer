@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -49,6 +50,44 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private Slider sldrBrightness;
     
+    //Slider for camera contrast
+    @FXML
+    private Slider sldrContrast;
+    
+    //Slider for camera hue
+    @FXML
+    private Slider sldrHue;
+    
+    //Slider for camera saturation
+    @FXML
+    private Slider sldrSaturation;
+    
+    //Slider for camera quality
+    @FXML
+    private Slider sldrQuality;
+    
+    
+    //tooltip for brightness slider
+    @FXML
+    private Tooltip tltpBrightSldr;
+    
+    //tooltip for contrast slider
+    @FXML
+    private Tooltip tltpContSldr;
+    
+    //tooltip for hue slider
+    @FXML
+    private Tooltip tltpHueSldr;
+    
+    //tooltip for saturation slider
+    @FXML
+    private Tooltip tltpSaturSldr;
+    
+    //tooltip for quality slider
+    @FXML
+    private Tooltip tltpQualSldr;
+    
+    
     //TODO(Dominik): Create implementation
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
@@ -72,6 +111,67 @@ public class FXMLOptionsController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
+    //TODO(Dominik): check after sliders work to see if this works
+    /**
+     * 
+     * @param event tooltip showing event
+     */
+    @FXML
+    private void handleActionTltpBrighSldrShowAction(final ActionEvent event)
+    {
+       //this.tltpBrightSldr.setText(this.sldrBrightness.toString());
+    }
+    
+    //TODO(Dominik): check after sliders work to see if this works
+    /**
+     * 
+     * @param event tooltip showing event
+     */
+    @FXML
+    private void handleActionTltpContSldrShowAction(final ActionEvent event)
+    {
+       //this.tltpContSldr.setText(this.sldrContrast.toString());
+    }
+    
+    //TODO(Dominik): check after sliders work to see if this works
+    /**
+     * 
+     * @param event tooltip showing event
+     */
+    @FXML
+    private void handleActionTltpHueSldrShowAction(final ActionEvent event)
+    {
+      // this.tltpHueSldr.setText(this.sldrHue.toString());
+    }
+    
+    //TODO(Dominik): check after sliders work to see if this works
+    /**
+     * 
+     * @param event tooltip showing event
+     */
+    @FXML
+    private void handleActionTltpSaturSldrShowAction(final ActionEvent event)
+    {
+      // this.tltpSaturSldr.setText(this.sldrSaturation.toString());
+    }
+    
+    //TODO(Dominik): check after sliders work to see if this works
+    /**
+     * 
+     * @param event tooltip showing event
+     */
+    @FXML
+    private void handleActionTltpQualSldrShowAction(final ActionEvent event)
+    {
+      // this.tltpQualSldr.setText(this.sldrQuality.toString());
+    }
+    
+    //TODO(Dominik): Make this change stuff in conf
+    /**
+     * This method changes autobrightness camera property and disables brightness property
+     * 
+     * @param event checkobox checked event
+     */
     @FXML
     private void handleCheckBoxAutoBrightnessCheckBox(final ActionEvent event)
     {
