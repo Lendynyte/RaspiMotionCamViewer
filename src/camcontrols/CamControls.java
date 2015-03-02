@@ -24,8 +24,7 @@ public class CamControls extends Application
         stage.setTitle("Raspberry pi surveillance camera system");
         stage.setScene(scene);
         stage.show();
-        
-  
+
     }
 
     /**

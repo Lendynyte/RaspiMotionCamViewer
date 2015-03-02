@@ -29,6 +29,8 @@ public class FXMLDocumentControllerLite implements Initializable
 
     //TESTING VARIABLES AND METHODS
     //webView containers
+    //TODO(Dominik):maybe add gridpane like in cam4 test it is easier to make look better
+    //TODO(Dominik):check performance impact on rpi later
     @FXML
     private VBox pane1;
 
@@ -42,11 +44,6 @@ public class FXMLDocumentControllerLite implements Initializable
     @FXML
     private ImageView imageView2;
 
-    //camera instances
-    //TODO: move create initialize method use different constructor
-    private final MotionCamera cam1 = new MotionCamera();
-    private final MotionCamera cam2 = new MotionCamera();
-
     @FXML
     private void handleButtonTestStream(ActionEvent event)
     {
@@ -57,20 +54,6 @@ public class FXMLDocumentControllerLite implements Initializable
     private void startStream()
     {
 
-    }
-
-    //TODO(Dominik):chánge, create in constructor
-    private void setHandles()
-    {
-        this.cam1.setHandle("cam1");
-        this.cam2.setHandle("cam2");
-    }
-
-    //TODO(Dominik):change
-    private void setIDs()
-    {
-        this.pane1.setId(this.cam1.getHandle());
-        this.pane2.setId(this.cam2.getHandle());
     }
 
     //TESTING VARIABLES AND METHODS END
@@ -95,17 +78,6 @@ public class FXMLDocumentControllerLite implements Initializable
     private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
     {
         ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
-    }
-
-    //TODO(Dominik): Make this link to our logo file
-    /**
-     * This method sets stream screens to starting Image
-     */
-    private void preloadStream()
-    {
-        //TODO(Dominik):make the path relative
-        cam1.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
-        cam2.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
     }
 
     /**
@@ -137,13 +109,14 @@ public class FXMLDocumentControllerLite implements Initializable
     private void handleMenuStartStreamAction(final ActionEvent event)
     {
         //setCameraURLs
-        startStream();
+        // startStream();
+        testStream();
     }
 
+    //TODO(Dominik):implement
     @FXML
     private void handleMenuStopStreamAction(final ActionEvent event)
     {
-        preloadStream();
         startStream();
     }
 
@@ -154,26 +127,10 @@ public class FXMLDocumentControllerLite implements Initializable
         wmc.createOptionsWindow();
     }
 
-    //todo fix resizing
+    //TODO(Dominik):fix still does not feel right
     private void testStream()
     {
 
-        /*   this.imageView1.preserveRatioProperty().setValue(Boolean.FALSE);
-         this.imageView2.preserveRatioProperty().setValue(Boolean.FALSE);
-        
-         this.pane1.setMinWidth(1280/2);
-         this.pane2.setMinWidth(1280/2);
-         //TODO(Dominik):change to relative coordinates later or change anchor pane for smthing else
-         this.imageView1.setFitWidth(this.pane1.getWidth());
-         this.imageView1.setFitHeight(this.mainPane.getHeight()-40);
-        
-         this.imageView2.setFitWidth(this.pane2.getWidth());
-         this.imageView2.setFitHeight(this.mainPane.getHeight()-40);
-        
-         //  this.imageView1.fitWidthProperty().bind(this.pane1.widthProperty());
-         //   this.imageView2.fitWidthProperty().bind(this.pane2.widthProperty());*/
-        //TODO(Dominik):fix in scene editor later
-        //this.pane1.fillWidthProperty().setValue(Boolean.TRUE);
         //TODO(Dominik):get resolution from cameras and fit it into here later
         this.imageView1.fitWidthProperty().bind(this.pane1.widthProperty());
         this.imageView1.fitHeightProperty().bind(this.pane1.heightProperty());
@@ -191,7 +148,6 @@ public class FXMLDocumentControllerLite implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        testStream();
 
     }
 

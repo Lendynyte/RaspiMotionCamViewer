@@ -36,20 +36,20 @@
                 </MenuBar>
                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox fx:id="pane1" VBox.vgrow="ALWAYS"  maxHeight="634.0" maxWidth="662.0" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="634.0" prefWidth="662.0" style="-fx-background-color: black;" HBox.hgrow="SOMETIMES">
+                        <VBox fx:id="pane1" maxHeight="634.0" maxWidth="662.0" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="634.0" prefWidth="662.0" style="-fx-background-color: black;" HBox.hgrow="SOMETIMES" VBox.vgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                             <children>
-                                <ImageView fx:id="imageView1" layoutX="14.0" layoutY="14.0" pickOnBounds="true">
+                                <ImageView fx:id="imageView1" layoutX="14.0" layoutY="14.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                            <image>
                              
                            </image></ImageView>
                             </children>
                         </VBox>
-                        <VBox fx:id="pane2" VBox.vgrow="ALWAYS" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" style="-fx-background-color: red;" HBox.hgrow="SOMETIMES">
+                        <VBox fx:id="pane2" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" style="-fx-background-color: red;" HBox.hgrow="SOMETIMES" VBox.vgrow="ALWAYS">
                             <children>
-                                <ImageView fx:id="imageView2" fitHeight="582.0" fitWidth="656.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true">
+                                <ImageView fx:id="imageView2" fitHeight="582.0" fitWidth="656.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" VBox.vgrow="ALWAYS">
                            <image>
                              
                            </image></ImageView>
@@ -60,7 +60,7 @@
                         </VBox>
                     </children>
                 </HBox>
-                <AnchorPane prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: purple;" />
+                <AnchorPane minHeight="30.0" prefWidth="200.0" style="-fx-background-color: purple;" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
     </children>

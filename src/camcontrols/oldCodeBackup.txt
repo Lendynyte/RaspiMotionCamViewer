@@ -1,3 +1,22 @@
+
+        /*   this.imageView1.preserveRatioProperty().setValue(Boolean.FALSE);
+         this.imageView2.preserveRatioProperty().setValue(Boolean.FALSE);
+        
+         this.pane1.setMinWidth(1280/2);
+         this.pane2.setMinWidth(1280/2);
+         //TODO(Dominik):change to relative coordinates later or change anchor pane for smthing else
+         this.imageView1.setFitWidth(this.pane1.getWidth());
+         this.imageView1.setFitHeight(this.mainPane.getHeight()-40);
+        
+         this.imageView2.setFitWidth(this.pane2.getWidth());
+         this.imageView2.setFitHeight(this.mainPane.getHeight()-40);
+        
+         //  this.imageView1.fitWidthProperty().bind(this.pane1.widthProperty());
+         //   this.imageView2.fitWidthProperty().bind(this.pane2.widthProperty());*/
+        //TODO(Dominik):fix in scene editor later
+        //this.pane1.fillWidthProperty().setValue(Boolean.TRUE);
+
+
 //TODO(Dominik):Maybe make this as fxml window too ?
     /**
      * This methods show basic about popup window

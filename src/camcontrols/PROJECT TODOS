@@ -4,3 +4,4 @@ rework ui for 2 cameras
 remove useless stuff
 modularize more
 rework cameras if i use 2 just use singletons
+options menu functions
