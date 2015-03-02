@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="160.0" prefWidth="157.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLTestVersionPickerController">
+    <children>
+        <VBox alignment="CENTER" layoutX="171.0" layoutY="46.0" prefHeight="432.0" prefWidth="495.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label text="TESTING LAUNCHER" />
+                <Button fx:id="btn4CAm" mnemonicParsing="false" onAction="#handleBtn4CamAction" text="4Camera version" />
+                <Button fx:id="btn2Cam" mnemonicParsing="false" onAction="#handleBtn2CamAction" text="2CAmera version" />
+                <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleButtonOptionsAction" text="Options menu test" />
+                <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleButtonHelpMenuTEstAction" text="Help menu test" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
