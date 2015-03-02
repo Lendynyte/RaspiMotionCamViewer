@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLDocumentControllerLite">
+<AnchorPane id="AnchorPane" fx:id="mainPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLDocumentControllerLite">
     <children>
         <VBox layoutX="461.0" layoutY="50.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -34,27 +34,33 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <AnchorPane fx:id="pane1" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="634.0" prefWidth="662.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <children>
-                        <ImageView fx:id="imageView1" fitHeight="563.0" fitWidth="563.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane fx:id="pane2" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" style="-fx-background-color: red;" HBox.hgrow="ALWAYS">
-                     <children>
-                        <ImageView fx:id="imageView2" fitHeight="582.0" fitWidth="656.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </AnchorPane>
-               </children>
-            </HBox>
-            <AnchorPane prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: purple;" />
+                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox fx:id="pane1" VBox.vgrow="ALWAYS"  maxHeight="634.0" maxWidth="662.0" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="634.0" prefWidth="662.0" style="-fx-background-color: black;" HBox.hgrow="SOMETIMES">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <children>
+                                <ImageView fx:id="imageView1" layoutX="14.0" layoutY="14.0" pickOnBounds="true">
+                           <image>
+                             
+                           </image></ImageView>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="pane2" VBox.vgrow="ALWAYS" minWidth="300.0" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" style="-fx-background-color: red;" HBox.hgrow="SOMETIMES">
+                            <children>
+                                <ImageView fx:id="imageView2" fitHeight="582.0" fitWidth="656.0" layoutX="10.0" layoutY="37.0" pickOnBounds="true">
+                           <image>
+                             
+                           </image></ImageView>
+                            </children>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </VBox>
+                    </children>
+                </HBox>
+                <AnchorPane prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: purple;" />
             </children>
         </VBox>
     </children>

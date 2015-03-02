@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -29,10 +30,10 @@ public class FXMLDocumentControllerLite implements Initializable
     //TESTING VARIABLES AND METHODS
     //webView containers
     @FXML
-    private AnchorPane pane1;
+    private VBox pane1;
 
     @FXML
-    private AnchorPane pane2;
+    private VBox pane2;
 
     //ImageViews
     @FXML
@@ -46,7 +47,6 @@ public class FXMLDocumentControllerLite implements Initializable
     private final MotionCamera cam1 = new MotionCamera();
     private final MotionCamera cam2 = new MotionCamera();
 
- 
     @FXML
     private void handleButtonTestStream(ActionEvent event)
     {
@@ -56,7 +56,7 @@ public class FXMLDocumentControllerLite implements Initializable
     //TODO(Dominik): reimplement for imageView
     private void startStream()
     {
-        
+
     }
 
     //TODO(Dominik):chánge, create in constructor
@@ -108,7 +108,6 @@ public class FXMLDocumentControllerLite implements Initializable
         cam2.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
     }
 
-
     /**
      * Control used in menuBar to close window
      *
@@ -154,38 +153,46 @@ public class FXMLDocumentControllerLite implements Initializable
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createOptionsWindow();
     }
-    
-    
+
     //todo fix resizing
-    private void start(){
+    private void testStream()
+    {
+
+        /*   this.imageView1.preserveRatioProperty().setValue(Boolean.FALSE);
+         this.imageView2.preserveRatioProperty().setValue(Boolean.FALSE);
         
+         this.pane1.setMinWidth(1280/2);
+         this.pane2.setMinWidth(1280/2);
+         //TODO(Dominik):change to relative coordinates later or change anchor pane for smthing else
+         this.imageView1.setFitWidth(this.pane1.getWidth());
+         this.imageView1.setFitHeight(this.mainPane.getHeight()-40);
         
-        this.imageView1.imageProperty().set(new Image("http://passionacademyy.webs.com/1246855539_1043_full.jpg"));
-        this.imageView2.imageProperty().set(new Image("http://passionacademyy.webs.com/1246855539_1043_full.jpg"));
-       
+         this.imageView2.setFitWidth(this.pane2.getWidth());
+         this.imageView2.setFitHeight(this.mainPane.getHeight()-40);
         
-        //imageView1.fitWidthProperty().bind(pane1.widthProperty());
-      //  imageView1.fitHeightProperty().bind(pane1.heightProperty());
-        imageView1.setFitWidth(640);
-        imageView1.setFitHeight(300);
-        
-        imageView2.setFitWidth(640);
-        imageView2.setFitHeight(300);
-        
-      //  imageView2.fitWidthProperty().bind(this.pane2.widthProperty());
-       // imageView2.fitHeightProperty().bind(this.pane2.heightProperty());
-        
+         //  this.imageView1.fitWidthProperty().bind(this.pane1.widthProperty());
+         //   this.imageView2.fitWidthProperty().bind(this.pane2.widthProperty());*/
+        //TODO(Dominik):fix in scene editor later
+        //this.pane1.fillWidthProperty().setValue(Boolean.TRUE);
+        //TODO(Dominik):get resolution from cameras and fit it into here later
+        this.imageView1.fitWidthProperty().bind(this.pane1.widthProperty());
+        this.imageView1.fitHeightProperty().bind(this.pane1.heightProperty());
+        this.imageView1.preserveRatioProperty().setValue(Boolean.TRUE);
+
+        this.imageView2.fitWidthProperty().bind(this.pane1.widthProperty());
+        this.imageView2.fitHeightProperty().bind(this.pane1.heightProperty());
+        this.imageView2.preserveRatioProperty().setValue(Boolean.TRUE);
+
+        this.imageView1.setImage(new Image("file:C://Users/Dominik/Documents/TEST.jpg"));
+        this.imageView2.setImage(new Image("file:C://Users/Dominik/Documents/TEST.jpg"));
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        //TODO(Dominik):change pref widh height and min height inside gridview so it does not obscure options pane
-        // TODO(Dominik): Inicialization
-        //setBlackStartingColor();
-        start();
-        
-        
+        testStream();
+
     }
 
 }
