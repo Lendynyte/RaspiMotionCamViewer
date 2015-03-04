@@ -46,6 +46,7 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private CheckBox chckAutoBrightness;
 
+    //SLIDER VARIABLES START
     //Slider for camera brightness
     @FXML
     private Slider sldrBrightness;
@@ -65,7 +66,9 @@ public class FXMLOptionsController implements Initializable
     //Slider for camera quality
     @FXML
     private Slider sldrQuality;
+    //SLIDER VARIABLES END
 
+    //TOOLTIP VARIABLES START
     //tooltip for brightness slider
     @FXML
     private Tooltip tltpBrightSldr;
@@ -85,18 +88,24 @@ public class FXMLOptionsController implements Initializable
     //tooltip for quality slider
     @FXML
     private Tooltip tltpQualSldr;
+    //TOOLTIP VARIABLES END
 
+    //BUTTON HANDLING START
     //TODO(Dominik): Create implementation
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
     {
         System.out.println("apply button");
+        //TODO(Dominik):remove this later just testing
+        System.out.println(this.sldrBrightness.getValue());
+        //TODO(Dominik):get changed variables and produce configuration file maybe create method for this
     }
 
     //TODO(Dominik):Use single menu or use checkbox to show advanced?
     //TODO(Dominik):Think about options categorization
     //TODO(Dominik): reimplement cameras as singletons? use somethind to comunicate betweeen classes?
     //TODO(Dominik): when the window for options is open make camera views noninteractive
+    //TODO(Dominik):add labels for sliders
     /**
      * This method closes the options window
      *
@@ -109,6 +118,119 @@ public class FXMLOptionsController implements Initializable
         this.mainPane.getScene().getWindow().hide();
     }
 
+    /**
+     *
+     * @param event button clicked
+     */
+    @FXML
+    private void handleButtonResetToDefaultButton(final ActionEvent event)
+    {
+        //TODO(Dominik):implementation
+    }
+
+    //BUTTON HANDLING END
+    //SLIDER HANDLING START
+    //TODO(Dominik):check for default values and preset them to the form
+    //TODO(Dominik):maybe do not snap to ticks
+    //TODO(Dominik):TEST
+    /**
+     * This method changes value of brightness in selected camera to value of 0
+     * - 255 depending on slider value
+     */
+    private void handlSldrBrightness()
+    {
+        //TODO(Dominik):cehck if there is not a better way to do this
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                if (!MotionCamera1SingletonTest.getInstance().isCamAutoBrightness())
+                {
+                    MotionCamera1SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                }
+                break;
+            case "Camera 2": //TODO(Dominik):fix
+               /* if (!MotionCamera2SingletonTest.getInstance().isCamAutoBrightness())
+                 {
+                 MotionCamera2SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                 } */ break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+
+    }
+
+    /**
+     * This method changes value of contrast in selected camera to value of 0 -
+     * 255 depending on slider value
+     */
+    private void handleSldrContrast()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+            case "Camera 2":
+            //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+    /**
+     * This method changes value of hue in selected camera to value of 0 - 255
+     * depending on slider value
+     */
+    private void handleSldrHue()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+            case "Camera 2":
+            //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+    /**
+     * This method changes value of saturation in selected camera to value of 0
+     * - 255 depending on slider value
+     */
+    private void handleSldrSaturation()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+            case "Camera 2":
+            //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+    //SLIDER HANDLING END
+
+    /**
+     * This method calculates value of percentage from number 255 it is used for
+     * calculating slider values for configuration file
+     *
+     * @param percentage percentage to calculate from
+     * @return value from percentage
+     */
+    private int getValueFromPercentage(double percentage)
+    {
+        return (int) Math.round(2.55 * percentage);
+    }
+
+    //TOOLTIP START
     //TODO(Dominik): check after sliders work to see if this works
     /**
      *
@@ -163,8 +285,8 @@ public class FXMLOptionsController implements Initializable
     {
         // this.tltpQualSldr.setText(this.sldrQuality.toString());
     }
+    //TOOLTUP END
 
-    //TODO(Dominik): Make this change stuff in conf
     /**
      * This method changes autobrightness camera property and disables
      * brightness property
@@ -177,10 +299,13 @@ public class FXMLOptionsController implements Initializable
         if (this.chckAutoBrightness.isSelected())
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
+            MotionCamera1SingletonTest.getInstance().setCamAutoBrightness(true);
+            //MotionCamera2SingletonTest.getInstance().setCamAutoBrightness(true);
         }
         else
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
+            MotionCamera1SingletonTest.getInstance().setCamAutoBrightness(false);
         }
     }
 
@@ -189,6 +314,7 @@ public class FXMLOptionsController implements Initializable
      */
     private void InitializeCBoxCam()
     {
+        //TODO(Dominik):decide on number of cameras
         //TODO(Dominik):Maybe load from cam instances or singletons ? decide on implementation
         ObservableList<String> cameras = FXCollections.observableArrayList("Camera 1", "Camera 2", "Camera 3", "Camera 4");
         this.cBoxCam.getItems().addAll(cameras);

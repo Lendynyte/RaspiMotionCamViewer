@@ -1,0 +1,31 @@
+100% ---------------------- 255
+1%------------------------- 2,55
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rotate 0 90 270 ?
+width res
+height	res
+framerate 2 - 100 ?
+auto_brightness on/off
+brightness 0-255
+contrast 0-255
+hue 0-255 ?
+saturation 0-255 ?
+quality 0-100 ? 75 default 50 low 100 no compress
