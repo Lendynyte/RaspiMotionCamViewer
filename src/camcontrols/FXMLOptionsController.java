@@ -150,10 +150,12 @@ public class FXMLOptionsController implements Initializable
                 }
                 break;
             case "Camera 2": //TODO(Dominik):fix
-               /* if (!MotionCamera2SingletonTest.getInstance().isCamAutoBrightness())
-                 {
-                 MotionCamera2SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
-                 } */ break;
+                if (!MotionCamera2SingletonTest.getInstance().isCamAutoBrightness())
+                {
+                    MotionCamera2SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                    break;
+                }
+                break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
                 break;
@@ -174,7 +176,7 @@ public class FXMLOptionsController implements Initializable
                 MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
                 break;
             case "Camera 2":
-                //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -195,7 +197,7 @@ public class FXMLOptionsController implements Initializable
                 MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
                 break;
             case "Camera 2":
-                //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -204,8 +206,8 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     * This method changes value of saturation in selected camera to value of 
-     * 0 - 255 depending on slider value
+     * This method changes value of saturation in selected camera to value of 0
+     * - 255 depending on slider value
      */
     private void handleSldrSaturation()
     {
@@ -216,7 +218,7 @@ public class FXMLOptionsController implements Initializable
                 MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
                 break;
             case "Camera 2":
-                //  MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -225,18 +227,18 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     * This method changes value of quality in selected camera to value of 50/75/100
-     * depending on slider value
+     * This method changes value of quality in selected camera to value of
+     * 50/75/100 depending on slider value
      */
     private void handleSldrQuality()
     {
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                MotionCamera1SingletonTest.getInstance().setCamQuality((int)this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                MotionCamera1SingletonTest.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
                 break;
             case "Camera 2":
-                //MotionCamera2SingletonTest.getInstance().setCamQuality((int)this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                MotionCamera2SingletonTest.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
