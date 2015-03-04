@@ -29,6 +29,9 @@ public class FXMLOptionsController implements Initializable
 
     @FXML
     private Button cancelButton;
+    
+    @FXML
+    private Button resetButton;
 
     //main anchor pane
     @FXML
@@ -126,6 +129,7 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonResetToDefaultButton(final ActionEvent event)
     {
         //TODO(Dominik):implementation
+        System.out.println("Reset button");
     }
     //BUTTON HANDLING END
 

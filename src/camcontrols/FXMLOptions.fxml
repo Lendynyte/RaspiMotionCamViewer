@@ -134,7 +134,7 @@
                            <tooltip>
                               <Tooltip text="Apply all settings and restart selected camera" />
                            </tooltip></Button>
-                        <Button mnemonicParsing="false" text="Reset to default">
+                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#handleButtonResetToDefaultButton" text="Reset to default">
                            <tooltip>
                               <Tooltip text="Reset all settings to default values" />
                            </tooltip></Button>
