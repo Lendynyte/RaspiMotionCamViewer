@@ -61,7 +61,7 @@
                            <tooltip>
                               <Tooltip text="Select active camera framerate(pref 2)" />
                            </tooltip></Label>
-                        <TextField promptText="Framerate 2-100" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <TextField fx:id="tfFramerate" promptText="Framerate 2-100" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <tooltip>
                               <Tooltip text="Active camera framerate" />
                            </tooltip></TextField>
@@ -109,7 +109,7 @@
                            <tooltip>
                               <Tooltip text="Change active camera display quality(50%/75%/100%)" />
                            </tooltip></Label>
-                        <Slider fx:id="sldrQuality" blockIncrement="25.0" min="50.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <Slider fx:id="sldrQuality" blockIncrement="25.0" min="50.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="75.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <tooltip>
                               <Tooltip fx:id="tltpQualSldr" onShowing="#handleActionTltpQualSldrShowAction" text="Empty Tooltip" />
                            </tooltip></Slider>

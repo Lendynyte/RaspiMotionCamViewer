@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,7 +30,7 @@ public class FXMLOptionsController implements Initializable
 
     @FXML
     private Button cancelButton;
-    
+
     @FXML
     private Button resetButton;
 
@@ -49,6 +50,11 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private CheckBox chckAutoBrightness;
 
+    //TODO(Dominik):maybe remove this?
+    //framerate text field
+    @FXML
+    private TextField tfFramerate;
+    
     //SLIDER VARIABLES START
     //Slider for camera brightness
     @FXML
@@ -129,6 +135,8 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonResetToDefaultButton(final ActionEvent event)
     {
         //TODO(Dominik):implementation
+        this.setDefaultValues();
+        System.out.println(getValueFromPercentage(this.sldrHue.getValue()));
         System.out.println("Reset button");
     }
     //BUTTON HANDLING END
@@ -260,9 +268,26 @@ public class FXMLOptionsController implements Initializable
      */
     private int getValueFromPercentage(double percentage)
     {
-        return (int) Math.round(2.55 * percentage);
+        return (int) Math.floor(2.55 * percentage);
     }
 
+    //TODO(Dominik):add checkbox next to sliders to enable/disable 0 = disabled in motion.conf after that just add +1 in percentages
+    /**
+     * This method sets default values for options form
+     */
+    private void setDefaultValues()
+    {
+        this.cBoxCam.getSelectionModel().selectFirst();
+        this.cBoxResolution.getSelectionModel().selectFirst();
+        this.tfFramerate.setText(null);
+        this.chckAutoBrightness.selectedProperty().setValue(Boolean.FALSE);
+        this.sldrBrightness.setValue(0);
+        this.sldrContrast.setValue(0);
+        this.sldrHue.setValue(0);
+        this.sldrSaturation.setValue(0);
+        this.sldrQuality.setValue(75);
+    }
+    
     //TOOLTIP START
     //TODO(Dominik): check after sliders work to see if this works
     /**
