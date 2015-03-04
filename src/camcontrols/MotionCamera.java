@@ -4,6 +4,7 @@ package camcontrols;
  *
  * @author Dominik Pauli
  * @version 0.2
+ * @deprecated 
  */
 public class MotionCamera
 {

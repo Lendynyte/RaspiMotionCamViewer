@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Parser
 {
-
+    //TODO(Dominik):this thing needs some work
     private ArrayList<String> radky = new ArrayList<String>();
     private String configPath;
 

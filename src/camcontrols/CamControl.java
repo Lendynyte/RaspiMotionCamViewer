@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Dominik
+ * @deprecated 
  */
 public class CamControl
 {

@@ -21,9 +21,12 @@ import javafx.scene.web.WebView;
  *
  * @author Dominik Pauli
  * @version 0.2
+ * @deprecated 
  */
 public class FXMLDocumentController implements Initializable
 {
+    
+    //TODO(Dominik):Obsolete probably going to be removed
 
     @FXML
     private AnchorPane mainPane;
