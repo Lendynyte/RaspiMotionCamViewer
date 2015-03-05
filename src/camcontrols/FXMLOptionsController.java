@@ -99,6 +99,9 @@ public class FXMLOptionsController implements Initializable
     private Tooltip tltpQualSldr;
     //TOOLTIP VARIABLES END
 
+    //parser instance
+    private Parser parser;
+    
     //BUTTON HANDLING START
     //TODO(Dominik): Create implementation
     @FXML
@@ -107,9 +110,10 @@ public class FXMLOptionsController implements Initializable
         System.out.println("apply button");
         //TODO(Dominik):remove this later just testing
         System.out.println(this.sldrBrightness.getValue());
-        //TODO(Dominik):get changed variables and produce configuration file maybe create method for this
+        //TODO(Dominik):get changed variables and produce configuration file maybe create method for this   
     }
 
+    //TODO(Dominik):Load existing configuration on options menu startup
     //TODO(Dominik):Use single menu or use checkbox to show advanced?
     //TODO(Dominik):Think about options categorization
     //TODO(Dominik): reimplement cameras as singletons? use somethind to comunicate betweeen classes?
