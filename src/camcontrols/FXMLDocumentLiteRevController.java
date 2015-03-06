@@ -7,7 +7,11 @@ package camcontrols;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,6 +25,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -254,12 +259,51 @@ public class FXMLDocumentLiteRevController implements Initializable {
         // preloadStream();
         //startStream();
     }
+    /*
+     private void handleStreamEvent() {
+     Timeline timeline = new Timeline();
+     timeline.setCycleCount(Animation.INDEFINITE);
 
+     //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
+     KeyFrame playStream = new KeyFrame(Duration.seconds(1),//(.0200),
+     new EventHandler<ActionEvent>() {
+
+     /*
+     *   Get URL and set the Image in ImageView to image on the URL
+     */
+    /*   @Override
+     public void handle(ActionEvent event) {
+     //uncoment commented for now because of errors from no url
+
+                        
+                        
+     if (GLOBAL_URL != "") {
+     Image image = new Image(GLOBAL_URL); // edit after I get right url
+     imageView.setImage(image);
+                            
+     //TODO: try different container
+     imageView.fitWidthProperty().bind(camContainer1.widthProperty());
+     imageView.fitHeightProperty().bind(camContainer1.heightProperty());
+                            
+                            
+     }
+     }
+     });
+
+     timeline.getKeyFrames().add(playStream);
+     timeline.play();
+     }
+    
+     */
+
+    //TODO(Dominik): image View timelapse
+    //TODO(Dominik): challenge make focused cam big and the other one smaller on side
+    //TODO(Dominik): maybe little rework
     //TODO(Dominik): think about hgbar vbar policy
     // z https://community.oracle.com/thread/2320727
     //TODO(Dominik):fix still does not feel right
     private void testStream() {
-        pane1.setContent(new ImageView() {
+      /*  pane1.setContent(new ImageView() {
             {
                 imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
                 setPreserveRatio(false);
@@ -268,8 +312,9 @@ public class FXMLDocumentLiteRevController implements Initializable {
                 fitWidthProperty().bind(pane1.widthProperty());
                 fitHeightProperty().bind(pane1.heightProperty());
             }
-        });
-
+        });*/
+        startCam1Stream("file:C://Users/Dominik/Desktop/em.jpg");
+        
         pane2.setContent(new ImageView() {
             {
                 imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
@@ -281,6 +326,49 @@ public class FXMLDocumentLiteRevController implements Initializable {
             }
         });
 
+    }
+
+    //refreshing is lagging a lot
+    private void startCam1Stream(String URL) {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(Animation.INDEFINITE);
+
+        //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
+        KeyFrame playStream = new KeyFrame(Duration.seconds(1),//(.0200),
+                new EventHandler<ActionEvent>() {
+                    
+                    @Override
+                    public void handle(ActionEvent event) {
+                        pane1.setContent(new ImageView() {
+                            {
+                                imageProperty().set(new Image(URL));
+                                setPreserveRatio(false);
+                                setSmooth(true);
+
+                                fitWidthProperty().bind(pane1.widthProperty());
+                                fitHeightProperty().bind(pane1.heightProperty());
+                            }
+
+                        });
+                    }
+
+                });
+
+        timeline.getKeyFrames().add(playStream);
+        timeline.play();
+    }
+
+    private void startCam2Stream(String URL) {
+        this.pane2.setContent(new ImageView() {
+            {
+                imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
+                setPreserveRatio(false);
+                setSmooth(true);
+
+                fitWidthProperty().bind(pane1.widthProperty());
+                fitHeightProperty().bind(pane1.heightProperty());
+            }
+        });
     }
 
     @FXML
