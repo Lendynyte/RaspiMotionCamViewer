@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -41,8 +43,28 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                <children>
-                  <AnchorPane fx:id="pane1" onMouseClicked="#handleCamHighlightEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-                  <AnchorPane fx:id="pane2" onMouseClicked="#handleCamFocusEvent" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" GridPane.columnIndex="1" />
+                  <AnchorPane onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
+                     <children>
+                        <ScrollPane fx:id="pane1" hbarPolicy="NEVER" prefHeight="595.0" prefWidth="640.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </AnchorPane>
+                  <AnchorPane onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" GridPane.columnIndex="1">
+                     <children>
+                        <ScrollPane fx:id="pane2" hbarPolicy="NEVER" prefHeight="595.0" prefWidth="640.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </AnchorPane>
                </children>
                 </GridPane>
                 <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: purple;" />
