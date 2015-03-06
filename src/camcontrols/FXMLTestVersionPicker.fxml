@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="160.0" prefWidth="157.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLTestVersionPickerController">
+<AnchorPane id="AnchorPane" prefHeight="220.0" prefWidth="201.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.FXMLTestVersionPickerController">
     <children>
         <VBox alignment="CENTER" layoutX="171.0" layoutY="46.0" prefHeight="432.0" prefWidth="495.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -15,6 +15,7 @@
                 <Button fx:id="btn2Cam" mnemonicParsing="false" onAction="#handleBtn2CamAction" text="2CAmera version" />
                 <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleButtonOptionsAction" text="Options menu test" />
                 <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleButtonHelpMenuTEstAction" text="Help menu test" />
+            <Button fx:id="btn2CamRev1" mnemonicParsing="false" onAction="#handleBtn2CamRevAction" text="2Cam version rev 1" />
             </children>
         </VBox>
     </children>
