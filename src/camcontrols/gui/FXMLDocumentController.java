@@ -1,5 +1,6 @@
-package camcontrols;
+package camcontrols.gui;
 
+import camcontrols.dependencies.MotionCamera;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.css.Styleable;
@@ -16,7 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
 /**
  *
  * @author Dominik Pauli

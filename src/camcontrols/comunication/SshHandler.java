@@ -1,4 +1,4 @@
-package camcontrols;
+package camcontrols.comunication;
 
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;

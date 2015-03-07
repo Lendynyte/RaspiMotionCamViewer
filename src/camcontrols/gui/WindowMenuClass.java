@@ -1,4 +1,4 @@
-package camcontrols;
+package camcontrols.gui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

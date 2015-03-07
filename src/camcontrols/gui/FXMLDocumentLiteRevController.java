@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package camcontrols;
+package camcontrols.gui;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -30,8 +30,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.util.Duration;
-import javax.imageio.*;
-
+import camcontrols.dependencies.*;
 /**
  * FXML Controller class
  *
@@ -458,7 +457,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         // TODO
-        testStream();
+       // testStream();
     }
 
 }

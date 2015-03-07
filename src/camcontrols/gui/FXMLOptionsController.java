@@ -1,5 +1,8 @@
-package camcontrols;
+package camcontrols.gui;
 
+import camcontrols.configEditing.Parser;
+import camcontrols.dependencies.MotionCamera1SingletonTest;
+import camcontrols.dependencies.MotionCamera2SingletonTest;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;

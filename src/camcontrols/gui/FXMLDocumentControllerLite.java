@@ -1,4 +1,4 @@
-package camcontrols;
+package camcontrols.gui;
 
 import java.net.URL;
 import java.util.ResourceBundle;

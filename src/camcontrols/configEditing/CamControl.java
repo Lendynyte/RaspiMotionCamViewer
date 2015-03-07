@@ -1,4 +1,4 @@
-package camcontrols;
+package camcontrols.configEditing;
 
 import java.util.ArrayList;
 

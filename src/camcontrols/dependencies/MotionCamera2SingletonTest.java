@@ -1,30 +1,29 @@
-package camcontrols;
+package camcontrols.dependencies;
 
 /**
  *
  * @author Dominik Pauli
  * @version v 0.2
  */
-public class MotionCamera1SingletonTest
+public class MotionCamera2SingletonTest
 {
 
-    private static MotionCamera1SingletonTest instance = null;
+    private static MotionCamera2SingletonTest instance = null;
 
-    protected MotionCamera1SingletonTest()
+    protected MotionCamera2SingletonTest()
     {
         //to stop instantatiaon
     }
 
-    public static MotionCamera1SingletonTest getInstance()
+    public static MotionCamera2SingletonTest getInstance()
     {
         if (instance == null)
         {
-            instance = new MotionCamera1SingletonTest();
+            instance = new MotionCamera2SingletonTest();
         }
         return instance;
     }
 
-    //CAMERA VARIABLES FOR GUI
     //Handle for camera used for GUI
     private String handle;
     //Name of camera for folders
