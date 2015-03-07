@@ -153,6 +153,8 @@ public class FXMLDocumentController implements Initializable
     //TODO(Dominik): rework this to work better
     private void startStream()
     {
+        preloadStream();
+        
         WebEngine webEngine1 = this.webView1.getEngine();
         webEngine1.load(cam1.getURL());
 
@@ -412,10 +414,15 @@ public class FXMLDocumentController implements Initializable
     private void preloadStream()
     {
         //TODO(Dominik):make the path relative
-        cam1.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
+       /* cam1.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
         cam2.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
         cam3.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
-        cam4.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
+        cam4.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");*/
+        
+         cam1.setURL("http://192.168.1.3");
+         cam2.setURL("http://192.168.1.3");
+         cam3.setURL("http://192.168.1.3:8081");
+         cam4.setURL("http://192.168.1.3");
     }
 
     /**
