@@ -67,7 +67,11 @@
                   </AnchorPane>
                </children>
                 </GridPane>
-                <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: purple;" />
+                <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: purple;">
+               <children>
+                  <TextField fx:id="testTFURL1" layoutX="155.0" layoutY="25.0" />
+                  <TextField fx:id="testTFURL2" layoutX="675.0" layoutY="25.0" />
+               </children></AnchorPane>
             </children>
         </VBox>
     </children>

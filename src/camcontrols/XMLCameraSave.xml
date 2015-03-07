@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<camera>
+    <cam1>
+        <name></name>
+        <handle>CAM1</handle>
+    </cam1>
+    
+    <cam2>
+        <name></name>
+        <handle>CAM2</handle>
+    </cam2>
+</camera>

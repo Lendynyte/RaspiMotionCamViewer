@@ -5,6 +5,10 @@
  */
 package camcontrols;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
@@ -17,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,15 +29,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javax.imageio.*;
 
 /**
  * FXML Controller class
  *
  * @author Dominik
  */
-public class FXMLDocumentLiteRevController implements Initializable {
+public class FXMLDocumentLiteRevController implements Initializable
+{
 
     @FXML
     private AnchorPane mainPane;
@@ -59,6 +65,12 @@ public class FXMLDocumentLiteRevController implements Initializable {
     @FXML
     private ImageView imageView2;
 
+    @FXML
+    private TextField testTFURL1;
+
+    @FXML
+    private TextField testTFURL2;
+
     private final ColumnConstraints colCon1 = new ColumnConstraints();
     private final ColumnConstraints colCon2 = new ColumnConstraints();
 
@@ -67,7 +79,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
     private final RowConstraints row2Con = new RowConstraints();
 
     //TODO(Dominik):create method makeCamBig that takes care of these
-    private void makeCam1Big() {
+    private void makeCam1Big()
+    {
         //resize
         firstColumnSizeIncrease(this.colCon1, this.colCon2);
 
@@ -77,7 +90,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
         System.out.println("cam1 is now BIG");
     }
 
-    private void makeCam2Big() {
+    private void makeCam2Big()
+    {
         //resize
         secondColumnSizeIncrease(colCon1, colCon2);
 
@@ -86,7 +100,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
         System.out.println("cam2 is now BIG");
     }
 
-    private void makeCamDefaultSize() {
+    private void makeCamDefaultSize()
+    {
         //resize
         setDefaultGrid(colCon1, colCon2);
 
@@ -106,7 +121,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleCamFocusEvent(final MouseEvent mouseEvent) {
+    private void handleCamFocusEvent(final MouseEvent mouseEvent)
+    {
         //TODO(Dominik): change to switch
       /*  if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
          {
@@ -154,7 +170,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param mouseEvent mouse entered object boundaries
      */
     @FXML
-    private void handleCamHighlightEvent(final MouseEvent mouseEvent) {
+    private void handleCamHighlightEvent(final MouseEvent mouseEvent)
+    {
         ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
     }
 
@@ -165,7 +182,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param mouseEvent mouse left object boundaries
      */
     @FXML
-    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent) {
+    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
+    {
         ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
     }
 
@@ -176,7 +194,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param colCon1 constrains of column1
      * @param colCon2 constrains of column2
      */
-    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         cameraGrid.getColumnConstraints().clear();
         cameraGrid.getColumnConstraints().addAll(colCon1, colCon2);
     }
@@ -187,7 +206,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
      */
-    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         colCon1.setPercentWidth(75);
         colCon2.setPercentWidth(25);
     }
@@ -198,7 +218,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
      */
-    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         colCon1.setPercentWidth(25);
         colCon2.setPercentWidth(75);
     }
@@ -208,7 +229,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param colCon1 constrains of column1
      * @param colCon2 constrains of column2
      */
-    private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2) {
+    private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2)
+    {
         //set columns
         colCon1.setPercentWidth(50);
         colCon2.setPercentWidth(50);
@@ -220,7 +242,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuResetCameraSizesAction(final ActionEvent event) {
+    private void handleMenuResetCameraSizesAction(final ActionEvent event)
+    {
         this.setDefaultGrid(colCon1, colCon2);
         System.out.println("Camera sizes reseted...");
     }
@@ -231,7 +254,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuCloseAction(final ActionEvent event) {
+    private void handleMenuCloseAction(final ActionEvent event)
+    {
         System.out.println("Closing...");
         this.mainPane.getScene().getWindow().hide();
     }
@@ -242,20 +266,23 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * @param event
      */
     @FXML
-    private void handleMenuAboutAction(final ActionEvent event) {
+    private void handleMenuAboutAction(final ActionEvent event)
+    {
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createAboutWindow();
     }
 
     //TODO(Dominik): create method setCameraURLs
     @FXML
-    private void handleMenuStartStreamAction(final ActionEvent event) {
+    private void handleMenuStartStreamAction(final ActionEvent event)
+    {
         //setCameraURLs
         testStream();
     }
 
     @FXML
-    private void handleMenuStopStreamAction(final ActionEvent event) {
+    private void handleMenuStopStreamAction(final ActionEvent event)
+    {
         // preloadStream();
         //startStream();
     }
@@ -302,46 +329,72 @@ public class FXMLDocumentLiteRevController implements Initializable {
     //TODO(Dominik): think about hgbar vbar policy
     // z https://community.oracle.com/thread/2320727
     //TODO(Dominik):fix still does not feel right
-    private void testStream() {
-      /*  pane1.setContent(new ImageView() {
-            {
-                imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
-                setPreserveRatio(false);
-                setSmooth(true);
+    private void testStream()
+    {
+        /*  pane1.setContent(new ImageView() {
+         {
+         imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
+         setPreserveRatio(false);
+         setSmooth(true);
 
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
-            }
-        });*/
-        startCam1Stream("file:C://Users/Dominik/Desktop/em.jpg");
+         fitWidthProperty().bind(pane1.widthProperty());
+         fitHeightProperty().bind(pane1.heightProperty());
+         }
+         });*/
+
+        //"file:C://Users/Dominik/Desktop/em.jpg"
         
-        pane2.setContent(new ImageView() {
-            {
-                imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
-                setPreserveRatio(false);
-                setSmooth(true);
+        
+        //TODO(Dominik): add if statement to check if url is not empty after i have the url config ready maybe move to config file
+        try
+        {
+            startCam1Stream(this.testTFURL1.getText());
+        }
+        catch (Exception e)
+        {
+            System.out.println("no URL in cam 1");
+        }
 
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
-            }
-        });
+        try
+        {
+            startCam2Stream();
+        }
+       catch (Exception e)
+        {
+           System.out.println("no URL in cam 2");
+        }
 
+        /* pane2.setContent(new ImageView()
+         {
+         {
+         imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
+         setPreserveRatio(false);
+         setSmooth(true);
+
+         fitWidthProperty().bind(pane1.widthProperty());
+         fitHeightProperty().bind(pane1.heightProperty());
+         }
+         });*/
     }
 
-    //refreshing is lagging a lot
-    private void startCam1Stream(String URL) {
+    //refreshing is lagging a lot may not need needs testing
+    private void startCam1Stream(String URL)
+    {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
 
         //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
         KeyFrame playStream = new KeyFrame(Duration.seconds(1),//(.0200),
-                new EventHandler<ActionEvent>() {
-                    
+                new EventHandler<ActionEvent>()
+                {
+
                     @Override
-                    public void handle(ActionEvent event) {
-                        pane1.setContent(new ImageView() {
+                    public void handle(ActionEvent event)
+                    {
+                        pane1.setContent(new ImageView()
+                        {
                             {
-                                imageProperty().set(new Image(URL));
+                                imageProperty().set(new Image("http://192.168.1.3"));
                                 setPreserveRatio(false);
                                 setSmooth(true);
 
@@ -358,10 +411,30 @@ public class FXMLDocumentLiteRevController implements Initializable {
         timeline.play();
     }
 
-    private void startCam2Stream(String URL) {
-        this.pane2.setContent(new ImageView() {
+    private void startCam2Stream() throws MalformedURLException, IOException
+    {
+        this.pane2.setContent(new ImageView()
+        {
             {
-                imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
+             
+                URL url = new URL("http://192.168.1.3:8081");
+                System.out.println(url.getFile());
+                System.out.println(url.getContent().toString());
+                System.out.println(url.openConnection());
+                System.out.println(url.openStream());
+                url.openConnection();
+                url.openStream();
+                InputStream is = new BufferedInputStream(url.openStream());
+                System.out.println(is.available());
+                System.out.println(is.read());
+                System.out.println(is.toString());
+                System.out.println(url.getContent());
+                System.out.println(url.getHost());
+                System.out.println(url.getPort());
+                
+                
+               // InputStream is = new InputStream
+                imageProperty().set(new Image(is));
                 setPreserveRatio(false);
                 setSmooth(true);
 
@@ -372,7 +445,8 @@ public class FXMLDocumentLiteRevController implements Initializable {
     }
 
     @FXML
-    private void handleMenuOptionsMenu(final ActionEvent event) {
+    private void handleMenuOptionsMenu(final ActionEvent event)
+    {
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createOptionsWindow();
     }
@@ -381,8 +455,10 @@ public class FXMLDocumentLiteRevController implements Initializable {
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
+        testStream();
     }
 
 }
