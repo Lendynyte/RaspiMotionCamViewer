@@ -31,8 +31,11 @@ public class MotionCamera1SingletonTest
     private String name;
     //URL to camera stream
     private String URL;
+    
+    //TODO(Dominik): to be phased out
     //if the camera stream has increased size
     private boolean isFocused;
+    //TODO(Dominik): to be phased out
     //if the camera has highlighting overlay
     private boolean isHighlighted;
 

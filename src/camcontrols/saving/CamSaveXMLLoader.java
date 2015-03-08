@@ -1,13 +1,12 @@
 package camcontrols.saving;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -17,14 +16,37 @@ import org.w3c.dom.Document;
 public class CamSaveXMLLoader
 {
 //http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+
     public void LoadXMLFile(String filePath)
     {
         try
         {
             File xmlFile = new File(filePath);
-            //DocumentBuilderFactory dbfactory = new DocumentBuilderFactory.newInstance();
-          //  DocumentBuilder dBuilder = dbfactory.newDocumentBuilder();
-         //  Document dc = dBuilder.parse(xmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document dc = dBuilder.parse(xmlFile);
+
+            System.out.println("Root element :" + dc.getDocumentElement().getNodeName());
+
+            NodeList nodeList = dc.getElementsByTagName("camera");
+
+            for (int temp = 0; temp < nodeList.getLength(); temp++)
+            {
+
+                Node nNode = nodeList.item(temp);
+
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+
+                    Element eElement = (Element) nNode;
+
+                    //System.out.println("Staff id : " + eElement.getAttribute("handle"));
+                    System.out.println("First Name : " + eElement.getElementsByTagName("name").item(0).getTextContent());
+
+                }
+            }
         }
         catch (Exception e)
         {
