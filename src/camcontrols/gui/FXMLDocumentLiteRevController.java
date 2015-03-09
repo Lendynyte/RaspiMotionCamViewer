@@ -70,14 +70,19 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private TextField testTFURL2;
 
+    //TODO(Dominik):maybe remove
     private final ColumnConstraints colCon1 = new ColumnConstraints();
     private final ColumnConstraints colCon2 = new ColumnConstraints();
 
+    //TODO(Dominik):maybe remove
     //row Constrains declrataion
     private final RowConstraints row1Con = new RowConstraints();
     private final RowConstraints row2Con = new RowConstraints();
 
     //TODO(Dominik):create method makeCamBig that takes care of these
+    /**
+     * @deprecated 
+     */
     private void makeCam1Big()
     {
         //resize
@@ -99,6 +104,9 @@ public class FXMLDocumentLiteRevController implements Initializable
         System.out.println("cam2 is now BIG");
     }
 
+    /**
+     * @deprecated 
+     */
     private void makeCamDefaultSize()
     {
         //resize
@@ -118,6 +126,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      * the size
      *
      * @param event
+     * @deprecated 
      */
     @FXML
     private void handleCamFocusEvent(final MouseEvent mouseEvent)
@@ -192,6 +201,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      *
      * @param colCon1 constrains of column1
      * @param colCon2 constrains of column2
+     * @deprecated 
      */
     private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2)
     {
@@ -204,6 +214,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      *
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
+     * @deprecated 
      */
     private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
     {
@@ -216,6 +227,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      *
      * @param colCon1 constrains of col1
      * @param colCon2 constrains of col2
+     * @deprecated 
      */
     private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
     {
@@ -227,6 +239,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      *
      * @param colCon1 constrains of column1
      * @param colCon2 constrains of column2
+     * @deprecated 
      */
     private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2)
     {
@@ -239,6 +252,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      * This method resets camera sizes
      *
      * @param event
+     * @deprecated 
      */
     @FXML
     private void handleMenuResetCameraSizesAction(final ActionEvent event)

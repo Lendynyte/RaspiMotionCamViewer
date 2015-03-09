@@ -5,33 +5,37 @@ package camcontrols.dependencies;
  * @author Dominik Pauli
  * @version v 0.2
  */
-public class MotionCamera2SingletonTest
+public class MotionCamera1
 {
 
-    private static MotionCamera2SingletonTest instance = null;
+    private static MotionCamera1 instance = null;
 
-    protected MotionCamera2SingletonTest()
+    protected MotionCamera1()
     {
         //to stop instantatiaon
     }
 
-    public static MotionCamera2SingletonTest getInstance()
+    public static MotionCamera1 getInstance()
     {
         if (instance == null)
         {
-            instance = new MotionCamera2SingletonTest();
+            instance = new MotionCamera1();
         }
         return instance;
     }
 
+    //CAMERA VARIABLES FOR GUI
     //Handle for camera used for GUI
     private String handle;
     //Name of camera for folders
     private String name;
     //URL to camera stream
     private String URL;
+    
+    //TODO(Dominik): to be phased out
     //if the camera stream has increased size
     private boolean isFocused;
+    //TODO(Dominik): to be phased out
     //if the camera has highlighting overlay
     private boolean isHighlighted;
 

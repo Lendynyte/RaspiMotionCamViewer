@@ -1,8 +1,8 @@
 package camcontrols.gui;
 
 import camcontrols.configEditing.Parser;
-import camcontrols.dependencies.MotionCamera1SingletonTest;
-import camcontrols.dependencies.MotionCamera2SingletonTest;
+import camcontrols.dependencies.MotionCamera1;
+import camcontrols.dependencies.MotionCamera2;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -162,16 +162,16 @@ public class FXMLOptionsController implements Initializable
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                if (!MotionCamera1SingletonTest.getInstance().isCamAutoBrightness())
+                if (!MotionCamera1.getInstance().isCamAutoBrightness())
                 {
-                    MotionCamera1SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                    MotionCamera1.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
                     break;
                 }
                 break;
             case "Camera 2": //TODO(Dominik):fix
-                if (!MotionCamera2SingletonTest.getInstance().isCamAutoBrightness())
+                if (!MotionCamera2.getInstance().isCamAutoBrightness())
                 {
-                    MotionCamera2SingletonTest.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                    MotionCamera2.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
                     break;
                 }
                 break;
@@ -192,10 +192,10 @@ public class FXMLOptionsController implements Initializable
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
                 break;
             case "Camera 2":
-                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -213,10 +213,10 @@ public class FXMLOptionsController implements Initializable
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
                 break;
             case "Camera 2":
-                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -234,10 +234,10 @@ public class FXMLOptionsController implements Initializable
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                MotionCamera1SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
                 break;
             case "Camera 2":
-                MotionCamera2SingletonTest.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -254,10 +254,10 @@ public class FXMLOptionsController implements Initializable
         switch (this.cBoxCam.getSelectionModel().getSelectedItem())
         {
             case "Camera 1":
-                MotionCamera1SingletonTest.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                MotionCamera1.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
                 break;
             case "Camera 2":
-                MotionCamera2SingletonTest.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                MotionCamera2.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
                 break;
             default://TODO(Dominik):test
                 System.out.println("nothing selected");//should not happen
@@ -364,13 +364,13 @@ public class FXMLOptionsController implements Initializable
         if (this.chckAutoBrightness.isSelected())
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
-            MotionCamera1SingletonTest.getInstance().setCamAutoBrightness(true);
+            MotionCamera1.getInstance().setCamAutoBrightness(true);
             //MotionCamera2SingletonTest.getInstance().setCamAutoBrightness(true);
         }
         else
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
-            MotionCamera1SingletonTest.getInstance().setCamAutoBrightness(false);
+            MotionCamera1.getInstance().setCamAutoBrightness(false);
         }
     }
 
