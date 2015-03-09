@@ -183,7 +183,7 @@ public class CamSaveXMLCreator
         } catch (ParserConfigurationException | DOMException | TransformerException e)
         {
             e.printStackTrace();
-            System.out.println("Creating XML file failed");
+            System.err.println("Creating XML file failed");
         }
     }
 }
