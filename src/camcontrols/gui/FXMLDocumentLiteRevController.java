@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package camcontrols.gui;
 
 import java.io.BufferedInputStream;
@@ -30,11 +25,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.util.Duration;
-import camcontrols.dependencies.*;
 /**
  * FXML Controller class
  *
- * @author Dominik
+ * @author Dominik Pauli
+ * @version 0.2
  */
 public class FXMLDocumentLiteRevController implements Initializable
 {
@@ -70,107 +65,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private TextField testTFURL2;
 
-    //TODO(Dominik):maybe remove
-    private final ColumnConstraints colCon1 = new ColumnConstraints();
-    private final ColumnConstraints colCon2 = new ColumnConstraints();
-
-    //TODO(Dominik):maybe remove
-    //row Constrains declrataion
-    private final RowConstraints row1Con = new RowConstraints();
-    private final RowConstraints row2Con = new RowConstraints();
-
-    //TODO(Dominik):create method makeCamBig that takes care of these
-    /**
-     * @deprecated 
-     */
-    private void makeCam1Big()
-    {
-        //resize
-        firstColumnSizeIncrease(this.colCon1, this.colCon2);
-
-        //apply our resized properties
-        resizeCollums(colCon1, colCon2);
-
-        System.out.println("cam1 is now BIG");
-    }
-
-    private void makeCam2Big()
-    {
-        //resize
-        secondColumnSizeIncrease(colCon1, colCon2);
-
-        resizeCollums(colCon1, colCon2);
-
-        System.out.println("cam2 is now BIG");
-    }
-
-    /**
-     * @deprecated 
-     */
-    private void makeCamDefaultSize()
-    {
-        //resize
-        setDefaultGrid(colCon1, colCon2);
-
-        //apply our resized properties
-        resizeCollums(colCon1, colCon2);
-
-        System.out.println("cameras are all the same size");
-    }
-
-    //TODO(Dominik): still terible but it works
-    //TODO(Dominik):make this thing shorter
-    /**
-     * This method handle mouse input on camera panes on first click in
-     * increases their size afterthey are set to bigger size next click reset
-     * the size
-     *
-     * @param event
-     * @deprecated 
-     */
-    @FXML
-    private void handleCamFocusEvent(final MouseEvent mouseEvent)
-    {
-        //TODO(Dominik): change to switch
-      /*  if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam1.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
-         {
-         if (!this.cam1.isIsFocused())
-         {
-         makeCam1Big();
-         this.cam1.setIsFocused(true);
-         this.cam2.setIsFocused(false);
-         this.cam3.setIsFocused(false);
-         this.cam4.setIsFocused(false);
-         }
-         else
-         {
-         makeCamDefaultSize();
-
-         //TODO(Dominik):check if this helps
-         resetZooms();
-
-         this.cam1.setIsFocused(false);
-         }
-         }
-
-         if (((Styleable) mouseEvent.getSource()).getId().equals(this.cam2.getHandle()) && mouseEvent.getButton() == MouseButton.PRIMARY)
-         {
-         if (!this.cam2.isIsFocused())
-         {
-         makeCam2Big();
-         this.cam2.setIsFocused(true);
-         this.cam1.setIsFocused(false);
-         this.cam3.setIsFocused(false);
-         this.cam4.setIsFocused(false);
-         }
-         else
-         {
-         makeCamDefaultSize();
-         this.cam2.setIsFocused(false);
-         }
-         }*/
-    }
-
     //TESTING VARIABLES AND METHODS END
     /**
      * This method changes Anchor pane color to orange to highlight it
@@ -193,72 +87,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
     {
         ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
-    }
-
-    /**
-     * This method changes contents of cameraGrid collumn constrains observable
-     * list to change size of camera views
-     *
-     * @param colCon1 constrains of column1
-     * @param colCon2 constrains of column2
-     * @deprecated 
-     */
-    private void resizeCollums(ColumnConstraints colCon1, ColumnConstraints colCon2)
-    {
-        cameraGrid.getColumnConstraints().clear();
-        cameraGrid.getColumnConstraints().addAll(colCon1, colCon2);
-    }
-
-    /**
-     * This method increases width of col1 and decrases height of col2
-     *
-     * @param colCon1 constrains of col1
-     * @param colCon2 constrains of col2
-     * @deprecated 
-     */
-    private void firstColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
-    {
-        colCon1.setPercentWidth(75);
-        colCon2.setPercentWidth(25);
-    }
-
-    /**
-     * This method increases width of col1 and decrases height of col2
-     *
-     * @param colCon1 constrains of col1
-     * @param colCon2 constrains of col2
-     * @deprecated 
-     */
-    private void secondColumnSizeIncrease(ColumnConstraints colCon1, ColumnConstraints colCon2)
-    {
-        colCon1.setPercentWidth(25);
-        colCon2.setPercentWidth(75);
-    }
-
-    /**
-     *
-     * @param colCon1 constrains of column1
-     * @param colCon2 constrains of column2
-     * @deprecated 
-     */
-    private void setDefaultGrid(ColumnConstraints colCon1, ColumnConstraints colCon2)
-    {
-        //set columns
-        colCon1.setPercentWidth(50);
-        colCon2.setPercentWidth(50);
-    }
-
-    /**
-     * This method resets camera sizes
-     *
-     * @param event
-     * @deprecated 
-     */
-    @FXML
-    private void handleMenuResetCameraSizesAction(final ActionEvent event)
-    {
-        this.setDefaultGrid(colCon1, colCon2);
-        System.out.println("Camera sizes reseted...");
     }
 
     /**
@@ -289,7 +117,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private void handleMenuStartStreamAction(final ActionEvent event)
     {
-        //setCameraURLs
         testStream();
     }
 
