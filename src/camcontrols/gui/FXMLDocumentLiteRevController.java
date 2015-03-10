@@ -21,9 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.util.Duration;
 /**
  * FXML Controller class
@@ -51,13 +49,6 @@ public class FXMLDocumentLiteRevController implements Initializable
 
     @FXML
     private ScrollPane pane2;
-
-    //ImageViews
-    @FXML
-    private ImageView imageView1;
-
-    @FXML
-    private ImageView imageView2;
 
     @FXML
     private TextField testTFURL1;

@@ -15,6 +15,14 @@ import org.w3c.dom.NodeList;
  */
 public class CamSaveXMLLoader
 {
+ 
+    //http://www.mkyong.com/java/how-to-modify-xml-file-in-java-dom-parser/
+    public void EditXMLFile(String filePath)
+    {
+        //TODO(Dominik):may not be needed just create new save after appliing settings  
+    }
+    
+    
 //http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
 
     public void LoadXMLFile(String filePath)

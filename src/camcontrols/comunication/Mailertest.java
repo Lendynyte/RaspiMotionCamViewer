@@ -70,6 +70,7 @@ public class Mailertest
                 attachPart.attachFile(imagePath);
             } catch (IOException ex)
             {
+                System.err.println("Missing attachment file for e-mail");
                 ex.printStackTrace();
             }
         }
