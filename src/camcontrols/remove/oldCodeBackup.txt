@@ -1,4 +1,61 @@
 
+    
+    /**
+     * 
+     * @param parsedConfig
+     * @param targetFramerate 
+     * @deprecated 
+     */
+    private void editFramerate(ArrayList<String> parsedConfig, String targetFramerate)
+    {
+        for (String line : parsedConfig)
+        {
+            if(line.contains("framerate"))
+            {
+                parser.rewriteLine(parsedConfig, targetFramerate, parsedConfig.indexOf(line));
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param parsedConfig
+     * @param targetRotation 
+     * @deprecated 
+     */
+    private void editRotation(ArrayList<String> parsedConfig, String targetRotation)
+    {
+        for (String line : parsedConfig)
+        {
+            if(line.contains("rotate"))
+            {
+                parser.rewriteLine(parsedConfig, targetRotation, parsedConfig.indexOf(line));
+            }
+        }
+    }
+    
+    /**
+     *
+     * @param parsedConfig
+     * @param targetWidth
+     * @param targetHeight
+     */
+    private void editResolution(ArrayList<String> parsedConfig, String targetWidth, String targetHeight)
+    {
+        for (String line : parsedConfig)
+        {
+            if (line.contains("width"))
+            {
+                parser.rewriteLine(parsedConfig, targetWidth, parsedConfig.indexOf(line));
+            }
+            if (line.contains("height"))
+            {
+                parser.rewriteLine(parsedConfig, targetHeight, parsedConfig.indexOf(line));
+            }
+        }
+    }
+
+
         /*   this.imageView1.preserveRatioProperty().setValue(Boolean.FALSE);
          this.imageView2.preserveRatioProperty().setValue(Boolean.FALSE);
         

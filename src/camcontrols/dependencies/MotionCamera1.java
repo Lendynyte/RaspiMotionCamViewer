@@ -31,13 +31,8 @@ public class MotionCamera1
     private String name;
     //URL to camera stream
     private String URL;
-    
-    //TODO(Dominik): to be phased out
-    //if the camera stream has increased size
-    private boolean isFocused;
-    //TODO(Dominik): to be phased out
-    //if the camera has highlighting overlay
-    private boolean isHighlighted;
+    //path to motion configuration file
+    private String configPath;
 
     //CAMERA VARIABLES FOR CONFIGURATION FILE
     //camera rotation -- maybe remove
@@ -81,26 +76,6 @@ public class MotionCamera1
         this.name = name;
     }
 
-    public boolean isIsFocused()
-    {
-        return isFocused;
-    }
-
-    public void setIsFocused(boolean isFocused)
-    {
-        this.isFocused = isFocused;
-    }
-
-    public boolean isIsHighlighted()
-    {
-        return isHighlighted;
-    }
-
-    public void setIsHighlighted(boolean isHighlighted)
-    {
-        this.isHighlighted = isHighlighted;
-    }
-
     public String getURL()
     {
         return URL;
@@ -109,6 +84,16 @@ public class MotionCamera1
     public void setURL(String URL)
     {
         this.URL = URL;
+    }
+
+    public String getConfigPath()
+    {
+        return configPath;
+    }
+
+    public void setConfigPath(String configPath)
+    {
+        this.configPath = configPath;
     }
 
     public int getCamRotation()

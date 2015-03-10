@@ -15,10 +15,6 @@ import java.util.ArrayList;
  */
 public class Parser
 {
-    //TODO(Dominik):this thing needs some work
-    private ArrayList<String> radky = new ArrayList<String>();
-    private String configPath;
-
     /**
      * *
      * This method Creates File on designated path with name in the path and
@@ -27,7 +23,7 @@ public class Parser
      * @param list Arraylist containing data to write
      * @param path Path where the file will be created
      */
-    public void vytvorSoubor(ArrayList<String> list, String path)
+    public void createConfFile(ArrayList<String> list, String path)
     {
         File file;
         FileWriter fw = null;
@@ -79,7 +75,7 @@ public class Parser
      * @param path This is a path of file we are parsing
      *
      */
-    public void nacistRadky(ArrayList<String> list, String path)
+    public void loadConfLines(ArrayList<String> list, String path)
     {
         FileReader fr = null;
         BufferedReader br = null;
@@ -126,7 +122,7 @@ public class Parser
      * @param replacementString String to replace existing String as
      * @param lineNumber number of line to replace
      */
-    public void prepisRadek(ArrayList<String> list, String replacementString, int lineNumber)
+    public void rewriteLine(ArrayList<String> list, String replacementString, int lineNumber)
     {
         list.remove(lineNumber - 1);
         list.add(lineNumber - 1, replacementString);
@@ -153,7 +149,7 @@ public class Parser
      *
      * @param path Path where to created folders
      */
-    public void vyrobSlozky(String path)
+    public void createConfigFolders(String path)
     {
 
         boolean success = (new File(path).mkdirs());
@@ -174,7 +170,7 @@ public class Parser
      *
      * @param path path to folder to be destroyed
      */
-    public void destroyFolders(String path)
+    public void destroyConfigFolders(String path)
     {
         File file = new File(path);
         if (file.exists())
