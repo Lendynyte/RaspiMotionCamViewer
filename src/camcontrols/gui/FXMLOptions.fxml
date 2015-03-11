@@ -113,6 +113,18 @@
                            <tooltip>
                               <Tooltip fx:id="tltpQualSldr" onShowing="#handleActionTltpQualSldrShowAction" text="Empty Tooltip" />
                            </tooltip></Slider>
+                        <Label text="Camera URL:" GridPane.rowIndex="9" />
+                        <TextField fx:id="tfCamURL" promptText="URL" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label text="E-mail for alert:" GridPane.rowIndex="11" />
+                        <Label text="Send alert e-mail:" GridPane.rowIndex="10" />
+                        <TextField fx:id="tfAlertEmail" promptText="name@gmail.com" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <CheckBox fx:id="chckAlerMail" mnemonicParsing="false" onAction="#handleCheckBoxSendAutoEmailCheckBox" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label text="Store images remotely:" GridPane.rowIndex="12" />
+                        <CheckBox fx:id="chckRemoteStore" mnemonicParsing="false" onAction="#handleCheckBoxRemoteImagesCheckBox" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <Label text="Remote image path:" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfremoteStoragePath" promptText="Remote path" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="tfCamName" promptText="Camera name" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <Label text="Camera name:" GridPane.rowIndex="14" />
                             </children>
                      <opaqueInsets>
                         <Insets />
@@ -134,6 +146,7 @@
                            <tooltip>
                               <Tooltip text="Apply all settings and restart selected camera" />
                            </tooltip></Button>
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleButtonSaveButton" text="save" />
                         <Button fx:id="resetButton" mnemonicParsing="false" onAction="#handleButtonResetToDefaultButton" text="Reset to default">
                            <tooltip>
                               <Tooltip text="Reset all settings to default values" />

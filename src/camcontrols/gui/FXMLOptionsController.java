@@ -37,6 +37,9 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private Button resetButton;
 
+    @FXML
+    private Button saveButton;
+    
     //main anchor pane
     @FXML
     private AnchorPane mainPane;
@@ -53,10 +56,34 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private CheckBox chckAutoBrightness;
 
+    //alert email enable
+    @FXML
+    private CheckBox chckAlerMail;
+    
+    //enable remote image storage
+    @FXML
+    private CheckBox chckRemoteStore;
+    
     //TODO(Dominik):maybe remove this?
     //framerate text field
     @FXML
     private TextField tfFramerate;
+    
+    //URL to motion stream
+    @FXML
+    private TextField tfCamURL;
+    
+    //email for alerts
+    @FXML
+    private TextField tfAlertEmail;
+    
+    //path to remote camera storage
+    @FXML
+    private TextField tfremoteStoragePath;
+    
+    //camera display name
+    @FXML
+    private TextField tfCamName;
     
     //SLIDER VARIABLES START
     //Slider for camera brightness
@@ -110,6 +137,9 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
     {
+        saveToXMLSaveFile();
+        applyToCamera();
+        applyToConfigFile();
         System.out.println("apply button");
         //TODO(Dominik):remove this later just testing
         System.out.println(this.sldrBrightness.getValue());
@@ -146,6 +176,13 @@ public class FXMLOptionsController implements Initializable
         System.out.println(getValueFromPercentage(this.sldrHue.getValue()));
         System.out.println("Reset button");
     }
+    
+    @FXML
+    private void handleButtonSaveButton(final ActionEvent event)
+    {
+       saveToXMLSaveFile();
+       System.out.println("Save Button");
+    }   
     //BUTTON HANDLING END
 
     //SLIDER HANDLING START
@@ -365,12 +402,53 @@ public class FXMLOptionsController implements Initializable
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
             MotionCamera1.getInstance().setCamAutoBrightness(true);
-            //MotionCamera2SingletonTest.getInstance().setCamAutoBrightness(true);
+            MotionCamera2.getInstance().setCamAutoBrightness(true);
         }
         else
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
             MotionCamera1.getInstance().setCamAutoBrightness(false);
+        }
+    }
+    
+      /**
+     * This method enables automatic mailing and disables place for email adress if not selected
+     *
+     * @param event checkobox checked event
+     */
+    @FXML
+    private void handleCheckBoxSendAutoEmailCheckBox(final ActionEvent event)
+    {
+        if (this.chckAlerMail.isSelected())
+        {
+            this.tfAlertEmail.disableProperty().setValue(Boolean.FALSE);
+            this.tfAlertEmail.textProperty().setValue(null);
+            //TODO(Dominik):send mail
+        }
+        else
+        {
+            this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
+            //TODO(Dominik):turn off mailing
+        }
+    }
+    
+      /**
+     * This method enables remote storage or disables if unchecked
+     *
+     * @param event checkobox checked event
+     */
+    @FXML
+    private void handleCheckBoxRemoteImagesCheckBox(final ActionEvent event)
+    {
+        if (this.chckRemoteStore.isSelected())
+        {
+            this.tfremoteStoragePath.disableProperty().setValue(Boolean.FALSE);
+            //TODO(Dominik):enableremote storage
+        }
+        else
+        {
+            this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
+            //TODO(Dominik):disable remote storage
         }
     }
 
@@ -397,6 +475,40 @@ public class FXMLOptionsController implements Initializable
         this.cBoxResolution.getSelectionModel().selectFirst();
     }
 
+    /**
+     * This methods set the textboxes for email and remote path as uninteractive
+     */
+    private void initializeTextBoxes()
+    {
+        this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
+        this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
+    }
+    
+    /**
+     * 
+     */
+    private void saveToXMLSaveFile()
+    {
+        //TODO(Dominik):implement saving settings to save file
+    }
+    
+    /**
+     * 
+     */
+    private void applyToCamera()
+    {
+        //TODO(Dominik):add all changes to motionCameraSIngletons
+        //maybe do this right avay so i dont fuck up maybe well see just have to test for right camera
+    }
+    
+    /**
+     * 
+     */
+    private void applyToConfigFile()
+    {
+        //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
+    }
+    
     //TODO(Dominik): Maybe add tooltips to cameras and buttons ? may be nice
     /**
      * Initializes the controller class.
@@ -404,6 +516,8 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        //TODO(Dominik):if save then do not initialize to default
+        initializeTextBoxes();
         InitializeCBoxCam();
         InitializeCBoxResolution();
     }
