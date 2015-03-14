@@ -78,7 +78,6 @@ public class ConfigEditor
         //TODO(Dominik):ssh magic
     }
 
-    //TODO(Dominik):maybe do not put into the parameters but load from the singleton straight away
     /**
      *
      * @param parsedConfig

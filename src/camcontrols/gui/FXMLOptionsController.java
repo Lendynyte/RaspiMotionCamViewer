@@ -39,7 +39,7 @@ public class FXMLOptionsController implements Initializable
 
     @FXML
     private Button saveButton;
-    
+
     //main anchor pane
     @FXML
     private AnchorPane mainPane;
@@ -59,32 +59,32 @@ public class FXMLOptionsController implements Initializable
     //alert email enable
     @FXML
     private CheckBox chckAlerMail;
-    
+
     //enable remote image storage
     @FXML
     private CheckBox chckRemoteStore;
-    
+
     //TODO(Dominik):maybe remove this?
     //framerate text field
     @FXML
     private TextField tfFramerate;
-    
+
     //URL to motion stream
     @FXML
     private TextField tfCamURL;
-    
+
     //email for alerts
     @FXML
     private TextField tfAlertEmail;
-    
+
     //path to remote camera storage
     @FXML
     private TextField tfremoteStoragePath;
-    
+
     //camera display name
     @FXML
     private TextField tfCamName;
-    
+
     //SLIDER VARIABLES START
     //Slider for camera brightness
     @FXML
@@ -131,7 +131,10 @@ public class FXMLOptionsController implements Initializable
 
     //parser instance
     private Parser parser;
-    
+
+    //variable for checking data from form
+    private boolean isError = false;
+
     //BUTTON HANDLING START
     //TODO(Dominik): Create implementation
     @FXML
@@ -176,19 +179,31 @@ public class FXMLOptionsController implements Initializable
         System.out.println(getValueFromPercentage(this.sldrHue.getValue()));
         System.out.println("Reset button");
     }
-    
+
     @FXML
     private void handleButtonSaveButton(final ActionEvent event)
     {
-       saveToXMLSaveFile();
-       System.out.println("Save Button");
-    }   
+        applyToCamera();
+        saveToXMLSaveFile();
+        //TODO(Dominik): remove testing 
+        System.out.println("Save Button");
+        System.out.println(MotionCamera1.getInstance().getName());
+        System.out.println(getFXMLCamName());
+        System.out.println(MotionCamera1.getInstance().getURL());
+        System.out.println(MotionCamera1.getInstance().getCamWidth());
+        System.out.println(MotionCamera1.getInstance().getCamHeight());
+        System.out.println(getFXMLResolutionHeight());
+        System.out.println(MotionCamera1.getInstance().getCamFramerate());
+        //TODO(Dominik): rename this variable in cameras
+        System.out.println(MotionCamera1.getInstance().isCamAutoBrightness());
+    }
     //BUTTON HANDLING END
 
     //SLIDER HANDLING START
     //TODO(Dominik):check for default values and preset them to the form
     //TODO(Dominik):maybe do not snap to ticks
     //TODO(Dominik):TEST
+    //TODO(Dominik): rewrite sliders to fit other controls do chcking later just get variables
     /**
      * This method changes value of brightness in selected camera to value of 0
      * - 255 depending on slider value
@@ -331,7 +346,7 @@ public class FXMLOptionsController implements Initializable
         this.sldrSaturation.setValue(0);
         this.sldrQuality.setValue(75);
     }
-    
+
     //TOOLTIP START
     //TODO(Dominik): check after sliders work to see if this works
     /**
@@ -410,9 +425,10 @@ public class FXMLOptionsController implements Initializable
             MotionCamera1.getInstance().setCamAutoBrightness(false);
         }
     }
-    
-      /**
-     * This method enables automatic mailing and disables place for email adress if not selected
+
+    /**
+     * This method enables automatic mailing and disables place for email adress
+     * if not selected
      *
      * @param event checkobox checked event
      */
@@ -431,8 +447,8 @@ public class FXMLOptionsController implements Initializable
             //TODO(Dominik):turn off mailing
         }
     }
-    
-      /**
+
+    /**
      * This method enables remote storage or disables if unchecked
      *
      * @param event checkobox checked event
@@ -470,7 +486,7 @@ public class FXMLOptionsController implements Initializable
     private void InitializeCBoxResolution()
     {
         //TODO(Dominik): test resolutions and pick which i want to use
-        ObservableList<String> resolutions = FXCollections.observableArrayList("1920 x 1080", "1280 x 720", "1024 x 768", "800 x 600", "640 x 480", "320 x 240");
+        ObservableList<String> resolutions = FXCollections.observableArrayList("1920 x 1080", "1280 x 720", "800 x 600", "640 x 480", "320 x 240");
         this.cBoxResolution.getItems().addAll(resolutions);
         this.cBoxResolution.getSelectionModel().selectFirst();
     }
@@ -483,32 +499,216 @@ public class FXMLOptionsController implements Initializable
         this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
         this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
     }
-    
+
     /**
-     * 
+     *
      */
     private void saveToXMLSaveFile()
     {
         //TODO(Dominik):implement saving settings to save file
     }
-    
+
     /**
-     * 
+     *
      */
     private void applyToCamera()
     {
         //TODO(Dominik):add all changes to motionCameraSIngletons
         //maybe do this right avay so i dont fuck up maybe well see just have to test for right camera
+        //TODO(Dominik): maybe move sliders handling to this method also so it changes only after confirming changes
+        if (!isError)
+        {
+            switch (this.cBoxCam.getSelectionModel().getSelectedIndex())
+            {
+                case 0:
+                {
+                    MotionCamera1.getInstance().setCamWidth(getFXMLResolutionWidth());
+                    MotionCamera1.getInstance().setCamHeight(getFXMLResolutionHeight());
+                    MotionCamera1.getInstance().setCamFramerate(getFXMLFramerate());
+                    //TODO(Dominik): check for sliders if autobrightness set brightness to 0
+                    MotionCamera1.getInstance().setCamAutoBrightness(getFXMLAutoBrightness());
+
+                    MotionCamera1.getInstance().setURL(getFXMLURL());
+                    //TODO(Dominik): implement remote and emails
+
+                    MotionCamera1.getInstance().setName(getFXMLCamName());
+
+                    this.isError = false;
+                }
+                break;
+                case 1:
+                {
+                    MotionCamera2.getInstance().setCamWidth(getFXMLResolutionWidth());
+                    MotionCamera2.getInstance().setCamHeight(getFXMLResolutionHeight());
+                    MotionCamera2.getInstance().setCamFramerate(getFXMLFramerate());
+                    //TODO(Dominik): check for sliders if autobrightness set brightness to 0
+                    MotionCamera2.getInstance().setCamAutoBrightness(getFXMLAutoBrightness());
+
+                    MotionCamera2.getInstance().setURL(getFXMLURL());
+                    //TODO(Dominik): implement remote and emails
+
+                    MotionCamera2.getInstance().setName(getFXMLCamName());
+                    
+                    this.isError = false;
+                }
+                break;
+            }
+        }
     }
-    
+
     /**
-     * 
+     * This metod gets resolution from FXML optioons form and sets it in
+     * Motioncam singleton
+     */
+    private int getFXMLResolutionWidth()
+    {
+        int width = 1280;
+        switch (this.cBoxResolution.getSelectionModel().getSelectedIndex())
+        {
+            case 0:
+                width = 1920;
+                break;
+            case 1:
+                width = 1280;
+                break;
+            case 2:
+                width = 800;
+                break;
+            case 3:
+                width = 640;
+                break;
+            case 4:
+                width = 320;
+                break;
+        }
+        return width;
+    }
+
+    /**
+     * This metod gets resolution from FXML optioons form and sets it in
+     * Motioncam singleton
+     */
+    private int getFXMLResolutionHeight()
+    {
+        int height = 720;
+        switch (this.cBoxResolution.getSelectionModel().getSelectedIndex())
+        {
+            case 0:
+                height = 1080;
+                break;
+            case 1:
+                height = 720;
+                break;
+            case 2:
+                height = 600;
+                break;
+            case 3:
+                height = 480;
+                break;
+            case 4:
+                height = 240;
+                break;
+        }
+        return height;
+    }
+
+    /**
+     * This method gets Framerate variable from fxml options form
+     *
+     * @param camHandle
+     */
+    private int getFXMLFramerate()
+    {
+        //TODO(Dominik): mabe opnly parse once ?
+        int i = 2;
+        String fromForm = this.tfFramerate.getText().trim();
+        if (isNumber(fromForm))
+        {
+            i = Integer.parseInt(fromForm);
+            if (i <= 100 && i >= 0)
+            {
+                return i;
+            }
+            else
+            {
+                tfFramerate.setText("out of range");
+            }
+        }
+        else
+        {
+            tfFramerate.setText(tfFramerate.getText() + " not valid number");
+        }
+        this.isError = true;
+        return -1;
+    }
+
+    /**
+     *
+     * @return
+     */
+    private boolean getFXMLAutoBrightness()
+    {
+        return this.chckAutoBrightness.isSelected();
+    }
+
+    //TODO(Dominik): handle sliders better
+    //TODO(Dominik): URL checking
+    /**
+     *
+     * @return
+     */
+    private String getFXMLURL()
+    {
+        return this.tfCamURL.getText().trim();
+    }
+
+    //TODO(Dominik): implement these
+    //TODO(Dominik): email checking
+    /**
+     *
+     * @return
+     */
+    private boolean getFXMLAlerEmail()
+    {
+        return this.chckAlerMail.isSelected();
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String getFXMLCamName()
+    {
+        return this.tfCamName.getText().trim();
+    }
+
+    /**
+     * this method check if textz is number and returns true if it is
+     *
+     * @param text
+     * @return
+     */
+    private boolean isNumber(String text)
+    {
+        try
+        {
+            int i = Integer.parseInt(text);
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
      */
     private void applyToConfigFile()
     {
         //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
     }
-    
+
     //TODO(Dominik): Maybe add tooltips to cameras and buttons ? may be nice
     /**
      * Initializes the controller class.

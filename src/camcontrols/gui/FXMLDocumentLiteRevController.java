@@ -116,6 +116,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     {
         // preloadStream();
         //startStream();
+        startCam1Stream(null);
     }
     /*
      private void handleStreamEvent() {
@@ -162,16 +163,18 @@ public class FXMLDocumentLiteRevController implements Initializable
     //TODO(Dominik):fix still does not feel right
     private void testStream()
     {
-        /*  pane1.setContent(new ImageView() {
+       pane1.setContent(new ImageView() {
          {
-         imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
+             //file:C://Users/Dominik/Desktop/em.jpg
+             //http://192.168.1.3:8081/stream.mjpg
+         imageProperty().set(new Image("http://192.168.1.3:8081/stream.jpeg"));
          setPreserveRatio(false);
          setSmooth(true);
 
          fitWidthProperty().bind(pane1.widthProperty());
          fitHeightProperty().bind(pane1.heightProperty());
          }
-         });*/
+         });
 
         //"file:C://Users/Dominik/Desktop/em.jpg"
         
@@ -179,7 +182,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         //TODO(Dominik): add if statement to check if url is not empty after i have the url config ready maybe move to config file
         try
         {
-            startCam1Stream(this.testTFURL1.getText());
+          //  startCam1Stream(this.testTFURL1.getText());
         }
         catch (Exception e)
         {
@@ -188,7 +191,7 @@ public class FXMLDocumentLiteRevController implements Initializable
 
         try
         {
-            startCam2Stream();
+           // startCam2Stream();
         }
        catch (Exception e)
         {
@@ -215,7 +218,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         timeline.setCycleCount(Animation.INDEFINITE);
 
         //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
-        KeyFrame playStream = new KeyFrame(Duration.seconds(1),//(.0200),
+        KeyFrame playStream = new KeyFrame(Duration.seconds(.2),//(.0200),
                 new EventHandler<ActionEvent>()
                 {
 
@@ -225,7 +228,7 @@ public class FXMLDocumentLiteRevController implements Initializable
                         pane1.setContent(new ImageView()
                         {
                             {
-                                imageProperty().set(new Image("http://192.168.1.3"));
+                                imageProperty().set(new Image("http://192.168.1.3:8081/stream.mjpg"));
                                 setPreserveRatio(false);
                                 setSmooth(true);
 

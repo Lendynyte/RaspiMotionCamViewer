@@ -419,7 +419,7 @@ public class FXMLDocumentController implements Initializable
         cam3.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");
         cam4.setURL("file:C://Users/Dominik/Desktop/bcbcbc/CamControlUiv2/src/camcontrols/preload.html");*/
         
-         cam1.setURL("http://192.168.1.3");
+         cam1.setURL("http://192.168.1.3:8081/stream.mjpg");
          cam2.setURL("http://192.168.1.3");
          cam3.setURL("http://192.168.1.3:8081");
          cam4.setURL("http://192.168.1.3");
