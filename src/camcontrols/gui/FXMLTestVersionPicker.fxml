@@ -11,8 +11,6 @@
         <VBox alignment="CENTER" layoutX="171.0" layoutY="46.0" prefHeight="432.0" prefWidth="495.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="TESTING LAUNCHER" />
-                <Button fx:id="btn4CAm" mnemonicParsing="false" onAction="#handleBtn4CamAction" text="4Camera version" />
-                <Button fx:id="btn2Cam" mnemonicParsing="false" onAction="#handleBtn2CamAction" text="2CAmera version" />
                 <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleButtonOptionsAction" text="Options menu test" />
                 <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleButtonHelpMenuTEstAction" text="Help menu test" />
             <Button fx:id="btn2CamRev1" mnemonicParsing="false" onAction="#handleBtn2CamRevAction" text="2Cam version rev 1" />

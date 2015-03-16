@@ -25,12 +25,6 @@ public class FXMLTestVersionPickerController implements Initializable
 {
 
     @FXML
-    private Button btn4CAm;
-
-    @FXML
-    private Button btn2Cam;
-
-    @FXML
     private Button btnMenu;
 
     @FXML
@@ -45,42 +39,6 @@ public class FXMLTestVersionPickerController implements Initializable
          try
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDocumentLiteRev.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Help");
-            stage.show();
-        } catch (Exception e)
-        {
-            System.err.println("There was an error loading help menu FXML file");
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    private void handleBtn4CamAction(final ActionEvent event)
-    {
-        try
-        {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Help");
-            stage.show();
-        } catch (Exception e)
-        {
-            System.err.println("There was an error loading help menu FXML file");
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleBtn2CamAction(final ActionEvent event)
-    {
-        try
-        {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDocumentLite.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
