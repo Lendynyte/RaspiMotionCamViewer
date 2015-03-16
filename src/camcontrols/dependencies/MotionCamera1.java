@@ -28,7 +28,7 @@ public class MotionCamera1
     //Handle for camera used for GUI
     private String handle;
     //Name of camera for folders
-    private String name;
+    private String name = "Camera1";
     //URL to camera stream
     private String URL;
     //path to motion configuration file

@@ -1,3 +1,122 @@
+    
+    /**
+     * This method changes value of quality in selected camera to value of
+     * 50/75/100 depending on slider value
+     */
+    private void handleSldrQuality()
+    {
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                break;
+            case "Camera 2":
+                MotionCamera2.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
+                break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+
+    /**
+     * This method changes value of saturation in selected camera to value of 0
+     * - 255 depending on slider value
+     */
+    private void handleSldrSaturation()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+                break;
+            case "Camera 2":
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
+                break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+    /**
+     * This method changes value of hue in selected camera to value of 0 - 255
+     * depending on slider value
+     */
+    private void handleSldrHue()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+                break;
+            case "Camera 2":
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
+                break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+
+    /**
+     * This method changes value of contrast in selected camera to value of 0 -
+     * 255 depending on slider value
+     */
+    private void handleSldrContrast()
+    {
+        //TODO(Dominik):check of there is not better way
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+                break;
+            case "Camera 2":
+                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
+                break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+    }
+
+
+ /**
+     * This method changes value of brightness in selected camera to value of 0
+     * - 255 depending on slider value
+     */
+    private void handlSldrBrightness()
+    {
+        //TODO(Dominik):cehck if there is not a better way to do this
+        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        {
+            case "Camera 1":
+                if (!MotionCamera1.getInstance().isCamAutoBrightness())
+                {
+                    MotionCamera1.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                    break;
+                }
+                break;
+            case "Camera 2": //TODO(Dominik):fix
+                if (!MotionCamera2.getInstance().isCamAutoBrightness())
+                {
+                    MotionCamera2.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
+                    break;
+                }
+                break;
+            default://TODO(Dominik):test
+                System.out.println("nothing selected");//should not happen
+                break;
+        }
+
+    }
+
+
+
 package camcontrols.comunication;
 
 import java.util.Properties;

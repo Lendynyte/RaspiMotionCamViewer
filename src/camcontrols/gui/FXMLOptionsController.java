@@ -64,7 +64,6 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private CheckBox chckRemoteStore;
 
-    //TODO(Dominik):maybe remove this?
     //framerate text field
     @FXML
     private TextField tfFramerate;
@@ -136,7 +135,6 @@ public class FXMLOptionsController implements Initializable
     private boolean isError = false;
 
     //BUTTON HANDLING START
-    //TODO(Dominik): Create implementation
     @FXML
     private void handleButtonApplyButton(final ActionEvent event)
     {
@@ -150,11 +148,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):Load existing configuration on options menu startup
-    //TODO(Dominik):Use single menu or use checkbox to show advanced?
-    //TODO(Dominik):Think about options categorization
-    //TODO(Dominik): reimplement cameras as singletons? use somethind to comunicate betweeen classes?
     //TODO(Dominik): when the window for options is open make camera views noninteractive
-    //TODO(Dominik):add labels for sliders
     /**
      * This method closes the options window
      *
@@ -188,7 +182,7 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik): remove testing 
         System.out.println("Save Button");
         System.out.println(MotionCamera1.getInstance().getName());
-        System.out.println(getFXMLCamName());
+        System.out.println(getFXMLCamName("1"));
         System.out.println(MotionCamera1.getInstance().getURL());
         System.out.println(MotionCamera1.getInstance().getCamWidth());
         System.out.println(MotionCamera1.getInstance().getCamHeight());
@@ -205,119 +199,58 @@ public class FXMLOptionsController implements Initializable
     //TODO(Dominik):TEST
     //TODO(Dominik): rewrite sliders to fit other controls do chcking later just get variables
     /**
-     * This method changes value of brightness in selected camera to value of 0
-     * - 255 depending on slider value
+     *
+     * @return
      */
-    private void handlSldrBrightness()
+    private int getFXMLSldrBrightness()
     {
-        //TODO(Dominik):cehck if there is not a better way to do this
-        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        if (this.chckAutoBrightness.isSelected())
         {
-            case "Camera 1":
-                if (!MotionCamera1.getInstance().isCamAutoBrightness())
-                {
-                    MotionCamera1.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
-                    break;
-                }
-                break;
-            case "Camera 2": //TODO(Dominik):fix
-                if (!MotionCamera2.getInstance().isCamAutoBrightness())
-                {
-                    MotionCamera2.getInstance().setCamBrightness(getValueFromPercentage(this.sldrBrightness.getValue()));
-                    break;
-                }
-                break;
-            default://TODO(Dominik):test
-                System.out.println("nothing selected");//should not happen
-                break;
+            return 0;
         }
-
-    }
-
-    /**
-     * This method changes value of contrast in selected camera to value of 0 -
-     * 255 depending on slider value
-     */
-    private void handleSldrContrast()
-    {
-        //TODO(Dominik):check of there is not better way
-        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
+        else
         {
-            case "Camera 1":
-                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
-                break;
-            case "Camera 2":
-                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrContrast.getValue()));
-                break;
-            default://TODO(Dominik):test
-                System.out.println("nothing selected");//should not happen
-                break;
+            return getValueFromPercentage(this.sldrBrightness.getValue());
         }
     }
 
     /**
-     * This method changes value of hue in selected camera to value of 0 - 255
-     * depending on slider value
+     *
+     * @return
      */
-    private void handleSldrHue()
+    private int getFXMLSldrContrast()
     {
-        //TODO(Dominik):check of there is not better way
-        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
-        {
-            case "Camera 1":
-                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
-                break;
-            case "Camera 2":
-                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrHue.getValue()));
-                break;
-            default://TODO(Dominik):test
-                System.out.println("nothing selected");//should not happen
-                break;
-        }
+        return getValueFromPercentage(this.sldrContrast.getValue());
     }
 
     /**
-     * This method changes value of saturation in selected camera to value of 0
-     * - 255 depending on slider value
+     *
+     * @return
      */
-    private void handleSldrSaturation()
+    private int getFXMLSldrHue()
     {
-        //TODO(Dominik):check of there is not better way
-        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
-        {
-            case "Camera 1":
-                MotionCamera1.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
-                break;
-            case "Camera 2":
-                MotionCamera2.getInstance().setCamConstrast(getValueFromPercentage(this.sldrSaturation.getValue()));
-                break;
-            default://TODO(Dominik):test
-                System.out.println("nothing selected");//should not happen
-                break;
-        }
+        return getValueFromPercentage(this.sldrHue.getValue());
     }
 
     /**
-     * This method changes value of quality in selected camera to value of
-     * 50/75/100 depending on slider value
+     *
+     * @return
      */
-    private void handleSldrQuality()
+    private int getFXMLSldrSaturation()
     {
-        switch (this.cBoxCam.getSelectionModel().getSelectedItem())
-        {
-            case "Camera 1":
-                MotionCamera1.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
-                break;
-            case "Camera 2":
-                MotionCamera2.getInstance().setCamQuality((int) this.sldrQuality.getValue());//I can cast to int because the values are 50/75/100
-                break;
-            default://TODO(Dominik):test
-                System.out.println("nothing selected");//should not happen
-                break;
-        }
+        return getValueFromPercentage(this.sldrSaturation.getValue());
     }
+
+    /**
+     *
+     * @return
+     */
+    private int getFXMLSldrQuality()
+    {
+        return (int) this.sldrQuality.getValue();
+    }
+
     //SLIDER HANDLING END
-
     /**
      * This method calculates value of percentage from number 255 it is used for
      * calculating slider values for configuration file
@@ -416,16 +349,14 @@ public class FXMLOptionsController implements Initializable
         if (this.chckAutoBrightness.isSelected())
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
-            MotionCamera1.getInstance().setCamAutoBrightness(true);
-            MotionCamera2.getInstance().setCamAutoBrightness(true);
         }
         else
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
-            MotionCamera1.getInstance().setCamAutoBrightness(false);
         }
     }
 
+    //TODO(Dominik):rewrite
     /**
      * This method enables automatic mailing and disables place for email adress
      * if not selected
@@ -473,9 +404,11 @@ public class FXMLOptionsController implements Initializable
      */
     private void InitializeCBoxCam()
     {
-        //TODO(Dominik):decide on number of cameras
-        //TODO(Dominik):Maybe load from cam instances or singletons ? decide on implementation
-        ObservableList<String> cameras = FXCollections.observableArrayList("Camera 1", "Camera 2", "Camera 3", "Camera 4");
+        ObservableList<String> cameras = FXCollections.observableArrayList(MotionCamera1.getInstance().getName(), MotionCamera2.getInstance().getName());
+        if (!this.cBoxCam.getItems().isEmpty())
+        {
+            this.cBoxCam.getItems().remove(0, 2);
+        }
         this.cBoxCam.getItems().addAll(cameras);
         this.cBoxCam.getSelectionModel().selectFirst();
     }
@@ -513,9 +446,6 @@ public class FXMLOptionsController implements Initializable
      */
     private void applyToCamera()
     {
-        //TODO(Dominik):add all changes to motionCameraSIngletons
-        //maybe do this right avay so i dont fuck up maybe well see just have to test for right camera
-        //TODO(Dominik): maybe move sliders handling to this method also so it changes only after confirming changes
         if (!isError)
         {
             switch (this.cBoxCam.getSelectionModel().getSelectedIndex())
@@ -525,14 +455,19 @@ public class FXMLOptionsController implements Initializable
                     MotionCamera1.getInstance().setCamWidth(getFXMLResolutionWidth());
                     MotionCamera1.getInstance().setCamHeight(getFXMLResolutionHeight());
                     MotionCamera1.getInstance().setCamFramerate(getFXMLFramerate());
-                    //TODO(Dominik): check for sliders if autobrightness set brightness to 0
-                    MotionCamera1.getInstance().setCamAutoBrightness(getFXMLAutoBrightness());
+                    MotionCamera1.getInstance().setCamAutoBrightness(getFXMLAutoBrightness()); //TODO(Dominik):chec autobrightness/brightness interaction
+                    MotionCamera1.getInstance().setCamBrightness(getFXMLSldrBrightness());
+                    MotionCamera1.getInstance().setCamConstrast(getFXMLSldrContrast());
+                    MotionCamera1.getInstance().setCamHue(getFXMLSldrHue());
+                    MotionCamera1.getInstance().setCamSaturation(getFXMLSldrSaturation());
+                    MotionCamera1.getInstance().setCamQuality(getFXMLSldrQuality());
 
                     MotionCamera1.getInstance().setURL(getFXMLURL());
                     //TODO(Dominik): implement remote and emails
 
-                    MotionCamera1.getInstance().setName(getFXMLCamName());
+                    MotionCamera1.getInstance().setName(getFXMLCamName("1"));
 
+                    InitializeCBoxCam();
                     this.isError = false;
                 }
                 break;
@@ -541,14 +476,17 @@ public class FXMLOptionsController implements Initializable
                     MotionCamera2.getInstance().setCamWidth(getFXMLResolutionWidth());
                     MotionCamera2.getInstance().setCamHeight(getFXMLResolutionHeight());
                     MotionCamera2.getInstance().setCamFramerate(getFXMLFramerate());
-                    //TODO(Dominik): check for sliders if autobrightness set brightness to 0
                     MotionCamera2.getInstance().setCamAutoBrightness(getFXMLAutoBrightness());
+                    MotionCamera2.getInstance().setCamBrightness(getFXMLSldrBrightness());
+                    MotionCamera2.getInstance().setCamConstrast(getFXMLSldrContrast());
+                    MotionCamera2.getInstance().setCamHue(getFXMLSldrHue());
+                    MotionCamera2.getInstance().setCamSaturation(getFXMLSldrSaturation());
 
                     MotionCamera2.getInstance().setURL(getFXMLURL());
                     //TODO(Dominik): implement remote and emails
 
-                    MotionCamera2.getInstance().setName(getFXMLCamName());
-                    
+                    MotionCamera2.getInstance().setName(getFXMLCamName("2"));
+                    InitializeCBoxCam();
                     this.isError = false;
                 }
                 break;
@@ -631,12 +569,12 @@ public class FXMLOptionsController implements Initializable
             }
             else
             {
-                tfFramerate.setText("out of range");
+                tfFramerate.setText("Out of range! (0 - 100)");
             }
         }
         else
         {
-            tfFramerate.setText(tfFramerate.getText() + " not valid number");
+            tfFramerate.setText("Not valid number!");
         }
         this.isError = true;
         return -1;
@@ -651,7 +589,6 @@ public class FXMLOptionsController implements Initializable
         return this.chckAutoBrightness.isSelected();
     }
 
-    //TODO(Dominik): handle sliders better
     //TODO(Dominik): URL checking
     /**
      *
@@ -677,13 +614,20 @@ public class FXMLOptionsController implements Initializable
      *
      * @return
      */
-    private String getFXMLCamName()
+    private String getFXMLCamName(String which)
     {
-        return this.tfCamName.getText().trim();
+        if (!this.tfCamName.getText().isEmpty())
+        {
+            return this.tfCamName.getText().trim();
+        }
+        else
+        {
+            return "Camera" + which;
+        }
     }
 
     /**
-     * this method check if textz is number and returns true if it is
+     * this method check if text is a number and returns true if it is
      *
      * @param text
      * @return
@@ -693,8 +637,7 @@ public class FXMLOptionsController implements Initializable
         try
         {
             int i = Integer.parseInt(text);
-        }
-        catch (NumberFormatException e)
+        } catch (NumberFormatException e)
         {
             return false;
         }
@@ -709,7 +652,9 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
     }
 
+    //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
     //TODO(Dominik): Maybe add tooltips to cameras and buttons ? may be nice
+    //TODO(Dominik):at start load stuff from xml to form and to camear singletons
     /**
      * Initializes the controller class.
      */
