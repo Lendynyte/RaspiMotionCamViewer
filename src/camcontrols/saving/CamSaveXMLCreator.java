@@ -21,11 +21,14 @@ import org.w3c.dom.Element;
  */
 public class CamSaveXMLCreator
 {
+
     //TODO(Dominik):it is importatnt to call this AFTER i have items for setting so it is not filled with epty stuff
     //TODO(Dominik):add more options 
+    //TODO(Dominik):change this from hardcoded to just be better than this
     public void createXMLSaveFile(String savePath, String cameraName1, String cameraName2, String cameraHandle1, String cameraHandle2,
-                                  String configPathc1, String configPathc2, String URLc1, String URLc2, String rotationc1, String rotationc2, String widthc1, String widthc2, String heightc1,
-                                  String heightc2, String frameratec1, String frameratec2, String autoBrightc1, String autoBrightc2, String brightc1, String brightc2, String contc1, String contc2,
+                                  String configPathc1, String configPathc2, String URLc1, String URLc2, String rotationc1, String rotationc2,
+                                  String widthc1, String widthc2, String heightc1, String heightc2, String frameratec1, String frameratec2,
+                                  String autoBrightc1, String autoBrightc2, String brightc1, String brightc2, String contc1, String contc2,
                                   String huec1, String huec2, String saturationc1, String saturationc2, String qualityc1, String qualityc2)
     {
         try
@@ -96,83 +99,83 @@ public class CamSaveXMLCreator
 
             // width elements
             Element width1 = document.createElement("width");
-            width1.appendChild(document.createTextNode("width1"));
+            width1.appendChild(document.createTextNode(widthc1));
             cam1.appendChild(width1);
 
             Element width2 = document.createElement("width");
-            width2.appendChild(document.createTextNode("width2"));
+            width2.appendChild(document.createTextNode(widthc2));
             cam2.appendChild(width2);
 
             // height elements
             Element height1 = document.createElement("height");
-            height1.appendChild(document.createTextNode("height1"));
+            height1.appendChild(document.createTextNode(heightc1));
             cam1.appendChild(height1);
 
             Element height2 = document.createElement("height");
-            handle2.appendChild(document.createTextNode("height2"));
+            handle2.appendChild(document.createTextNode(heightc2));
             cam2.appendChild(height2);
 
             // framerate elements
             Element framerate1 = document.createElement("framerate");
-            framerate1.appendChild(document.createTextNode("framerate1"));
+            framerate1.appendChild(document.createTextNode(frameratec1));
             cam1.appendChild(framerate1);
 
             Element framerate2 = document.createElement("framerate");
-            framerate2.appendChild(document.createTextNode("framerate2"));
+            framerate2.appendChild(document.createTextNode(frameratec2));
             cam2.appendChild(framerate2);
 
             // autoBrightness elements
             Element autoBrightness1 = document.createElement("autoBrightness");
-            autoBrightness1.appendChild(document.createTextNode("AutoBrightness1"));
+            autoBrightness1.appendChild(document.createTextNode(autoBrightc1));
             cam1.appendChild(autoBrightness1);
 
             Element autoBrightness2 = document.createElement("autoBrightness");
-            autoBrightness2.appendChild(document.createTextNode("AutoBrightness2"));
+            autoBrightness2.appendChild(document.createTextNode(autoBrightc2));
             cam2.appendChild(autoBrightness2);
 
             // brightness elements
             Element brightness1 = document.createElement("brightness");
-            brightness1.appendChild(document.createTextNode("brightness1"));
+            brightness1.appendChild(document.createTextNode(brightc1));
             cam1.appendChild(brightness1);
 
             Element brightness2 = document.createElement("brightness");
-            brightness2.appendChild(document.createTextNode("brightness2"));
+            brightness2.appendChild(document.createTextNode(brightc2));
             cam2.appendChild(brightness2);
 
             // contrast elements
             Element contrast1 = document.createElement("contrast");
-            contrast1.appendChild(document.createTextNode("contrast1"));
+            contrast1.appendChild(document.createTextNode(contc1));
             cam1.appendChild(contrast1);
 
             Element contrast2 = document.createElement("contrast");
-            contrast2.appendChild(document.createTextNode("contrast2"));
+            contrast2.appendChild(document.createTextNode(contc2));
             cam2.appendChild(contrast2);
 
             // hue elements
             Element hue1 = document.createElement("hue");
-            hue1.appendChild(document.createTextNode("hue1"));
+            hue1.appendChild(document.createTextNode(huec1));
             cam1.appendChild(hue1);
 
             Element hue2 = document.createElement("hue");
-            hue2.appendChild(document.createTextNode("hue2"));
+            hue2.appendChild(document.createTextNode(huec2));
             cam2.appendChild(hue2);
 
             // saturation elements
             Element saturation1 = document.createElement("saturation");
-            saturation1.appendChild(document.createTextNode("saturation1"));
+            saturation1.appendChild(document.createTextNode(saturationc1));
             cam1.appendChild(saturation1);
 
             Element saturation2 = document.createElement("saturation");
-            saturation2.appendChild(document.createTextNode("saturation2"));
+            saturation2.appendChild(document.createTextNode(saturationc2));
             cam2.appendChild(saturation2);
 
             // quality elements
             Element quality1 = document.createElement("quality");
-            quality1.appendChild(document.createTextNode("quality1"));
+            quality1.appendChild(document.createTextNode(qualityc1));
             cam1.appendChild(quality1);
 
             Element quality2 = document.createElement("quality");
-            quality2.appendChild(document.createTextNode("quality2"));
+            quality2.appendChild(document.createTextNode(qualityc2));
             cam2.appendChild(quality2);
 
             // write the content into xml file
