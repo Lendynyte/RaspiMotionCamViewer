@@ -21,7 +21,7 @@ import javax.mail.internet.MimeMultipart;
  * http://crunchify.com/java-mailapi-example-send-an-email-via-gmail-smtp/
  * http://www.codejava.net/java-ee/javamail/send-e-mail-with-attachment-in-java
  */
-public class Mailertest
+public class Mailer
 {
 
     static Properties mailServerProperties;
@@ -87,6 +87,7 @@ public class Mailertest
         transport.close();
     }
 
+    //TODO(Dominik):remove main
     /**
      * @param args the command line arguments
      */
