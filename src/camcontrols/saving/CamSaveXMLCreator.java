@@ -53,12 +53,12 @@ public class CamSaveXMLCreator
 
             // name elements
             Element name1 = document.createElement("name");
-            name1.appendChild(document.createTextNode(cameraName1));//TODO(Dominik):add from singleton
+            name1.appendChild(document.createTextNode(cameraName1));
             cam1.appendChild(name1);
 
             // name elements
             Element name2 = document.createElement("name");
-            name2.appendChild(document.createTextNode(cameraName2));//TODO(Dominik):add from singleton
+            name2.appendChild(document.createTextNode(cameraName2));
             cam2.appendChild(name2);
 
             // handle elements

@@ -104,7 +104,6 @@ public class FXMLDocumentLiteRevController implements Initializable
         wmc.createAboutWindow();
     }
 
-    //TODO(Dominik): create method setCameraURLs
     @FXML
     private void handleMenuStartStreamAction(final ActionEvent event)
     {
@@ -118,47 +117,9 @@ public class FXMLDocumentLiteRevController implements Initializable
         //startStream();
         startCam1Stream(null);
     }
-    /*
-     private void handleStreamEvent() {
-     Timeline timeline = new Timeline();
-     timeline.setCycleCount(Animation.INDEFINITE);
-
-     //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
-     KeyFrame playStream = new KeyFrame(Duration.seconds(1),//(.0200),
-     new EventHandler<ActionEvent>() {
-
-     /*
-     *   Get URL and set the Image in ImageView to image on the URL
-     */
-    /*   @Override
-     public void handle(ActionEvent event) {
-     //uncoment commented for now because of errors from no url
-
-                        
-                        
-     if (GLOBAL_URL != "") {
-     Image image = new Image(GLOBAL_URL); // edit after I get right url
-     imageView.setImage(image);
-                            
-     //TODO: try different container
-     imageView.fitWidthProperty().bind(camContainer1.widthProperty());
-     imageView.fitHeightProperty().bind(camContainer1.heightProperty());
-                            
-                            
-     }
-     }
-     });
-
-     timeline.getKeyFrames().add(playStream);
-     timeline.play();
-     }
-    
-     */
 
     //TODO(Dominik): image View timelapse
-    //TODO(Dominik): challenge make focused cam big and the other one smaller on side
     //TODO(Dominik): maybe little rework
-    //TODO(Dominik): think about hgbar vbar policy
     // z https://community.oracle.com/thread/2320727
     //TODO(Dominik):fix still does not feel right
     private void testStream()
@@ -179,7 +140,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         //"file:C://Users/Dominik/Desktop/em.jpg"
         
         
-        //TODO(Dominik): add if statement to check if url is not empty after i have the url config ready maybe move to config file
+        //TODO(Dominik):load from camera remove testing
         try
         {
           //  startCam1Stream(this.testTFURL1.getText());
@@ -291,7 +252,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
        // testStream();
     }
 

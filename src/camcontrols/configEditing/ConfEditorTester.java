@@ -10,9 +10,6 @@ import java.util.ArrayList;
  */
 public class ConfEditorTester
 {
-    //TODO: udelat motodu ktera vse zmeni v arraylistu // working kinda
-    //TODO: udelat metodu na nastaveni path a slozky podle kamer
-    //TODO: newtworking
     /**
      * @param args the command line arguments
      */

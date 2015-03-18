@@ -132,9 +132,9 @@ public class FXMLOptionsController implements Initializable
 
     //parser instance
     private Parser parser;
-    
+
     private CamSaveXMLCreator XMLCreator;
-    
+
     private CamSaveXMLLoader XMLLoader;
 
     //variable for checking data from form
@@ -154,7 +154,6 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):Load existing configuration on options menu startup
-    //TODO(Dominik): when the window for options is open make camera views noninteractive
     /**
      * This method closes the options window
      *
@@ -174,10 +173,7 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonResetToDefaultButton(final ActionEvent event)
     {
-        //TODO(Dominik):implementation
         this.setDefaultValues();
-        System.out.println(getValueFromPercentage(this.sldrHue.getValue()));
-        System.out.println("Reset button");
     }
 
     @FXML
@@ -200,10 +196,6 @@ public class FXMLOptionsController implements Initializable
     //BUTTON HANDLING END
 
     //SLIDER HANDLING START
-    //TODO(Dominik):check for default values and preset them to the form
-    //TODO(Dominik):maybe do not snap to ticks
-    //TODO(Dominik):TEST
-    //TODO(Dominik): rewrite sliders to fit other controls do chcking later just get variables
     /**
      *
      * @return
@@ -255,8 +247,8 @@ public class FXMLOptionsController implements Initializable
     {
         return (int) this.sldrQuality.getValue();
     }
-
     //SLIDER HANDLING END
+
     /**
      * This method calculates value of percentage from number 255 it is used for
      * calculating slider values for configuration file
@@ -284,6 +276,13 @@ public class FXMLOptionsController implements Initializable
         this.sldrHue.setValue(0);
         this.sldrSaturation.setValue(0);
         this.sldrQuality.setValue(75);
+        this.tfCamName.setText(null);
+        this.tfCamURL.setText(null);
+        this.tfAlertEmail.setText(null);
+        this.tfFramerate.setText(null);
+        this.tfremoteStoragePath.setText(null);
+        this.chckAlerMail.selectedProperty().setValue(Boolean.FALSE);
+        this.chckRemoteStore.selectedProperty().setValue(Boolean.FALSE);
     }
 
     /**
@@ -297,6 +296,7 @@ public class FXMLOptionsController implements Initializable
     {
         if (this.chckAutoBrightness.isSelected())
         {
+            this.sldrBrightness.setValue(0);
             this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
         }
         else
@@ -305,7 +305,6 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
-    //TODO(Dominik):rewrite
     /**
      * This method enables automatic mailing and disables place for email adress
      * if not selected
@@ -323,6 +322,7 @@ public class FXMLOptionsController implements Initializable
         }
         else
         {
+            this.tfAlertEmail.setText(null);
             this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
             //TODO(Dominik):turn off mailing
         }
@@ -343,6 +343,7 @@ public class FXMLOptionsController implements Initializable
         }
         else
         {
+            this.tfremoteStoragePath.setText(null);
             this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
             //TODO(Dominik):disable remote storage
         }
@@ -367,7 +368,6 @@ public class FXMLOptionsController implements Initializable
      */
     private void InitializeCBoxResolution()
     {
-        //TODO(Dominik): test resolutions and pick which i want to use
         ObservableList<String> resolutions = FXCollections.observableArrayList("1920 x 1080", "1280 x 720", "800 x 600", "640 x 480", "320 x 240");
         this.cBoxResolution.getItems().addAll(resolutions);
         this.cBoxResolution.getSelectionModel().selectFirst();
@@ -538,7 +538,6 @@ public class FXMLOptionsController implements Initializable
         return this.chckAutoBrightness.isSelected();
     }
 
-    //TODO(Dominik): URL checking
     /**
      *
      * @return
@@ -548,8 +547,6 @@ public class FXMLOptionsController implements Initializable
         return this.tfCamURL.getText().trim();
     }
 
-    //TODO(Dominik): implement these
-    //TODO(Dominik): email checking
     /**
      *
      * @return
@@ -563,7 +560,7 @@ public class FXMLOptionsController implements Initializable
      *
      * @return
      */
-    private String getFXMLCamName(String which)
+    private String getFXMLCamName(String camNumber)
     {
         if (!this.tfCamName.getText().isEmpty())
         {
@@ -571,7 +568,7 @@ public class FXMLOptionsController implements Initializable
         }
         else
         {
-            return "Camera" + which;
+            return "Camera" + camNumber;
         }
     }
 
@@ -595,6 +592,59 @@ public class FXMLOptionsController implements Initializable
 
     /**
      *
+     * @param XMLPath
+     */
+    private void loadXMLtoSingleton(String XMLPath)
+    {
+        //TODO(Dominik):implement
+    }
+
+    //TODO(Dominik):testing
+    /**
+     * 
+     */
+    private void loadSingletonToForm()
+    {
+        //TODO(Dominik):impelement
+        switch (this.cBoxCam.getSelectionModel().getSelectedIndex())
+        {
+            case 0:
+            {
+                //TODO(Dominik):read resolution and set it in combo box
+                this.tfFramerate.setText(Integer.toString(MotionCamera1.getInstance().getCamFramerate()));
+                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera1.getInstance().isCamAutoBrightness());
+                //TODO(Dominik):recalculate these values back to slider values create method
+                this.sldrBrightness.setValue(MotionCamera1.getInstance().getCamBrightness());
+                this.sldrContrast.setValue(MotionCamera1.getInstance().getCamConstrast());
+                this.sldrHue.setValue(MotionCamera1.getInstance().getCamHue());
+                this.sldrSaturation.setValue(MotionCamera1.getInstance().getCamSaturation());
+                this.sldrQuality.setValue(MotionCamera1.getInstance().getCamQuality());
+                this.tfCamURL.setText(MotionCamera1.getInstance().getURL());
+                this.tfCamName.setText(MotionCamera1.getInstance().getName());
+            }
+            break;
+            case 1:
+            {
+
+                //TODO(Dominik):read resolution and set it in combo box
+                this.tfFramerate.setText(Integer.toString(MotionCamera2.getInstance().getCamFramerate()));
+                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera2.getInstance().isCamAutoBrightness());
+                //TODO(Dominik):recalculate these values back to slider values create method
+                this.sldrBrightness.setValue(MotionCamera2.getInstance().getCamBrightness());
+                this.sldrContrast.setValue(MotionCamera2.getInstance().getCamConstrast());
+                this.sldrHue.setValue(MotionCamera2.getInstance().getCamHue());
+                this.sldrSaturation.setValue(MotionCamera2.getInstance().getCamSaturation());
+                this.sldrQuality.setValue(MotionCamera2.getInstance().getCamQuality());
+                this.tfCamURL.setText(MotionCamera2.getInstance().getURL());
+                this.tfCamName.setText(MotionCamera2.getInstance().getName());
+            }
+            break;
+        }
+
+    }
+
+    /**
+     *
      */
     private void applyToConfigFile()
     {
@@ -602,7 +652,6 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
-    //TODO(Dominik): Maybe add tooltips to cameras and buttons ? may be nice
     //TODO(Dominik):at start load stuff from xml to form and to camear singletons
     /**
      * Initializes the controller class.

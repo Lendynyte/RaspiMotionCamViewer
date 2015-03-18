@@ -74,7 +74,6 @@ public class ConfigEditor
 
     private void sendConfig()
     {
-        //TODO(Dominik):impelement
         //TODO(Dominik):ssh magic
     }
 
