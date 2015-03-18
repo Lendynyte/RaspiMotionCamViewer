@@ -77,26 +77,14 @@
                            <tooltip>
                               <Tooltip text="Change active camera brightness" />
                            </tooltip></Label>
-                        <Slider fx:id="sldrBrightness" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <tooltip>
-                              <Tooltip fx:id="tltpBrightSldr" onShowing="#handleActionTltpBrighSldrShowAction" text="Empty Tooltip" />
-                           </tooltip></Slider>
+                        <Slider fx:id="sldrBrightness" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Contrast:" GridPane.rowIndex="5">
                            <tooltip>
                               <Tooltip text="Change active camera contrast" />
                            </tooltip></Label>
-                        <Slider fx:id="sldrContrast" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <tooltip>
-                              <Tooltip fx:id="tltpContSldr" onShowing="#handleActionTltpContSldrShowAction" text="Empty Tooltip" />
-                           </tooltip></Slider>
-                        <Slider fx:id="sldrHue" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <tooltip>
-                              <Tooltip fx:id="tltpHueSldr" onShowing="#handleActionTltpHueSldrShowAction" text="Empty Tooltip" />
-                           </tooltip></Slider>
-                        <Slider fx:id="sldrSaturation" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                           <tooltip>
-                              <Tooltip fx:id="tltpSaturSldr" onShowing="#handleActionTltpSaturSldrShowAction" text="Empty Tooltip" />
-                           </tooltip></Slider>
+                        <Slider fx:id="sldrContrast" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Slider fx:id="sldrHue" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Slider fx:id="sldrSaturation" majorTickUnit="10.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Hue:" GridPane.rowIndex="6">
                            <tooltip>
                               <Tooltip text="Change active camera hue" />
@@ -109,10 +97,7 @@
                            <tooltip>
                               <Tooltip text="Change active camera display quality(50%/75%/100%)" />
                            </tooltip></Label>
-                        <Slider fx:id="sldrQuality" blockIncrement="25.0" min="50.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="75.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                           <tooltip>
-                              <Tooltip fx:id="tltpQualSldr" onShowing="#handleActionTltpQualSldrShowAction" text="Empty Tooltip" />
-                           </tooltip></Slider>
+                        <Slider fx:id="sldrQuality" blockIncrement="25.0" min="50.0" minorTickCount="0" showTickMarks="true" snapToTicks="true" value="75.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Camera URL:" GridPane.rowIndex="9" />
                         <TextField fx:id="tfCamURL" promptText="URL" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="E-mail for alert:" GridPane.rowIndex="11" />

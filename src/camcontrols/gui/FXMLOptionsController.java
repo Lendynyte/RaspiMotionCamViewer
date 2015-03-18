@@ -286,63 +286,6 @@ public class FXMLOptionsController implements Initializable
         this.sldrQuality.setValue(75);
     }
 
-    //TOOLTIP START
-    //TODO(Dominik): check after sliders work to see if this works
-    /**
-     *
-     * @param event tooltip showing event
-     */
-    @FXML
-    private void handleActionTltpBrighSldrShowAction(final ActionEvent event)
-    {
-        //this.tltpBrightSldr.setText(this.sldrBrightness.toString());
-    }
-
-    //TODO(Dominik): check after sliders work to see if this works
-    /**
-     *
-     * @param event tooltip showing event
-     */
-    @FXML
-    private void handleActionTltpContSldrShowAction(final ActionEvent event)
-    {
-        //this.tltpContSldr.setText(this.sldrContrast.toString());
-    }
-
-    //TODO(Dominik): check after sliders work to see if this works
-    /**
-     *
-     * @param event tooltip showing event
-     */
-    @FXML
-    private void handleActionTltpHueSldrShowAction(final ActionEvent event)
-    {
-        // this.tltpHueSldr.setText(this.sldrHue.toString());
-    }
-
-    //TODO(Dominik): check after sliders work to see if this works
-    /**
-     *
-     * @param event tooltip showing event
-     */
-    @FXML
-    private void handleActionTltpSaturSldrShowAction(final ActionEvent event)
-    {
-        // this.tltpSaturSldr.setText(this.sldrSaturation.toString());
-    }
-
-    //TODO(Dominik): check after sliders work to see if this works
-    /**
-     *
-     * @param event tooltip showing event
-     */
-    @FXML
-    private void handleActionTltpQualSldrShowAction(final ActionEvent event)
-    {
-        // this.tltpQualSldr.setText(this.sldrQuality.toString());
-    }
-    //TOOLTUP END
-
     /**
      * This method changes autobrightness camera property and disables
      * brightness property
