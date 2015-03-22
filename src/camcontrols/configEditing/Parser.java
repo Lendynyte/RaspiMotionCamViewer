@@ -11,10 +11,11 @@ import java.util.ArrayList;
 /**
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class Parser
 {
+
     /**
      * *
      * This method Creates File on designated path with name in the path and
@@ -31,7 +32,7 @@ public class Parser
 
         try
         {
-            file = new File(path);
+            file = new File(path + "/motion.conf");
             fw = new FileWriter(file.getAbsoluteFile());
             bw = new BufferedWriter(fw);
 
@@ -41,11 +42,13 @@ public class Parser
             }
             bw.flush();
             fw.flush();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
             System.out.println("Creating file failed");
-        } finally
+        }
+        finally
         {
             try
             {
@@ -59,7 +62,8 @@ public class Parser
                     fw.close();
                 }
 
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
                 System.out.println("There was error closing streams");
@@ -90,11 +94,13 @@ public class Parser
             {
                 list.add(currentLine); // add data to provided list
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {// file was not found 
             e.printStackTrace();
             System.out.println("File was not loaded");
-        } finally
+        }
+        finally
         {// if we cannot read we still close our streams
             try
             {
@@ -106,13 +112,14 @@ public class Parser
                 { // close filereader
                     fr.close();
                 }
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {// Unable to close the file
                 e.printStackTrace();
                 System.out.println("There was error closing streams");
             }
         }
-    }//nacistRady
+    }
 
     /**
      * This method takes parsed configuration file and replaces String on
@@ -163,7 +170,7 @@ public class Parser
         }
     }
 
-    //IMPORTANT: THIS METHOD IS NOT TESETED TEST BEFORE USING ON HARMLESS FOLDER IS IT DELETES ONLY ONE OR FULL PATH
+    //TODO(Dominik): IMPORTANT: THIS METHOD IS NOT TESETED TEST BEFORE USING ON HARMLESS FOLDER IS IT DELETES ONLY ONE OR FULL PATH
     /**
      * This method destroys folders at given location used for deleting unused
      * camera folders
@@ -178,7 +185,8 @@ public class Parser
             try
             {
                 file.delete();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 e.printStackTrace();
                 System.err.println("The folder " + path + "could not be deleted!");

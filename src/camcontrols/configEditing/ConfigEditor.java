@@ -12,9 +12,6 @@ import java.util.ArrayList;
 public class ConfigEditor
 {
 
-    //create parser instance
-    private Parser parser;
-
     private final ArrayList<String> parsedConfig = new ArrayList<String>();
 
     //TODO(Dominik):maybe load a default config file?
@@ -23,7 +20,7 @@ public class ConfigEditor
      *
      * @param camHandle handle from gui to select camera fir editing
      */
-    private void fillConfig(String camHandle)
+    private void fillConfig(String camHandle, Parser parser)
     {
         this.parsedConfig.clear();
 
@@ -43,19 +40,23 @@ public class ConfigEditor
 
     /**
      *
+     * @param defaultConfPath
+     * @param parser
      */
-    private void loadDefaultConfigFile()
+    public void loadDefaultConfigFile(String defaultConfPath, Parser parser)
     {
         this.parsedConfig.clear();
 
-        parser.loadConfLines(parsedConfig, "defaultconfigpath");
+        parser.loadConfLines(this.parsedConfig, defaultConfPath);
+        System.out.println("loaded");
     }
 
     /**
      *
      * @param camHandle
+     * @param parser
      */
-    private void createConfig(String camHandle)
+    public void createConfig(String camHandle, Parser parser)
     {
         switch (camHandle)
         {
@@ -78,7 +79,9 @@ public class ConfigEditor
     }
 
     /**
-     *
+     * This method takes parsed configuration file, seeks lines with the same name as parameters 
+     * and replaces them with premade replacement target strings from config String factory
+     * 
      * @param parsedConfig
      * @param targetWidth
      * @param targetHeight
@@ -92,9 +95,9 @@ public class ConfigEditor
      * @param targetQuality
      */
     private void editConfigList(ArrayList<String> parsedConfig, String targetWidth, String targetHeight,
-                                String targetRotation, String targetFramerate, String targetAutoBright,
-                                String targetBrightness, String targetContrast, String targetHue,
-                                String targetSaturation, String targetQuality)
+            String targetRotation, String targetFramerate, String targetAutoBright,
+            String targetBrightness, String targetContrast, String targetHue,
+            String targetSaturation, String targetQuality, Parser parser)
     {
         for (String line : parsedConfig)
         {
