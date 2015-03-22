@@ -10,6 +10,7 @@ import camcontrols.dependencies.MotionCamera1;
  */
 public class CETester
 {
+    //TODO(Dominik): REMOVE
 
     /**
      * @param args the command line arguments

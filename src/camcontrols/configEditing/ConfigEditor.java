@@ -78,11 +78,12 @@ public class ConfigEditor
         //TODO(Dominik):ssh magic
     }
 
+    //TODO(Dominik): maybe prepare the strings somewhere else or save them like this in camera in the first place
+    //TODO(Dominik): or jsut create new variables called String parameters ... think about
     /**
      * This method takes parsed configuration file, seeks lines with the same name as parameters 
      * and replaces them with premade replacement target strings from config String factory
      * 
-     * @param parsedConfig
      * @param targetWidth
      * @param targetHeight
      * @param targetRotation
@@ -94,7 +95,7 @@ public class ConfigEditor
      * @param targetSaturation
      * @param targetQuality
      */
-    private void editConfigList(ArrayList<String> parsedConfig, String targetWidth, String targetHeight,
+    private void editConfigList(String targetWidth, String targetHeight,
             String targetRotation, String targetFramerate, String targetAutoBright,
             String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality, Parser parser)
@@ -103,43 +104,43 @@ public class ConfigEditor
         {
             if (line.contains("width"))
             {
-                parser.rewriteLine(parsedConfig, targetWidth, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "width " + targetWidth, parsedConfig.indexOf(line));
             }
             if (line.contains("height"))
             {
-                parser.rewriteLine(parsedConfig, targetHeight, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "height " + targetHeight, parsedConfig.indexOf(line));
             }
             if (line.contains("rotate"))
             {
-                parser.rewriteLine(parsedConfig, targetRotation, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "rotate " + targetRotation, parsedConfig.indexOf(line));
             }
             if (line.contains("framerate"))
             {
-                parser.rewriteLine(parsedConfig, targetFramerate, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "framerate " + targetFramerate, parsedConfig.indexOf(line));
             }
             if (line.contains("auto_brightness"))
             {
-                parser.rewriteLine(parsedConfig, targetAutoBright, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "auto_brightness " + targetAutoBright, parsedConfig.indexOf(line));
             }
-            if (line.contains("brightness"))
+            if (line.contains("brightness") && !line.contains("auto_brightness"))
             {
-                parser.rewriteLine(parsedConfig, targetBrightness, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "brightness " + targetBrightness, parsedConfig.indexOf(line));
             }
             if (line.contains("contrast"))
             {
-                parser.rewriteLine(parsedConfig, targetContrast, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "contrast " + targetContrast, parsedConfig.indexOf(line));
             }
             if (line.contains("hue"))
             {
-                parser.rewriteLine(parsedConfig, targetHue, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "hue " + targetHue, parsedConfig.indexOf(line));
             }
             if (line.contains("saturation"))
             {
-                parser.rewriteLine(parsedConfig, targetSaturation, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "saturation " + targetSaturation, parsedConfig.indexOf(line));
             }
-            if (line.contains("quality"))
+            if (line.contains("quality") && !line.contains("stream_quality"))
             {
-                parser.rewriteLine(parsedConfig, targetQuality, parsedConfig.indexOf(line));
+                parser.rewriteLine(parsedConfig, "quality " + targetQuality, parsedConfig.indexOf(line));
             }
         }
     }
