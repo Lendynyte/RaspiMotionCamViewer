@@ -43,9 +43,19 @@ public class FXMLHelpWindowController implements Initializable
      */
     private void setHelpText()
     {
-        this.lblHelp.setText("Help Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\nHelp Help\n");
+        this.lblHelp.setText(createHelpText());
     }
 
+    private String createHelpText()
+    {
+        String helpText;
+        
+        helpText = "Hi, Im helping!\r\n";
+        helpText = helpText.concat("a new line\r\n");
+        //TODO(Dominik):just write it normaly
+        return helpText;
+    }
+    
     /**
      * Initializes the controller class.
      */

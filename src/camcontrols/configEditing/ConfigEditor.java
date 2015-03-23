@@ -3,6 +3,7 @@ package camcontrols.configEditing;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -101,6 +102,8 @@ public class ConfigEditor
             String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality, Parser parser)
     {
+        Iterator<String> confIterator = this.parsedConfig.iterator();
+        
         //TODO(Dominik):rewrite foreach have to use iterator
         //TODO(Dominik): http://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
         for (String line : parsedConfig)
