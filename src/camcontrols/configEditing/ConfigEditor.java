@@ -94,12 +94,15 @@ public class ConfigEditor
      * @param targetHue
      * @param targetSaturation
      * @param targetQuality
+     * @param parser
      */
-    private void editConfigList(String targetWidth, String targetHeight,
+    public void editConfigList(String targetWidth, String targetHeight,
             String targetRotation, String targetFramerate, String targetAutoBright,
             String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality, Parser parser)
     {
+        //TODO(Dominik):rewrite foreach have to use iterator
+        //TODO(Dominik): http://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
         for (String line : parsedConfig)
         {
             if (line.contains("width"))

@@ -42,13 +42,11 @@ public class Parser
             }
             bw.flush();
             fw.flush();
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             e.printStackTrace();
             System.out.println("Creating file failed");
-        }
-        finally
+        } finally
         {
             try
             {
@@ -62,8 +60,7 @@ public class Parser
                     fw.close();
                 }
 
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {
                 e.printStackTrace();
                 System.out.println("There was error closing streams");
@@ -94,13 +91,11 @@ public class Parser
             {
                 list.add(currentLine); // add data to provided list
             }
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {// file was not found 
             e.printStackTrace();
             System.out.println("File was not loaded");
-        }
-        finally
+        } finally
         {// if we cannot read we still close our streams
             try
             {
@@ -112,8 +107,7 @@ public class Parser
                 { // close filereader
                     fr.close();
                 }
-            }
-            catch (IOException e)
+            } catch (IOException e)
             {// Unable to close the file
                 e.printStackTrace();
                 System.out.println("There was error closing streams");
@@ -158,7 +152,11 @@ public class Parser
      */
     public void createConfigFolders(String path)
     {
-
+        if (new File(path).exists())
+        {
+            System.out.println("Folders already created...");
+            return;
+        }
         boolean success = (new File(path).mkdirs());
         if (!success)
         {
@@ -185,8 +183,7 @@ public class Parser
             try
             {
                 file.delete();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 e.printStackTrace();
                 System.err.println("The folder " + path + "could not be deleted!");
