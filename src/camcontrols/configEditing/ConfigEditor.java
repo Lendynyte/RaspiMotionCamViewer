@@ -103,50 +103,60 @@ public class ConfigEditor
             String targetSaturation, String targetQuality, Parser parser)
     {
         Iterator<String> confIterator = this.parsedConfig.iterator();
-        
+        int position = 0;
         //TODO(Dominik):rewrite foreach have to use iterator
         //TODO(Dominik): http://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
-        for (String line : parsedConfig)
+        while(confIterator.hasNext())
         {
-            if (line.contains("width"))
+            if (confIterator.next().contains("width"))
             {
-                parser.rewriteLine(parsedConfig, "width " + targetWidth, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "width " + targetWidth, position);
             }
-            if (line.contains("height"))
+            if (confIterator.next().contains("height"))
             {
-                parser.rewriteLine(parsedConfig, "height " + targetHeight, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "height " + targetHeight, position);
             }
-            if (line.contains("rotate"))
+            if (confIterator.next().contains("rotate"))
             {
-                parser.rewriteLine(parsedConfig, "rotate " + targetRotation, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "rotate " + targetRotation, position);
             }
-            if (line.contains("framerate"))
+            if (confIterator.next().contains("framerate"))
             {
-                parser.rewriteLine(parsedConfig, "framerate " + targetFramerate, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "framerate " + targetFramerate, position);
             }
-            if (line.contains("auto_brightness"))
+            if (confIterator.next().contains("auto_brightness"))
             {
-                parser.rewriteLine(parsedConfig, "auto_brightness " + targetAutoBright, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "auto_brightness " + targetAutoBright, position);
             }
-            if (line.contains("brightness") && !line.contains("auto_brightness"))
+            if (confIterator.next().contains("brightness") && !confIterator.next().contains("auto_brightness"))
             {
-                parser.rewriteLine(parsedConfig, "brightness " + targetBrightness, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "brightness " + targetBrightness, position);
             }
-            if (line.contains("contrast"))
+            if (confIterator.next().contains("contrast"))
             {
-                parser.rewriteLine(parsedConfig, "contrast " + targetContrast, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "contrast " + targetContrast, position);
             }
-            if (line.contains("hue"))
+            if (confIterator.next().contains("hue"))
             {
-                parser.rewriteLine(parsedConfig, "hue " + targetHue, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "hue " + targetHue, position);
             }
-            if (line.contains("saturation"))
+            if (confIterator.next().contains("saturation"))
             {
-                parser.rewriteLine(parsedConfig, "saturation " + targetSaturation, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "saturation " + targetSaturation, position);
             }
-            if (line.contains("quality") && !line.contains("stream_quality"))
+            if (confIterator.next().contains("quality") && !confIterator.next().contains("stream_quality"))
             {
-                parser.rewriteLine(parsedConfig, "quality " + targetQuality, parsedConfig.indexOf(line));
+                position++;
+                parser.rewriteLine(parsedConfig, "quality " + targetQuality, position);
             }
         }
     }

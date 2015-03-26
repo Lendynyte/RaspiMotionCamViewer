@@ -27,7 +27,8 @@ public class CETester
         pars.createConfigFolders(MotionCamera1.getInstance().getConfigPath());
         pars.createConfigFolders(MotionCamera2.getInstance().getConfigPath());
         System.out.println(MotionCamera1.getInstance().getConfigPath());
-        //cfge.editConfigList("test", "test", "test", "test", "test", "test", "test", "test", "test", "test", pars);
+        //TODO(Dominik):broken
+        cfge.editConfigList("test", "test", "test", "test", "test", "test", "test", "test", "test", "test", pars);
         cfge.createConfig("cam1", pars);
         cfge.createConfig("cam2", pars);
       //  pars.destroyConfigFolders(MotionCamera1.getInstance().getConfigPath() + "/motion.conf");
