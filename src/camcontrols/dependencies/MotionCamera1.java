@@ -38,7 +38,7 @@ public class MotionCamera1 implements MotionCameraInterface
     //path to motion configuration file
     private String configPath;
     //
-    private final ArrayList<String> parsedConfig;
+    private ArrayList<String> parsedConfig;
 
     //CAMERA VARIABLES FOR CONFIGURATION FILE
     //camera rotation -- maybe remove

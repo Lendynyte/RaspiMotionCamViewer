@@ -13,6 +13,8 @@ public class CETester
 {
     //TODO(Dominik): REMOVE
 
+    //TODO(Dominik): check all possible rewrites
+    
     /**
      * @param args the command line arguments
      */
@@ -21,19 +23,21 @@ public class CETester
         Parser pars = new Parser();
 
         ConfigEditor cfge = new ConfigEditor();
-        cfge.loadDefaultConfigFile("J://test/default.conf", pars, MotionCamera1.getInstance());
+        cfge.loadDefaultConfigFile("J://test/uncommented.conf", pars, MotionCamera1.getInstance());
         cfge.loadDefaultConfigFile("J://test/default.conf", pars, MotionCamera2.getInstance());
         MotionCamera1.getInstance().setConfigPath("J://test/cam1");
         MotionCamera2.getInstance().setConfigPath("J://test/cam2");
         pars.createConfigFolders(MotionCamera1.getInstance().getConfigPath());
         pars.createConfigFolders(MotionCamera2.getInstance().getConfigPath());
         System.out.println(MotionCamera1.getInstance().getConfigPath());
-        //TODO(Dominik):broken
-        cfge.editConfigList("test", "test", "test", "test", "test", "test", "test", "test", "test", "test", pars);
+
+        
+        cfge.editConfigList(pars, "J://test/uncommented.conf", MotionCamera1.getInstance(), "test", "test", "test", "test", "test", "brightnesstest", "test", "test", "test", "test");
+
         cfge.createConfig(pars, MotionCamera1.getInstance());
         cfge.createConfig(pars, MotionCamera2.getInstance());
       //  pars.destroyConfigFolders(MotionCamera1.getInstance().getConfigPath() + "/motion.conf");
-        
+
     }
 
 }

@@ -1,6 +1,7 @@
 package camcontrols.configEditing;
 
 import camcontrols.dependencies.MotionCameraInterface;
+import java.util.ArrayList;
 
 /**
  *
@@ -53,13 +54,12 @@ public class ConfigEditor
         //TODO(Dominik):ssh magic
     }
 
-    //TODO(Dominik): maybe prepare the strings somewhere else or save them like this in camera in the first place
-    //TODO(Dominik): or jsut create new variables called String parameters ... think about
+    //TODO(Dominik): still needs rework
     /**
-     * This method takes parsed configuration file, seeks lines with the same
-     * name as parameters and replaces them with premade replacement target
-     * strings from config String factory
      *
+     * @param parser
+     * @param defaultConfPath
+     * @param MotionCamera
      * @param targetWidth
      * @param targetHeight
      * @param targetRotation
@@ -70,69 +70,114 @@ public class ConfigEditor
      * @param targetHue
      * @param targetSaturation
      * @param targetQuality
-     * @param parser
      */
-    public void editConfigList(String targetWidth, String targetHeight,
-            String targetRotation, String targetFramerate, String targetAutoBright,
-            String targetBrightness, String targetContrast, String targetHue,
-            String targetSaturation, String targetQuality, Parser parser)
+    public void editConfigList(Parser parser, String defaultConfPath, MotionCameraInterface MotionCamera,
+            String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+            String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+            String targetSaturation, String targetQuality)
     {
-        //Iterator<String> confIterator = this.parsedConfig.iterator();
-        int position = 0;
-        //TODO(Dominik):rewrite foreach have to use iterator
-        //TODO(Dominik): http://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
-        //while(confIterator.hasNext())
-       /* {
-         if (confIterator.next().contains("width"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "width " + targetWidth, position);
-         }
-         if (confIterator.next().contains("height"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "height " + targetHeight, position);
-         }
-         if (confIterator.next().contains("rotate"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "rotate " + targetRotation, position);
-         }
-         if (confIterator.next().contains("framerate"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "framerate " + targetFramerate, position);
-         }
-         if (confIterator.next().contains("auto_brightness"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "auto_brightness " + targetAutoBright, position);
-         }
-         if (confIterator.next().contains("brightness") && !confIterator.next().contains("auto_brightness"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "brightness " + targetBrightness, position);
-         }
-         if (confIterator.next().contains("contrast"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "contrast " + targetContrast, position);
-         }
-         if (confIterator.next().contains("hue"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "hue " + targetHue, position);
-         }
-         if (confIterator.next().contains("saturation"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "saturation " + targetSaturation, position);
-         }
-         if (confIterator.next().contains("quality") && !confIterator.next().contains("stream_quality"))
-         {
-         position++;
-         parser.rewriteLine(parsedConfig, "quality " + targetQuality, position);
-         }
-         }*/
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "framerate", targetFramerate))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "auto_brightness", targetAutoBright))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "brightness", "auto_brightness", targetBrightness))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "contrast", targetContrast))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "hue", targetHeight))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "saturation", targetSaturation))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "quality", "stream_quality", targetQuality))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
+    }
+
+    /**
+     *
+     * @param MotionCamera
+     * @param targetWidth
+     */
+    private boolean findChangeConfValue(Parser parser, ArrayList<String> parsedConfig, String valueToChange, String unvantedValuetoChange, String targetValue)
+    {
+        int lineNumber = -1;
+
+        for (String line : parsedConfig)
+        {
+            if (line.contains(valueToChange) && !line.contains(unvantedValuetoChange))
+            {
+                lineNumber = parsedConfig.indexOf(line);
+            }
+        }
+
+        if (lineNumber == -1)
+        {
+            System.err.println("Config File is broken loading default config...");
+            return false;
+        }
+
+        parsedConfig.set(lineNumber, valueToChange + " " + targetValue);
+        return true;
+    }
+
+    /**
+     *
+     * @param MotionCamera
+     * @param targetWidth
+     */
+    private boolean findChangeConfValue(Parser parser, ArrayList<String> parsedConfig, String valueToChange, String targetValue)
+    {
+        int lineNumber = -1;
+
+        for (String line : parsedConfig)
+        {
+            if (line.contains(valueToChange))
+            {
+                lineNumber = parsedConfig.indexOf(line);
+            }
+        }
+
+        if (lineNumber == -1)
+        {
+            System.err.println("Config File is broken loading default config...");
+            return false;
+        }
+
+        parsedConfig.set(lineNumber, valueToChange + " " + targetValue);
+        return true;
     }
 }

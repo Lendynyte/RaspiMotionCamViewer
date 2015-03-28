@@ -30,7 +30,7 @@ import javafx.scene.layout.AnchorPane;
 public class FXMLOptionsController implements Initializable
 {
 
-    //control buttons
+    //<editor-fold defaultstate="collapsed" desc="Control buttons">
     @FXML
     private Button applyButton;
 
@@ -42,10 +42,13 @@ public class FXMLOptionsController implements Initializable
 
     @FXML
     private Button saveButton;
+//</editor-fold>
 
     //main anchor pane
     @FXML
     private AnchorPane mainPane;
+    
+    //<editor-fold defaultstate="collapsed" desc="Combo boxes">
 
     //Combo box for picking camera to edit
     @FXML
@@ -54,7 +57,9 @@ public class FXMLOptionsController implements Initializable
     //Combo box for picking camera resolution
     @FXML
     private ComboBox<String> cBoxResolution;
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Checkboxes">
     //auto brightness on/off
     @FXML
     private CheckBox chckAutoBrightness;
@@ -66,8 +71,10 @@ public class FXMLOptionsController implements Initializable
     //enable remote image storage
     @FXML
     private CheckBox chckRemoteStore;
+//</editor-fold>
 
-    //framerate text field
+    //<editor-fold defaultstate="collapsed" desc="Text fields">
+//framerate text field
     @FXML
     private TextField tfFramerate;
 
@@ -86,9 +93,10 @@ public class FXMLOptionsController implements Initializable
     //camera display name
     @FXML
     private TextField tfCamName;
+//</editor-fold>
 
-    //SLIDER VARIABLES START
-    //Slider for camera brightness
+    //<editor-fold defaultstate="collapsed" desc="Sliders">
+//Slider for camera brightness
     @FXML
     private Slider sldrBrightness;
 
@@ -107,9 +115,9 @@ public class FXMLOptionsController implements Initializable
     //Slider for camera quality
     @FXML
     private Slider sldrQuality;
-    //SLIDER VARIABLES END
+//</editor-fold>
 
-    //TOOLTIP VARIABLES START
+    //<editor-fold defaultstate="collapsed" desc="Tooltips">
     //tooltip for brightness slider
     @FXML
     private Tooltip tltpBrightSldr;
@@ -129,7 +137,7 @@ public class FXMLOptionsController implements Initializable
     //tooltip for quality slider
     @FXML
     private Tooltip tltpQualSldr;
-    //TOOLTIP VARIABLES END
+    //</editor-fold>
 
     //parser instance
     private Parser parser;

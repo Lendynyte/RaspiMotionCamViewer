@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+
 /**
  * FXML Controller class
  *
@@ -32,6 +33,7 @@ import javafx.util.Duration;
 public class FXMLDocumentLiteRevController implements Initializable
 {
 
+    //<editor-fold defaultstate="collapsed" desc="FXML form variables">
     @FXML
     private AnchorPane mainPane;
 
@@ -41,7 +43,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private MenuBar menuBar;
 
-    //TESTING VARIABLES AND METHODS
     //webView containers
     @FXML
     private ScrollPane pane1;
@@ -55,8 +56,8 @@ public class FXMLDocumentLiteRevController implements Initializable
 
     @FXML
     private TextField testTFURL2;
+    //</editor-fold>
 
-    //TESTING VARIABLES AND METHODS END
     /**
      * This method changes Anchor pane color to orange to highlight it
      *
@@ -124,26 +125,25 @@ public class FXMLDocumentLiteRevController implements Initializable
     //TODO(Dominik):fix still does not feel right
     private void testStream()
     {
-       pane1.setContent(new ImageView() {
-         {
+        pane1.setContent(new ImageView()
+        {
+            {
              //file:C://Users/Dominik/Desktop/em.jpg
-             //http://192.168.1.3:8081/stream.mjpg
-         imageProperty().set(new Image("http://192.168.1.3:8081/stream.jpeg"));
-         setPreserveRatio(false);
-         setSmooth(true);
+                //http://192.168.1.3:8081/stream.mjpg
+                imageProperty().set(new Image("http://192.168.1.3:8081/stream.jpeg"));
+                setPreserveRatio(false);
+                setSmooth(true);
 
-         fitWidthProperty().bind(pane1.widthProperty());
-         fitHeightProperty().bind(pane1.heightProperty());
-         }
-         });
+                fitWidthProperty().bind(pane1.widthProperty());
+                fitHeightProperty().bind(pane1.heightProperty());
+            }
+        });
 
         //"file:C://Users/Dominik/Desktop/em.jpg"
-        
-        
         //TODO(Dominik):load from camera remove testing
         try
         {
-          //  startCam1Stream(this.testTFURL1.getText());
+            //  startCam1Stream(this.testTFURL1.getText());
         }
         catch (Exception e)
         {
@@ -152,11 +152,11 @@ public class FXMLDocumentLiteRevController implements Initializable
 
         try
         {
-           // startCam2Stream();
+            // startCam2Stream();
         }
-       catch (Exception e)
+        catch (Exception e)
         {
-           System.out.println("no URL in cam 2");
+            System.out.println("no URL in cam 2");
         }
 
         /* pane2.setContent(new ImageView()
@@ -211,7 +211,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         this.pane2.setContent(new ImageView()
         {
             {
-             
+
                 URL url = new URL("http://192.168.1.3:8081");
                 System.out.println(url.getFile());
                 System.out.println(url.getContent().toString());
@@ -226,9 +226,8 @@ public class FXMLDocumentLiteRevController implements Initializable
                 System.out.println(url.getContent());
                 System.out.println(url.getHost());
                 System.out.println(url.getPort());
-                
-                
-               // InputStream is = new InputStream
+
+                // InputStream is = new InputStream
                 imageProperty().set(new Image(is));
                 setPreserveRatio(false);
                 setSmooth(true);
@@ -252,7 +251,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-       // testStream();
+        // testStream();
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Dominik Pauli
- * @version 0.3
+ * @version 0.4
  */
 public class Parser
 {
@@ -42,11 +42,13 @@ public class Parser
             }
             bw.flush();
             fw.flush();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
-            e.printStackTrace();
-            System.out.println("Creating file failed");
-        } finally
+            //e.printStackTrace();
+            System.err.println("Creating file failed");
+        }
+        finally
         {
             try
             {
@@ -60,9 +62,10 @@ public class Parser
                     fw.close();
                 }
 
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
                 System.out.println("There was error closing streams");
             }
         }
@@ -91,11 +94,13 @@ public class Parser
             {
                 list.add(currentLine); // add data to provided list
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {// file was not found 
-            e.printStackTrace();
-            System.out.println("File was not loaded");
-        } finally
+            //e.printStackTrace();
+            System.err.println("File was not loaded");
+        }
+        finally
         {// if we cannot read we still close our streams
             try
             {
@@ -107,29 +112,15 @@ public class Parser
                 { // close filereader
                     fr.close();
                 }
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {// Unable to close the file
-                e.printStackTrace();
-                System.out.println("There was error closing streams");
+                //e.printStackTrace();
+                System.err.println("There was error closing streams");
             }
         }
     }
 
-    /**
-     * This method takes parsed configuration file and replaces String on
-     * lineNumber for provided replacementString
-     *
-     * @param list parsen configuration file for editing
-     * @param replacementString String to replace existing String as
-     * @param lineNumber number of line to replace
-     */
-    public void rewriteLine(ArrayList<String> list, String replacementString, int lineNumber)
-    {
-        list.remove(lineNumber - 1);
-        list.add(lineNumber - 1, replacementString);
-    }
-
-    //TODO: move these methods to camera constructor after created
     /**
      *
      * @param camName name of camera ex. cam1 etc...
@@ -168,7 +159,6 @@ public class Parser
         }
     }
 
-    //TODO(Dominik): IMPORTANT: THIS METHOD IS NOT TESETED TEST BEFORE USING ON HARMLESS FOLDER IS IT DELETES ONLY ONE OR FULL PATH
     /**
      * This method destroys folders at given location used for deleting unused
      * camera folders
@@ -183,9 +173,10 @@ public class Parser
             try
             {
                 file.delete();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
                 System.err.println("The folder " + path + "could not be deleted!");
             }
         }

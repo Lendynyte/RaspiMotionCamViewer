@@ -1,4 +1,78 @@
-     
+    /**
+     * This method takes parsed configuration file and replaces String on
+     * lineNumber for provided replacementString
+     *
+     * @param list parsen configuration file for editing
+     * @param replacementString String to replace existing String as
+     * @param lineNumber number of line to replace
+     */
+    public void rewriteLine(ArrayList<String> list, String replacementString, int lineNumber)
+    {
+        //list.remove(lineNumber - 1);
+       //list.add(lineNumber - 1, replacementString);
+        list.set(lineNumber, replacementString);
+    }
+
+
+
+
+ //Iterator<String> confIterator = this.parsedConfig.iterator();
+        int position = 0;
+        //TODO(Dominik):rewrite foreach have to use iterator
+        //TODO(Dominik): http://stackoverflow.com/questions/3184883/concurrentmodificationexception-for-arraylist
+        //while(confIterator.hasNext())
+       /* {
+         if (confIterator.next().contains("width"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "width " + targetWidth, position);
+         }
+         if (confIterator.next().contains("height"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "height " + targetHeight, position);
+         }
+         if (confIterator.next().contains("rotate"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "rotate " + targetRotation, position);
+         }
+         if (confIterator.next().contains("framerate"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "framerate " + targetFramerate, position);
+         }
+         if (confIterator.next().contains("auto_brightness"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "auto_brightness " + targetAutoBright, position);
+         }
+         if (confIterator.next().contains("brightness") && !confIterator.next().contains("auto_brightness"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "brightness " + targetBrightness, position);
+         }
+         if (confIterator.next().contains("contrast"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "contrast " + targetContrast, position);
+         }
+         if (confIterator.next().contains("hue"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "hue " + targetHue, position);
+         }
+         if (confIterator.next().contains("saturation"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "saturation " + targetSaturation, position);
+         }
+         if (confIterator.next().contains("quality") && !confIterator.next().contains("stream_quality"))
+         {
+         position++;
+         parser.rewriteLine(parsedConfig, "quality " + targetQuality, position);
+         }
+         }*/     
 
 
 
