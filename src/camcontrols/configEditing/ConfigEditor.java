@@ -5,7 +5,7 @@ import camcontrols.dependencies.MotionCameraInterface;
 /**
  *
  * @author Dominik Pauli
- * @version 0.3
+ * @version 0.4
  */
 public class ConfigEditor
 {

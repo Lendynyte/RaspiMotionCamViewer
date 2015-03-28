@@ -1,12 +1,19 @@
-create package system for this thing so i stay organised
-swap webView to ImageView
-rework ui for 2 cameras 
+Maybe add set parsed config to interface
+
+
+
+
+
+
+
+
+
 remove useless stuff
-modularize more
-rework cameras if i use 2 just use singletons
+
+
 options menu functions
 xml
-2cam rework
+
 ssh
 imageview rework
 think about vlc stream

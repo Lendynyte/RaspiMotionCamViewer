@@ -3,6 +3,7 @@ package camcontrols.gui;
 import camcontrols.configEditing.Parser;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
+import camcontrols.dependencies.MotionCameraInterface;
 import camcontrols.saving.CamSaveXMLCreator;
 import camcontrols.saving.CamSaveXMLLoader;
 import java.net.URL;
@@ -583,7 +584,8 @@ public class FXMLOptionsController implements Initializable
         try
         {
             int i = Integer.parseInt(text);
-        } catch (NumberFormatException e)
+        }
+        catch (NumberFormatException e)
         {
             return false;
         }
@@ -601,7 +603,7 @@ public class FXMLOptionsController implements Initializable
 
     //TODO(Dominik):testing
     /**
-     * 
+     *
      */
     private void loadSingletonToForm()
     {
@@ -642,6 +644,25 @@ public class FXMLOptionsController implements Initializable
         }
 
     }
+    
+    /**
+     * 
+     */
+    private void loadToForm(MotionCameraInterface MotionCamera)
+    {
+    //TODO(Dominik):read resolution and set it in combo box
+                this.tfFramerate.setText(Integer.toString(MotionCamera2.getInstance().getCamFramerate()));
+                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera2.getInstance().isCamAutoBrightness());
+                //TODO(Dominik):recalculate these values back to slider values create method
+                this.sldrBrightness.setValue(MotionCamera2.getInstance().getCamBrightness());
+                this.sldrContrast.setValue(MotionCamera2.getInstance().getCamConstrast());
+                this.sldrHue.setValue(MotionCamera2.getInstance().getCamHue());
+                this.sldrSaturation.setValue(MotionCamera2.getInstance().getCamSaturation());
+                this.sldrQuality.setValue(MotionCamera2.getInstance().getCamQuality());
+                this.tfCamURL.setText(MotionCamera2.getInstance().getURL());
+                this.tfCamName.setText(MotionCamera2.getInstance().getName());
+    }
+    
 
     /**
      *
