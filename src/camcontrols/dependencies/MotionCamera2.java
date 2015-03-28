@@ -1,11 +1,13 @@
 package camcontrols.dependencies;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Dominik Pauli
  * @version v 0.2
  */
-public class MotionCamera2
+public class MotionCamera2 implements CofigEditaable
 {
 
     private static MotionCamera2 instance = null;
@@ -32,6 +34,8 @@ public class MotionCamera2
     private String URL;
     //path to motion configuration file
     private String configPath;
+    //
+    private ArrayList<String> parsedConfig = new ArrayList<String>();
 
     //CAMERA VARIABLES FOR CONFIGURATION FILE
     //camera rotation -- maybe remove
@@ -55,6 +59,12 @@ public class MotionCamera2
     //camera quality (50/75/100)
     private int camQuality;
 
+    @Override
+    public ArrayList<String> getParsedConfig()
+    {
+        return this.parsedConfig;
+    }
+    
     public String getHandle()
     {
         return handle;
@@ -85,6 +95,7 @@ public class MotionCamera2
         this.URL = URL;
     }
 
+    @Override
     public String getConfigPath()
     {
         return configPath;

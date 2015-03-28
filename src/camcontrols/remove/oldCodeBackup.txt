@@ -1,4 +1,26 @@
-    /*
+     
+
+
+
+ switch (camHandle)
+        {
+            case "cam1":
+                //TODO(Dominik):maybe save to temp location after that send using ssh send
+                parser.createConfFile(parsedConfig, MotionCamera1.getInstance().getConfigPath());
+                break;
+            case "cam2":
+                parser.createConfFile(parsedConfig, MotionCamera2.getInstance().getConfigPath());
+                break;
+            default:
+                System.err.println("Wrong cam handle detected");
+                break;
+        }
+
+
+
+
+
+/*
      private void handleStreamEvent() {
      Timeline timeline = new Timeline();
      timeline.setCycleCount(Animation.INDEFINITE);
