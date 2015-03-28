@@ -402,20 +402,7 @@ public class FXMLOptionsController implements Initializable
             {
                 case 0:
                 {
-                    MotionCamera1.getInstance().setCamWidth(getFXMLResolutionWidth());
-                    MotionCamera1.getInstance().setCamHeight(getFXMLResolutionHeight());
-                    MotionCamera1.getInstance().setCamFramerate(getFXMLFramerate());
-                    MotionCamera1.getInstance().setCamAutoBrightness(getFXMLAutoBrightness()); //TODO(Dominik):chec autobrightness/brightness interaction
-                    MotionCamera1.getInstance().setCamBrightness(getFXMLSldrBrightness());
-                    MotionCamera1.getInstance().setCamConstrast(getFXMLSldrContrast());
-                    MotionCamera1.getInstance().setCamHue(getFXMLSldrHue());
-                    MotionCamera1.getInstance().setCamSaturation(getFXMLSldrSaturation());
-                    MotionCamera1.getInstance().setCamQuality(getFXMLSldrQuality());
-
-                    MotionCamera1.getInstance().setURL(getFXMLURL());
-                    //TODO(Dominik): implement remote and emails
-
-                    MotionCamera1.getInstance().setName(getFXMLCamName("1"));
+                    saveToCameraSingleton(MotionCamera1.getInstance(), "1");
 
                     InitializeCBoxCam();
                     this.isError = false;
@@ -423,25 +410,34 @@ public class FXMLOptionsController implements Initializable
                 break;
                 case 1:
                 {
-                    MotionCamera2.getInstance().setCamWidth(getFXMLResolutionWidth());
-                    MotionCamera2.getInstance().setCamHeight(getFXMLResolutionHeight());
-                    MotionCamera2.getInstance().setCamFramerate(getFXMLFramerate());
-                    MotionCamera2.getInstance().setCamAutoBrightness(getFXMLAutoBrightness());
-                    MotionCamera2.getInstance().setCamBrightness(getFXMLSldrBrightness());
-                    MotionCamera2.getInstance().setCamConstrast(getFXMLSldrContrast());
-                    MotionCamera2.getInstance().setCamHue(getFXMLSldrHue());
-                    MotionCamera2.getInstance().setCamSaturation(getFXMLSldrSaturation());
+                    saveToCameraSingleton(MotionCamera2.getInstance(), "2");
 
-                    MotionCamera2.getInstance().setURL(getFXMLURL());
-                    //TODO(Dominik): implement remote and emails
-
-                    MotionCamera2.getInstance().setName(getFXMLCamName("2"));
                     InitializeCBoxCam();
                     this.isError = false;
                 }
                 break;
             }
         }
+    }
+
+    /**
+     *
+     */
+    private void saveToCameraSingleton(MotionCameraInterface MotionCamera, String camNumberToName)
+    {
+        MotionCamera.setCamWidth(getFXMLResolutionWidth());
+        MotionCamera.setCamHeight(getFXMLResolutionHeight());
+        MotionCamera.setCamFramerate(getFXMLFramerate());
+        MotionCamera.setCamAutoBrightness(getFXMLAutoBrightness());
+        MotionCamera.setCamBrightness(getFXMLSldrBrightness());
+        MotionCamera.setCamConstrast(getFXMLSldrContrast());
+        MotionCamera.setCamHue(getFXMLSldrHue());
+        MotionCamera.setCamSaturation(getFXMLSldrSaturation());
+
+        MotionCamera.setURL(getFXMLURL());
+        //TODO(Dominik): implement remote and emails
+
+        MotionCamera.setName(getFXMLCamName(camNumberToName));
     }
 
     /**
@@ -583,7 +579,7 @@ public class FXMLOptionsController implements Initializable
     {
         try
         {
-            int i = Integer.parseInt(text);
+            int isNumber = Integer.parseInt(text);
         }
         catch (NumberFormatException e)
         {
@@ -612,57 +608,35 @@ public class FXMLOptionsController implements Initializable
         {
             case 0:
             {
-                //TODO(Dominik):read resolution and set it in combo box
-                this.tfFramerate.setText(Integer.toString(MotionCamera1.getInstance().getCamFramerate()));
-                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera1.getInstance().isCamAutoBrightness());
-                //TODO(Dominik):recalculate these values back to slider values create method
-                this.sldrBrightness.setValue(MotionCamera1.getInstance().getCamBrightness());
-                this.sldrContrast.setValue(MotionCamera1.getInstance().getCamConstrast());
-                this.sldrHue.setValue(MotionCamera1.getInstance().getCamHue());
-                this.sldrSaturation.setValue(MotionCamera1.getInstance().getCamSaturation());
-                this.sldrQuality.setValue(MotionCamera1.getInstance().getCamQuality());
-                this.tfCamURL.setText(MotionCamera1.getInstance().getURL());
-                this.tfCamName.setText(MotionCamera1.getInstance().getName());
+                loadToForm(MotionCamera1.getInstance());
             }
             break;
             case 1:
             {
-
-                //TODO(Dominik):read resolution and set it in combo box
-                this.tfFramerate.setText(Integer.toString(MotionCamera2.getInstance().getCamFramerate()));
-                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera2.getInstance().isCamAutoBrightness());
-                //TODO(Dominik):recalculate these values back to slider values create method
-                this.sldrBrightness.setValue(MotionCamera2.getInstance().getCamBrightness());
-                this.sldrContrast.setValue(MotionCamera2.getInstance().getCamConstrast());
-                this.sldrHue.setValue(MotionCamera2.getInstance().getCamHue());
-                this.sldrSaturation.setValue(MotionCamera2.getInstance().getCamSaturation());
-                this.sldrQuality.setValue(MotionCamera2.getInstance().getCamQuality());
-                this.tfCamURL.setText(MotionCamera2.getInstance().getURL());
-                this.tfCamName.setText(MotionCamera2.getInstance().getName());
+                loadToForm(MotionCamera2.getInstance());
             }
             break;
         }
 
     }
-    
+
     /**
-     * 
+     *
      */
     private void loadToForm(MotionCameraInterface MotionCamera)
     {
-    //TODO(Dominik):read resolution and set it in combo box
-                this.tfFramerate.setText(Integer.toString(MotionCamera2.getInstance().getCamFramerate()));
-                this.chckAutoBrightness.selectedProperty().setValue(MotionCamera2.getInstance().isCamAutoBrightness());
-                //TODO(Dominik):recalculate these values back to slider values create method
-                this.sldrBrightness.setValue(MotionCamera2.getInstance().getCamBrightness());
-                this.sldrContrast.setValue(MotionCamera2.getInstance().getCamConstrast());
-                this.sldrHue.setValue(MotionCamera2.getInstance().getCamHue());
-                this.sldrSaturation.setValue(MotionCamera2.getInstance().getCamSaturation());
-                this.sldrQuality.setValue(MotionCamera2.getInstance().getCamQuality());
-                this.tfCamURL.setText(MotionCamera2.getInstance().getURL());
-                this.tfCamName.setText(MotionCamera2.getInstance().getName());
+        //TODO(Dominik):read resolution and set it in combo box
+        this.tfFramerate.setText(Integer.toString(MotionCamera.getCamFramerate()));
+        this.chckAutoBrightness.selectedProperty().setValue(MotionCamera.isCamAutoBrightness());
+        //TODO(Dominik):recalculate these values back to slider values create method
+        this.sldrBrightness.setValue(MotionCamera.getCamBrightness());
+        this.sldrContrast.setValue(MotionCamera.getCamConstrast());
+        this.sldrHue.setValue(MotionCamera.getCamHue());
+        this.sldrSaturation.setValue(MotionCamera.getCamSaturation());
+        this.sldrQuality.setValue(MotionCamera.getCamQuality());
+        this.tfCamURL.setText(MotionCamera.getURL());
+        this.tfCamName.setText(MotionCamera.getName());
     }
-    
 
     /**
      *
