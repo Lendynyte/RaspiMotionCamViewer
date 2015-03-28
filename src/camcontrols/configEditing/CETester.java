@@ -21,7 +21,8 @@ public class CETester
         Parser pars = new Parser();
 
         ConfigEditor cfge = new ConfigEditor();
-        cfge.loadDefaultConfigFile("J://test/default.conf", pars);
+        cfge.loadDefaultConfigFile("J://test/default.conf", pars, MotionCamera1.getInstance());
+        cfge.loadDefaultConfigFile("J://test/default.conf", pars, MotionCamera2.getInstance());
         MotionCamera1.getInstance().setConfigPath("J://test/cam1");
         MotionCamera2.getInstance().setConfigPath("J://test/cam2");
         pars.createConfigFolders(MotionCamera1.getInstance().getConfigPath());

@@ -2,6 +2,25 @@
 
 
 
+
+
+this.parsedConfig.clear();
+
+        switch (camHandle)
+        {
+            case "cam1":
+                parser.loadConfLines(parsedConfig, MotionCamera1.getInstance().getConfigPath());
+                break;
+            case "cam2":
+                parser.loadConfLines(parsedConfig, MotionCamera2.getInstance().getConfigPath());
+                break;
+            default:
+                System.err.println("Wrong cam handle detected");
+                break;
+        }
+
+
+
  switch (camHandle)
         {
             case "cam1":

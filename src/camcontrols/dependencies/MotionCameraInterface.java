@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  * @author Dominik Pauli
  */
-public interface CofigEditaable
+public interface MotionCameraInterface
 {
     /**
      * 

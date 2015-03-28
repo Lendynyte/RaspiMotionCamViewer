@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Dominik Pauli
  * @version v 0.2
  */
-public class MotionCamera2 implements CofigEditaable
+public class MotionCamera2 implements MotionCameraInterface
 {
 
     private static MotionCamera2 instance = null;
