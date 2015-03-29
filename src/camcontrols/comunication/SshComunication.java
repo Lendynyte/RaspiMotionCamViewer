@@ -24,19 +24,19 @@ public class SshComunication
     /**
      * This method connects to remote machine trough ssh using Jsch.
      *
-     * @param camLogin
-     * @param camPassword
-     * @param camIp
+     * @param login
+     * @param password
+     * @param ip
      * @param sshPort
      * @param sshTimeout
      */
-    public void sshConnect(String camLogin, String camPassword, String camIp, int sshPort, int sshTimeout)
+    public void sshConnect(String login, String password, String ip, int sshPort, int sshTimeout)
     {
         try
         {
             this.jschSSH = new JSch();
-            this.sshSession = jschSSH.getSession(camLogin, camIp, sshPort);
-            this.sshSession.setPassword(camPassword);
+            this.sshSession = jschSSH.getSession(login, ip, sshPort);
+            this.sshSession.setPassword(password);
             this.sshSession.setConfig("StrictHostKeyChecking", "no");
             this.sshSession.connect(sshTimeout);
 
@@ -103,33 +103,19 @@ public class SshComunication
     public void sendFile(File fileToSend, int sshTimeout)
     {
         //TODO(Dominik): implement
-
-        //String remoteFile = "/home/john/test.txt";
-    /*            
-         ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
-         sftpChannel.connect();
-            
-         InputStream out = null;
-         out = sftpChannel.get(remoteFile);
-         BufferedReader br = new BufferedReader(new InputStreamReader(out));
-         String line;
-         while ((line = br.readLine()) != null) {
-         System.out.println(line);
-         }
-         br.close();*/
     }
 
     /**
      *
-     * @param camLogin
-     * @param camPassword
-     * @param camIp
+     * @param login
+     * @param password
+     * @param ip
      * @param port
      * @param sshTimeout
      */
-    public SshComunication(String camLogin, String camPassword, String camIp, int port, int sshTimeout)
+    public SshComunication(String login, String password, String ip, int port, int sshTimeout)
     {
-        sshConnect(camLogin, camPassword, camIp, port, sshTimeout);
+        sshConnect(login, password, ip, port, sshTimeout);
     }
 
 }

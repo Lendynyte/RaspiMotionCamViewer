@@ -62,6 +62,10 @@ public class MotionCamera1 implements MotionCameraInterface
     //camera quality (50/75/100)
     private int camQuality;
 
+    private String camLogin;
+
+    private String camPassword;
+
     @Override
     public ArrayList<String> getParsedConfig()
     {
@@ -236,4 +240,27 @@ public class MotionCamera1 implements MotionCameraInterface
         this.camQuality = camQuality;
     }
 
+    @Override
+    public String getCamLogin()
+    {
+        return camLogin;
+    }
+
+    @Override
+    public String getCamPassword()
+    {
+        return camPassword;
+    }
+    
+    @Override
+    public void setCamLogin(String camLogin)
+    {
+        this.camLogin = camLogin;
+    }
+
+    @Override
+    public void setCamPassword(String camPassword)
+    {
+        this.camPassword = camPassword;
+    }
 }
