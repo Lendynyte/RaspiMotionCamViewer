@@ -1,6 +1,5 @@
 package camcontrols.comunication;
 
-import camcontrols.dependencies.MotionCameraInterface;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -99,20 +98,19 @@ public class SshComunication
 
     /**
      *
-     * @param MotionCamera
+     * @param remtoteConfigPath
      * @param fileToSend
      * @param sshTimeout
      */
-    public void uploadFile(MotionCameraInterface MotionCamera, File fileToSend, int sshTimeout)
+    public void uploadFile(String remtoteConfigPath, File fileToSend, int sshTimeout)
     {
-        //TODO(Dominik): 
         try
         {
             ChannelSftp channelSftp = (ChannelSftp) this.sshSession.openChannel("sftp");
             channelSftp.connect(sshTimeout);
 
             System.out.println("Trying to send file ...");
-            channelSftp.put(new FileInputStream(fileToSend), MotionCamera.getConfigPath(), ChannelSftp.OVERWRITE);
+            channelSftp.put(new FileInputStream(fileToSend), remtoteConfigPath, ChannelSftp.OVERWRITE);
             System.out.println("File succesfully send...");
 
             channelSftp.disconnect();
@@ -131,12 +129,36 @@ public class SshComunication
 
     /**
      *
-     * @param fileName
+     * @param folderName
+     * @param storageFolderPath
      * @param sshTimeout
      */
-    public void downloadFile(String fileName, int sshTimeout)
+    public void downloadFile(String folderName, String storageFolderPath, int sshTimeout)
     {
+        try
+        {
+            ChannelSftp channelSftp = (ChannelSftp) this.sshSession.openChannel("sftp");
+            channelSftp.connect(sshTimeout);
 
+            System.out.println("Trying to download files ...");
+            for (Object file : channelSftp.ls(folderName))
+            {
+                ((ChannelSftp.LsEntry) file).getFilename();
+
+                System.out.println("Saving file" + ((ChannelSftp.LsEntry) file).getFilename());
+                channelSftp.get(((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
+                System.out.println("File succesfully downloaded ...");
+            }
+            System.out.println("All files succesfully downloaded");
+
+            channelSftp.disconnect();
+        } catch (JSchException e)
+        {
+            System.err.println("Unable to create sftp session ...");
+        } catch (SftpException e)
+        {
+            System.err.println("Downloading file failed ...");
+        }
     }
 
     /**

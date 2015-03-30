@@ -31,6 +31,8 @@ public class SshTest
         MotionCamera1.getInstance().setCamPassword(password);
         MotionCamera1.getInstance().setURL(ip);
 
+        //TODO(Dominik):when sending add /motion.conf to file or it prob wont work .. test it
+        
         //ssh.runMotion(MotionCamera1.getInstance());
         ssh.turnOffRaspberry(MotionCamera1.getInstance());
 
