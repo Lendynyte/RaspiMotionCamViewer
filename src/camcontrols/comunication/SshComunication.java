@@ -112,7 +112,7 @@ public class SshComunication
             channelSftp.connect(sshTimeout);
 
             System.out.println("Trying to send file ...");
-            channelSftp.put(new FileInputStream(fileToSend), MotionCamera.getConfigPath());
+            channelSftp.put(new FileInputStream(fileToSend), MotionCamera.getConfigPath(), ChannelSftp.OVERWRITE);
             System.out.println("File succesfully send...");
 
             channelSftp.disconnect();
