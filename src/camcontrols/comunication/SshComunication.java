@@ -143,10 +143,8 @@ public class SshComunication
             System.out.println("Trying to download files ...");
             for (Object file : channelSftp.ls(folderName))
             {
-                ((ChannelSftp.LsEntry) file).getFilename();
-
                 System.out.println("Saving file" + ((ChannelSftp.LsEntry) file).getFilename());
-                channelSftp.get(((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
+                channelSftp.get(folderName + ((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
                 System.out.println("File succesfully downloaded ...");
             }
             System.out.println("All files succesfully downloaded");
