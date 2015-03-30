@@ -185,26 +185,38 @@ public interface MotionCameraInterface
     public void setCamQuality(int camQuality);
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getCamLogin();
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getCamPassword();
-    
+
     /**
-     * 
-     * @param camLogin 
+     *
+     * @param camLogin
      */
     public void setCamLogin(String camLogin);
 
     /**
-     * 
-     * @param camPassword 
+     *
+     * @param camPassword
      */
     public void setCamPassword(String camPassword);
+
+    /**
+     *
+     * @return
+     */
+    public String getImageFolderPath();
+
+    /**
+     *
+     * @param camImageFolderPath
+     */
+    public void setImageFolderPath(String camImageFolderPath);
 }

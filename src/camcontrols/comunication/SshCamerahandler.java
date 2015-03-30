@@ -82,8 +82,7 @@ public class SshCamerahandler
     {
         SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, sshTimeout);
 
-       //TODO(Dominik):add ImageFOlderPath to motioncameras
-        //sshComunication.downloadFiles(MotionCamera.getImageFolderPath(), storagePath, sshTimeout);
+        sshComunication.downloadFiles(MotionCamera.getImageFolderPath(), storagePath, sshTimeout);
         
         sshComunication.sshDisconnect();
     }

@@ -65,6 +65,8 @@ public class MotionCamera2 implements MotionCameraInterface
 
     private String camPassword;
 
+    private String camImageFolderPath;
+
     @Override
     public ArrayList<String> getParsedConfig()
     {
@@ -261,5 +263,17 @@ public class MotionCamera2 implements MotionCameraInterface
     public void setCamPassword(String camPassword)
     {
         this.camPassword = camPassword;
+    }
+
+    @Override
+    public String getImageFolderPath()
+    {
+        return camImageFolderPath;
+    }
+
+    @Override
+    public void setImageFolderPath(String camImageFolderPath)
+    {
+        this.camImageFolderPath = camImageFolderPath;
     }
 }
