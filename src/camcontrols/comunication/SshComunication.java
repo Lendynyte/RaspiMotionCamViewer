@@ -127,13 +127,14 @@ public class SshComunication
         }
     }
 
+    //TODO(Dominik):test how log it takes to download large amount of files if it is too slow add some sort of status checking and make user be able to stop download
     /**
      *
      * @param folderName
      * @param storageFolderPath
      * @param sshTimeout
      */
-    public void downloadFile(String folderName, String storageFolderPath, int sshTimeout)
+    public void downloadFiles(String folderName, String storageFolderPath, int sshTimeout)
     {
         try
         {
@@ -147,7 +148,7 @@ public class SshComunication
                 channelSftp.get(folderName + ((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
                 System.out.println("File succesfully downloaded ...");
             }
-            System.out.println("All files succesfully downloaded");
+            System.out.println("All files succesfully downloaded ...");
 
             channelSftp.disconnect();
         } catch (JSchException e)
