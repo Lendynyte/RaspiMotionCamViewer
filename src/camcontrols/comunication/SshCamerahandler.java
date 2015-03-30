@@ -1,6 +1,7 @@
 package camcontrols.comunication;
 
 import camcontrols.dependencies.MotionCameraInterface;
+import java.io.File;
 
 /**
  *
@@ -64,7 +65,7 @@ public class SshCamerahandler
     {
         SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, 10000);
 
-        sshComunication.sendFile(null, sshTimeout);
+        sshComunication.uploadFile(MotionCamera, new File(confFileLocation), sshTimeout);
 
         sshComunication.sshDisconnect();
     }

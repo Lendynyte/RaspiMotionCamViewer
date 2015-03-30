@@ -1,11 +1,16 @@
 package camcontrols.comunication;
 
+import camcontrols.dependencies.MotionCameraInterface;
 import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,8 +46,7 @@ public class SshComunication
             this.sshSession.connect(sshTimeout);
 
             System.out.println("SSH session created ...");
-        }
-        catch (JSchException e)
+        } catch (JSchException e)
         {
             System.err.println("Unable to create ssh session ...");
         }
@@ -84,12 +88,10 @@ public class SshComunication
             System.out.println("Command executed ...");
 
             channelExec.disconnect();
-        }
-        catch (JSchException e)
+        } catch (JSchException e)
         {
             System.err.println("Unable to run command exec ...");
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
             System.err.println("Unable to create input stream ...");
         }
@@ -97,12 +99,44 @@ public class SshComunication
 
     /**
      *
+     * @param MotionCamera
      * @param fileToSend
      * @param sshTimeout
      */
-    public void sendFile(File fileToSend, int sshTimeout)
+    public void uploadFile(MotionCameraInterface MotionCamera, File fileToSend, int sshTimeout)
     {
-        //TODO(Dominik): implement
+        //TODO(Dominik): 
+        try
+        {
+            ChannelSftp channelSftp = (ChannelSftp) this.sshSession.openChannel("sftp");
+            channelSftp.connect(sshTimeout);
+
+            System.out.println("Trying to send file ...");
+            channelSftp.put(new FileInputStream(fileToSend), MotionCamera.getConfigPath());
+            System.out.println("File succesfully send...");
+
+            channelSftp.disconnect();
+
+        } catch (JSchException e)
+        {
+            System.err.println("Unable to create sftp session ...");
+        } catch (SftpException e)
+        {
+            System.err.println("Sending file failed ...");
+        } catch (FileNotFoundException e)
+        {
+            System.err.println("File to send does not exist ...");
+        }
+    }
+
+    /**
+     *
+     * @param fileName
+     * @param sshTimeout
+     */
+    public void downloadFile(String fileName, int sshTimeout)
+    {
+
     }
 
     /**
