@@ -1,5 +1,6 @@
 package camcontrols.comunication;
 
+import camcontrols.dependencies.MotionCameraInterface;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
@@ -17,9 +18,8 @@ import javax.mail.internet.MimeMultipart;
 
 /**
  *
- * @author Dominik from
- * http://crunchify.com/java-mailapi-example-send-an-email-via-gmail-smtp/
- * http://www.codejava.net/java-ee/javamail/send-e-mail-with-attachment-in-java
+ * @author Dominik Pauli
+ * @version 0.2
  */
 public class Mailer
 {
@@ -28,31 +28,40 @@ public class Mailer
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-    public static void generateAndSendEmail(String imagePath) throws AddressException, MessagingException
+    //TODO(Dominik):make private
+    /**
+     *
+     * http://www.codejava.net/java-ee/javamail/send-e-mail-with-attachment-in-java
+     * http://crunchify.com/java-mailapi-example-send-an-email-via-gmail-smtp/
+     *
+     * @param emailLogin
+     * @param emailPassword
+     * @param imagePath
+     * @param targetEmail
+     * @throws AddressException
+     * @throws MessagingException
+     */
+    public static void generateAndSendEmail(String emailLogin, String emailPassword, String targetEmail, String imagePath) throws AddressException, MessagingException
     {
 
-//TODO(Dominik):remove messages
-//Create mail server	
-        System.out.println("\n 1st ===> setup Mail Server Properties..");
+        //Create mail server	
+        System.out.println("Setting up mail server properties ...");
         mailServerProperties = System.getProperties();
         mailServerProperties.put("mail.smtp.port", "587");
         mailServerProperties.put("mail.smtp.auth", "true");
         mailServerProperties.put("mail.smtp.starttls.enable", "true");
         mailServerProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        System.out.println("Mail Server Properties have been setup successfully..");
+        System.out.println("Mail Server Properties have been setup successfully ...");
 
-//create mail	
-        //TODO(Dominik): maybe add peg files as attachment
-        System.out.println("\n\n 2nd ===> get Mail Session..");
+        //Generate mail	
+        System.out.println("Getting mail session ...");
         getMailSession = Session.getDefaultInstance(mailServerProperties, null);
         generateMailMessage = new MimeMessage(getMailSession);
-        generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("target mail"));
-        //generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("test2@crunchify.com"));
-        generateMailMessage.setSubject("Movement detected");
+        generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(targetEmail));
+        generateMailMessage.setSubject("Movement detected!");
         generateMailMessage.setSentDate(new Date());
 
         String emailBody = "There was movement spotted!";
-        //generateMailMessage.setContent(emailBody, "text/html");
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setContent(emailBody, "text/html");
@@ -62,41 +71,36 @@ public class Mailer
 
         MimeBodyPart attachPart = new MimeBodyPart();
 
-        //TODO(Dominik):fix
         if (imagePath != null)
         {
             try
             {
                 attachPart.attachFile(imagePath);
-            } catch (IOException ex)
+            } catch (IOException e)
             {
-                System.err.println("Missing attachment file for e-mail");
-                ex.printStackTrace();
+                System.err.println("Attachment file for mail not found ...");
             }
         }
         multipart.addBodyPart(attachPart);
 
         generateMailMessage.setContent(multipart);
-        System.out.println("Mail Session has been created successfully..");
+        System.out.println("Mail Session has been created successfully ...");
 
-//send mail	
-        System.out.println("\n\n 3rd ===> Get Session and Send mail");
+        //Send mail	
+        System.out.println("Sending mail ...");
         Transport transport = getMailSession.getTransport("smtp");
-        transport.connect("smtp.gmail.com", "login", "password");
+        transport.connect("smtp.gmail.com", emailLogin, emailPassword);
         transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
         transport.close();
     }
 
-    //TODO(Dominik):remove main
     /**
-     * @param args the command line arguments
+     *
+     * @param MotionCamera
      */
-    public static void main(String[] args) throws MessagingException
+    public void sendCamImage(MotionCameraInterface MotionCamera)
     {
-        //TODO(Dominik):you have to set application settings in google security settings
-        generateAndSendEmail(null);
-        System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
-
+        //TODO(Dominik):implement
     }
 
 }
