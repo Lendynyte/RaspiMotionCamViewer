@@ -231,4 +231,41 @@ public interface MotionCameraInterface
      * @param XMLSavePath
      */
     public void setXMLSavePath(String XMLSavePath);
+
+    /**
+     *
+     * @return
+     */
+    public String getEmailLogin();
+
+    /**
+     *
+     * @param emailLogin
+     */
+    public void setEmailLogin(String emailLogin);
+
+    /**
+     *
+     * @return
+     */
+    public String getEmailPassword();
+
+    /**
+     *
+     * @param emailPassword
+     */
+    public void setEmailPassword(String emailPassword);
+
+    /**
+     *
+     * @return
+     */
+    public String getAlerEmail();
+
+    /**
+     *
+     * @param alerEmail
+     */
+    public void setAlerEmail(String alerEmail);
+
 }

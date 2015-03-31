@@ -70,6 +70,12 @@ public class MotionCamera1 implements MotionCameraInterface
 
     private String XMLSavePath;
 
+    private String emailLogin;
+
+    private String emailPassword;
+
+    private String alerEmail;
+
     @Override
     public ArrayList<String> getParsedConfig()
     {
@@ -290,5 +296,41 @@ public class MotionCamera1 implements MotionCameraInterface
     public void setXMLSavePath(String XMLSavePath)
     {
         this.XMLSavePath = XMLSavePath;
+    }
+
+    @Override
+    public String getEmailLogin()
+    {
+        return emailLogin;
+    }
+
+    @Override
+    public void setEmailLogin(String emailLogin)
+    {
+        this.emailLogin = emailLogin;
+    }
+
+    @Override
+    public String getEmailPassword()
+    {
+        return emailPassword;
+    }
+
+    @Override
+    public void setEmailPassword(String emailPassword)
+    {
+        this.emailPassword = emailPassword;
+    }
+
+    @Override
+    public String getAlerEmail()
+    {
+        return alerEmail;
+    }
+
+    @Override
+    public void setAlerEmail(String alerEmail)
+    {
+        this.alerEmail = alerEmail;
     }
 }

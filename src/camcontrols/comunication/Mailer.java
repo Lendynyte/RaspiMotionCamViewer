@@ -2,7 +2,6 @@ package camcontrols.comunication;
 
 import camcontrols.dependencies.MotionCameraInterface;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -41,7 +40,7 @@ public class Mailer
      * @throws AddressException
      * @throws MessagingException
      */
-    public static void generateAndSendEmail(String emailLogin, String emailPassword, String targetEmail, String imagePath) throws AddressException, MessagingException
+    private static void generateAndSendEmail(String emailLogin, String emailPassword, String targetEmail, String imagePath) throws AddressException, MessagingException
     {
 
         //Create mail server	
@@ -100,7 +99,13 @@ public class Mailer
      */
     public void sendCamImage(MotionCameraInterface MotionCamera)
     {
-        //TODO(Dominik):implement
+        try
+        {
+            generateAndSendEmail(MotionCamera.getEmailLogin(), MotionCamera.getEmailPassword(), MotionCamera.getAlerEmail(), MotionCamera.getImageFolderPath());
+        } catch (MessagingException e)
+        {
+            System.err.println("Unable to send message ...");
+        }
     }
 
 }

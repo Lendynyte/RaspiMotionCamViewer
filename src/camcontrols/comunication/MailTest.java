@@ -1,6 +1,5 @@
 package camcontrols.comunication;
 
-import static camcontrols.comunication.Mailer.generateAndSendEmail;
 import javax.mail.MessagingException;
 
 /**
@@ -18,7 +17,7 @@ public class MailTest
     public static void main(String[] args) throws MessagingException
     {
         //TODO(Dominik):you have to set application settings in google security settings
-        generateAndSendEmail("login", "password", "targetmail", "c://test/test.png");
+        //generateAndSendEmail("login", "password", "targetmail", "c://test/test.png");
         System.out.println("Mail send");
 
     }
