@@ -4,8 +4,6 @@ import camcontrols.configEditing.Parser;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import camcontrols.dependencies.MotionCameraInterface;
-import camcontrols.saving.CamSaveXMLCreator;
-import camcontrols.saving.CamSaveXMLLoader;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -141,10 +139,6 @@ public class FXMLOptionsController implements Initializable
 
     //parser instance
     private Parser parser;
-
-    private CamSaveXMLCreator XMLCreator;
-
-    private CamSaveXMLLoader XMLLoader;
 
     //variable for checking data from form
     private boolean isError = false;

@@ -219,4 +219,16 @@ public interface MotionCameraInterface
      * @param camImageFolderPath
      */
     public void setImageFolderPath(String camImageFolderPath);
+
+    /**
+     *
+     * @return
+     */
+    public String getXMLSavePath();
+
+    /**
+     *
+     * @param XMLSavePath
+     */
+    public void setXMLSavePath(String XMLSavePath);
 }

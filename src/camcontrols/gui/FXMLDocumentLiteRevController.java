@@ -58,6 +58,8 @@ public class FXMLDocumentLiteRevController implements Initializable
     private TextField testTFURL2;
     //</editor-fold>
 
+    
+    //TODO(Dominik):changed to full jre from compact 3
     /**
      * This method changes Anchor pane color to orange to highlight it
      *
@@ -129,7 +131,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         {
             {
              //file:C://Users/Dominik/Desktop/em.jpg
-                //http://192.168.1.3:8081/stream.mjpg
+                //http://192.168.1.3:8081/stream.mjpg               
                 imageProperty().set(new Image("http://192.168.1.3:8081/stream.jpeg"));
                 setPreserveRatio(false);
                 setSmooth(true);
