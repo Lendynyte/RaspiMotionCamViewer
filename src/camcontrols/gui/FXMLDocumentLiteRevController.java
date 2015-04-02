@@ -1,8 +1,12 @@
 package camcontrols.gui;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import camcontrols.dependencies.MotionCamera1;
+import camcontrols.dependencies.MotionCamera2;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
+import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
+import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
+import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,15 +14,14 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -51,15 +54,71 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private ScrollPane pane2;
 
-    @FXML
-    private TextField testTFURL1;
-
-    @FXML
-    private TextField testTFURL2;
     //</editor-fold>
 
-    
-    //TODO(Dominik):changed to full jre from compact 3
+    /**
+     * Set ipcam webcam Driver
+     */
+    static
+    {
+        Webcam.setDriver(new IpCamDriver());
+    }
+
+    /**
+     * This method has to be called only once
+     *
+     * @throws MalformedURLException
+     */
+    private void registerCameras() throws MalformedURLException
+    {
+        IpCamDeviceRegistry.register("Camera 1", MotionCamera1.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+        IpCamDeviceRegistry.register("Camera 2", MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+    }
+
+    /**
+     *
+     */
+    private void openWebcams()
+    {
+        //TODO(Dominik): implement
+    }
+
+    //TODO(Dominik): fix check if cameras exist
+    /**
+     *
+     */
+    private void closeWebcams()
+    {
+        if (Webcam.getWebcams().get(0).isOpen())
+        {
+            Webcam.getWebcams().get(0).close();
+        }
+        if (Webcam.getWebcams().get(1).isOpen())
+        {
+            Webcam.getWebcams().get(1).close();
+        }
+    }
+
+    /**
+     *
+     * @param grabbedImage
+     * @return
+     */
+    private ImageView repaintImage(BufferedImage grabbedImage)
+    {
+        WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+            }
+        }
+        return new ImageView(writableImage);
+    }
+
     /**
      * This method changes Anchor pane color to orange to highlight it
      *
@@ -110,136 +169,55 @@ public class FXMLDocumentLiteRevController implements Initializable
     @FXML
     private void handleMenuStartStreamAction(final ActionEvent event)
     {
-        testStream();
+        //TODO(Dominik): add checking for cameras and stuff
+
+        //TODO(Dominik): using only one camera input for now cuz i dont have 2 cameras
+        startCamStream(this.pane1, 0);
+        startCamStream(this.pane2, 0);
     }
 
     @FXML
     private void handleMenuStopStreamAction(final ActionEvent event)
     {
-        // preloadStream();
-        //startStream();
-        startCam1Stream(null);
+        //TODO(Dominik): implement
     }
 
-    //TODO(Dominik): image View timelapse
-    //TODO(Dominik): maybe little rework
-    // z https://community.oracle.com/thread/2320727
-    //TODO(Dominik):fix still does not feel right
-    private void testStream()
+    /**
+     * This method puts imageView inside of pane and fits its width and height
+     */
+    private void initializePane(ScrollPane pane)
     {
-        pane1.setContent(new ImageView()
+        pane.setContent(new ImageView()
         {
             {
-             //file:C://Users/Dominik/Desktop/em.jpg
-                //http://192.168.1.3:8081/stream.mjpg               
-                imageProperty().set(new Image("http://192.168.1.3:8081/stream.jpeg"));
                 setPreserveRatio(false);
                 setSmooth(true);
 
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
+                fitWidthProperty().bind(pane.widthProperty());
+                fitHeightProperty().bind(pane.heightProperty());
             }
         });
-
-        //"file:C://Users/Dominik/Desktop/em.jpg"
-        //TODO(Dominik):load from camera remove testing
-        try
-        {
-            //  startCam1Stream(this.testTFURL1.getText());
-        }
-        catch (Exception e)
-        {
-            System.out.println("no URL in cam 1");
-        }
-
-        try
-        {
-            // startCam2Stream();
-        }
-        catch (Exception e)
-        {
-            System.out.println("no URL in cam 2");
-        }
-
-        /* pane2.setContent(new ImageView()
-         {
-         {
-         imageProperty().set(new Image("file:C://Users/Dominik/Desktop/em.jpg"));
-         setPreserveRatio(false);
-         setSmooth(true);
-
-         fitWidthProperty().bind(pane1.widthProperty());
-         fitHeightProperty().bind(pane1.heightProperty());
-         }
-         });*/
     }
 
-    //refreshing is lagging a lot may not need needs testing
-    private void startCam1Stream(String URL)
+    /**
+     *
+     * @param pane
+     * @param webcamNumber
+     */
+    private void startCamStream(ScrollPane pane, int webcamNumber)
     {
-        Timeline timeline = new Timeline();
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev ->
+        {
+            pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+        }));
         timeline.setCycleCount(Animation.INDEFINITE);
-
-        //TODO: It is lagging each time the timeline is refreshed if the furation is under 1 sec the windows is not responding at all
-        KeyFrame playStream = new KeyFrame(Duration.seconds(.2),//(.0200),
-                new EventHandler<ActionEvent>()
-                {
-
-                    @Override
-                    public void handle(ActionEvent event)
-                    {
-                        pane1.setContent(new ImageView()
-                        {
-                            {
-                                imageProperty().set(new Image("http://192.168.1.3:8081/stream.mjpg"));
-                                setPreserveRatio(false);
-                                setSmooth(true);
-
-                                fitWidthProperty().bind(pane1.widthProperty());
-                                fitHeightProperty().bind(pane1.heightProperty());
-                            }
-
-                        });
-                    }
-
-                });
-
-        timeline.getKeyFrames().add(playStream);
         timeline.play();
     }
 
-    private void startCam2Stream() throws MalformedURLException, IOException
-    {
-        this.pane2.setContent(new ImageView()
-        {
-            {
-
-                URL url = new URL("http://192.168.1.3:8081");
-                System.out.println(url.getFile());
-                System.out.println(url.getContent().toString());
-                System.out.println(url.openConnection());
-                System.out.println(url.openStream());
-                url.openConnection();
-                url.openStream();
-                InputStream is = new BufferedInputStream(url.openStream());
-                System.out.println(is.available());
-                System.out.println(is.read());
-                System.out.println(is.toString());
-                System.out.println(url.getContent());
-                System.out.println(url.getHost());
-                System.out.println(url.getPort());
-
-                // InputStream is = new InputStream
-                imageProperty().set(new Image(is));
-                setPreserveRatio(false);
-                setSmooth(true);
-
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
-            }
-        });
-    }
-
+    /**
+     * 
+     * @param event 
+     */
     @FXML
     private void handleMenuOptionsMenu(final ActionEvent event)
     {
@@ -247,13 +225,42 @@ public class FXMLDocumentLiteRevController implements Initializable
         wmc.createOptionsWindow();
     }
 
+    //TODO(Dominik): handle when i cannot connect to not crash
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // testStream();
+        try
+        {
+            //TODO(Dominik): remove testing
+            MotionCamera1.getInstance().setURL("http://192.168.1.10");
+            MotionCamera2.getInstance().setURL("http://192.168.1.10");
+
+            registerCameras();
+
+            System.out.println(Webcam.getWebcams());
+
+            //  openWebcams();
+            Webcam.getWebcams().get(0).open();
+            System.out.println(Webcam.getWebcams().get(0).isOpen());
+
+            System.out.println(Webcam.getWebcams().get(0).getImage());
+
+            //  testStream();
+            initializePane(this.pane1);
+            initializePane(this.pane2);
+        }
+        catch (MalformedURLException e)
+        {
+
+            System.err.println("Registering cameras failed");
+        }
+
     }
 
 }
