@@ -55,7 +55,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     private ScrollPane pane2;
 
     //</editor-fold>
-
     /**
      * Set ipcam webcam Driver
      */
@@ -83,6 +82,29 @@ public class FXMLDocumentLiteRevController implements Initializable
         //TODO(Dominik): implement
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //TODO(Dominik): add timeline variables
+    //TODO(Dominik): add variable for open menu isOpen
+    //TODO(Dominik): when menu is open pause timelines
+    //TODO(Dominik): when menu is closed start timelines
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //TODO(Dominik): fix check if cameras exist
     /**
      *
@@ -206,7 +228,7 @@ public class FXMLDocumentLiteRevController implements Initializable
      */
     private void startCamStream(ScrollPane pane, int webcamNumber)
     {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev ->
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
         {
             pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
         }));
@@ -215,8 +237,8 @@ public class FXMLDocumentLiteRevController implements Initializable
     }
 
     /**
-     * 
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleMenuOptionsMenu(final ActionEvent event)
