@@ -3,16 +3,11 @@ package camcontrols.comunication;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Dominik Pauli
- * @version 0.1
+ * @version 0.2
  */
 public class CameraAvailabilityTester
 {
@@ -26,7 +21,6 @@ public class CameraAvailabilityTester
      */
     public boolean isReachable(String ipAddress)
     {
-        //TODO(Dominik):old version may work test if does but dont think it will
         String command = "ping " + ipAddress;
         String inputLine;
 
@@ -35,9 +29,9 @@ public class CameraAvailabilityTester
         try
         {
             process = runtime.exec(command);
-        } catch (IOException ex)
+        } catch (IOException e)
         {
-            Logger.getLogger(CameraAvailabilityTester.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Unable to get exec acces to remote ...");
         }
 
         BufferedReader bufferReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -53,14 +47,14 @@ public class CameraAvailabilityTester
             }
         } catch (IOException e)
         {
-            System.out.println("Failed to read input ...");
+            System.err.println("Failed to read input ...");
         }
         try
         {
             bufferReader.close();
         } catch (IOException e)
         {
-            System.out.println("Unable to close buffered reader ...");
+            System.err.println("Unable to close buffered reader ...");
         }
         return false;
     }
