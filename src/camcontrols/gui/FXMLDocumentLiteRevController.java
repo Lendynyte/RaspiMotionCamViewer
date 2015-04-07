@@ -31,7 +31,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.4
  */
 public class FXMLDocumentLiteRevController implements Initializable
 {
@@ -96,7 +96,10 @@ public class FXMLDocumentLiteRevController implements Initializable
     //TODO(Dominik): when menu is open pause timelines
     //TODO(Dominik): when menu is closed start timelines
     
-    
+    //TODO(Dominik): Check if on windows and use webcampanel if on rpi use timeline
+    //TODO(Dominik): check for cameras only after pinging them first
+    //TODO(Dominik): show warning only when i debug mode
+    //TODO(Dominik):implement debug mode
     
     
     
@@ -257,7 +260,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try
+        /*try
         {
             //TODO(Dominik): remove testing
             MotionCamera1.getInstance().setURL("http://192.168.1.10");
@@ -281,7 +284,7 @@ public class FXMLDocumentLiteRevController implements Initializable
         {
 
             System.err.println("Registering cameras failed");
-        }
+        }*/
 
     }
 
