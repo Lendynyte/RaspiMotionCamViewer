@@ -81,15 +81,6 @@ public class FXMLDocumentLiteRevController implements Initializable
     {
         //TODO(Dominik): implement
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
     
     //TODO(Dominik): add timeline variables
     //TODO(Dominik): add variable for open menu isOpen
@@ -101,13 +92,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     //TODO(Dominik): show warning only when i debug mode
     //TODO(Dominik):implement debug mode
     
-    
-    
-    
-    
-    
-    
-    
+  
     //TODO(Dominik): fix check if cameras exist
     /**
      *
@@ -260,6 +245,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        //TODO(Dominik): remove from init block
         /*try
         {
             //TODO(Dominik): remove testing

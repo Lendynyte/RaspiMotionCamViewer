@@ -45,9 +45,8 @@ public class FXMLOptionsController implements Initializable
     //main anchor pane
     @FXML
     private AnchorPane mainPane;
-    
-    //<editor-fold defaultstate="collapsed" desc="Combo boxes">
 
+    //<editor-fold defaultstate="collapsed" desc="Combo boxes">
     //Combo box for picking camera to edit
     @FXML
     private ComboBox<String> cBoxCam;

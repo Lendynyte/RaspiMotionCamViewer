@@ -38,17 +38,3 @@ public class SshTest
 
     }
 }
-
-        //String remoteFile = "/home/john/test.txt";
-    /*            
-         ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
-         sftpChannel.connect();
-            
-         InputStream out = null;
-         out = sftpChannel.get(remoteFile);
-         BufferedReader br = new BufferedReader(new InputStreamReader(out));
-         String line;
-         while ((line = br.readLine()) != null) {
-         System.out.println(line);
-         }
-         br.close();*/

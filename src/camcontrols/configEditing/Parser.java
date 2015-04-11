@@ -45,7 +45,6 @@ public class Parser
         }
         catch (IOException e)
         {
-            //e.printStackTrace();
             System.err.println("Creating file failed");
         }
         finally
@@ -65,7 +64,6 @@ public class Parser
             }
             catch (IOException e)
             {
-                //e.printStackTrace();
                 System.out.println("There was error closing streams");
             }
         }
@@ -97,7 +95,6 @@ public class Parser
         }
         catch (IOException e)
         {// file was not found 
-            //e.printStackTrace();
             System.err.println("File was not loaded");
         }
         finally
@@ -115,7 +112,6 @@ public class Parser
             }
             catch (IOException e)
             {// Unable to close the file
-                //e.printStackTrace();
                 System.err.println("There was error closing streams");
             }
         }
@@ -176,7 +172,6 @@ public class Parser
             }
             catch (Exception e)
             {
-                //e.printStackTrace();
                 System.err.println("The folder " + path + "could not be deleted!");
             }
         }

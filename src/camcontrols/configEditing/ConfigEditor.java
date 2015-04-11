@@ -13,6 +13,7 @@ public class ConfigEditor
 
     //TODO(Dominik):maybe load a default config file?
     //TODO(Dominik):create defaul config file
+    //TODO(Dominik):maybe save to temp location after that send using ssh send
     /**
      *
      * @param camHandle handle from gui to select camera fir editing
@@ -38,7 +39,6 @@ public class ConfigEditor
         System.out.println("loaded");
     }
 
-    //TODO(Dominik):maybe save to temp location after that send using ssh send
     /**
      *
      * @param parser

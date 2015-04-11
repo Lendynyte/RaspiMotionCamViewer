@@ -12,6 +12,7 @@ import javafx.stage.Stage;
  */
 public class WindowMenuClass
 {
+
     /**
      * This methods show basic about popup window
      *
@@ -26,10 +27,10 @@ public class WindowMenuClass
             stage.setScene(new Scene(root));
             stage.setTitle("Help");
             stage.show();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.err.println("There was an error loading help menu FXML file");
-            e.printStackTrace();
         }
     }
 
@@ -46,10 +47,10 @@ public class WindowMenuClass
             stage.setScene(new Scene(root));
             stage.setTitle("Camera options");
             stage.show();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.err.println("There was an error loading options menu FXML file");
-            e.printStackTrace();
         }
     }
 

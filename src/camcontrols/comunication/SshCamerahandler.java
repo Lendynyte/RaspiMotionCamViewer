@@ -42,7 +42,6 @@ public class SshCamerahandler
         sshComunication.sshDisconnect();
     }
 
-    //TODO(Dominik): remove tesating for now
     /**
      *
      * @param MotionCamera

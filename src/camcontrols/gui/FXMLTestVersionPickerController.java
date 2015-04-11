@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package camcontrols.gui;
 
 import java.net.URL;
@@ -20,9 +15,11 @@ import javafx.stage.Stage;
  * FXML Controller class
  *
  * @author Dominik
+ * @deprecated 
  */
 public class FXMLTestVersionPickerController implements Initializable
 {
+    //TODO(Dominik): REMOVE
 
     @FXML
     private Button btnMenu;

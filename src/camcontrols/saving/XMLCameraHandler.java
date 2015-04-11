@@ -72,7 +72,8 @@ public class XMLCameraHandler
                     //TODO(Dominik):add rest of options later
                 }
             }
-        } catch (ParserConfigurationException | SAXException | IOException e)
+        }
+        catch (ParserConfigurationException | SAXException | IOException e)
         {
             System.err.println("Loading XML file failed");
         }
@@ -111,10 +112,10 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-                              String configPath, String camURL, String camRotation, String camWidth,
-                              String camHeight, String camFramerate, String camAutoBrightness,
-                              String camBrightness, String camContrast, String camHue,
-                              String camSaturation, String camQuality)
+            String configPath, String camURL, String camRotation, String camWidth,
+            String camHeight, String camFramerate, String camAutoBrightness,
+            String camBrightness, String camContrast, String camHue,
+            String camSaturation, String camQuality)
     {
         try
         {
@@ -211,7 +212,8 @@ public class XMLCameraHandler
 
             System.out.println("File saved! ...");
 
-        } catch (ParserConfigurationException | DOMException | TransformerException e)
+        }
+        catch (ParserConfigurationException | DOMException | TransformerException e)
         {
             System.err.println("Creating XML file failed! ...");
         }

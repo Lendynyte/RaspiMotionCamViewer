@@ -49,13 +49,13 @@ public class FXMLHelpWindowController implements Initializable
     private String createHelpText()
     {
         String helpText;
-        
+
         helpText = "Hi, Im helping!\r\n";
         helpText = helpText.concat("a new line\r\n");
-        //TODO(Dominik):just write it normaly
+        //TODO(Dominik):write help
         return helpText;
     }
-    
+
     /**
      * Initializes the controller class.
      */

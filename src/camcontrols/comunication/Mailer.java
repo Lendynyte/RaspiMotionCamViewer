@@ -27,7 +27,6 @@ public class Mailer
     static Session getMailSession;
     static MimeMessage generateMailMessage;
 
-    //TODO(Dominik):make private
     /**
      *
      * http://www.codejava.net/java-ee/javamail/send-e-mail-with-attachment-in-java

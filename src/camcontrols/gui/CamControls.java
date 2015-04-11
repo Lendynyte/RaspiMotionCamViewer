@@ -19,6 +19,7 @@ public class CamControls extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
+        //TODO(Dominik): change to load application not launcher
         Parent root = FXMLLoader.load(getClass().getResource("FXMLTestVersionPicker.fxml"));
 
         Scene scene = new Scene(root);
