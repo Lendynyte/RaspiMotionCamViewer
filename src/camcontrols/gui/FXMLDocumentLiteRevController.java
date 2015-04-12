@@ -1,5 +1,6 @@
 package camcontrols.gui;
 
+import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import com.github.sarxos.webcam.Webcam;
@@ -81,18 +82,15 @@ public class FXMLDocumentLiteRevController implements Initializable
     {
         //TODO(Dominik): implement
     }
-    
+
     //TODO(Dominik): add timeline variables
     //TODO(Dominik): add variable for open menu isOpen
     //TODO(Dominik): when menu is open pause timelines
     //TODO(Dominik): when menu is closed start timelines
-    
     //TODO(Dominik): Check if on windows and use webcampanel if on rpi use timeline
     //TODO(Dominik): check for cameras only after pinging them first
     //TODO(Dominik): show warning only when i debug mode
     //TODO(Dominik):implement debug mode
-    
-  
     //TODO(Dominik): fix check if cameras exist
     /**
      *
@@ -209,6 +207,9 @@ public class FXMLDocumentLiteRevController implements Initializable
         });
     }
 
+    //TODO(Dominik): test if timeline stops when iopen options
+    //TODO(Dominik): if this does not work write method that stops timeline on options/help open
+    //TODO(Dominik): and it restarts timeline when window closes
     /**
      *
      * @param pane
@@ -218,7 +219,10 @@ public class FXMLDocumentLiteRevController implements Initializable
     {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
         {
-            pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+            if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
+            {
+                pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+            }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
@@ -247,30 +251,30 @@ public class FXMLDocumentLiteRevController implements Initializable
     {
         //TODO(Dominik): remove from init block
         /*try
-        {
-            //TODO(Dominik): remove testing
-            MotionCamera1.getInstance().setURL("http://192.168.1.10");
-            MotionCamera2.getInstance().setURL("http://192.168.1.10");
+         {
+         //TODO(Dominik): remove testing
+         MotionCamera1.getInstance().setURL("http://192.168.1.10");
+         MotionCamera2.getInstance().setURL("http://192.168.1.10");
 
-            registerCameras();
+         registerCameras();
 
-            System.out.println(Webcam.getWebcams());
+         System.out.println(Webcam.getWebcams());
 
-            //  openWebcams();
-            Webcam.getWebcams().get(0).open();
-            System.out.println(Webcam.getWebcams().get(0).isOpen());
+         //  openWebcams();
+         Webcam.getWebcams().get(0).open();
+         System.out.println(Webcam.getWebcams().get(0).isOpen());
 
-            System.out.println(Webcam.getWebcams().get(0).getImage());
+         System.out.println(Webcam.getWebcams().get(0).getImage());
 
-            //  testStream();
-            initializePane(this.pane1);
-            initializePane(this.pane2);
-        }
-        catch (MalformedURLException e)
-        {
+         //  testStream();
+         initializePane(this.pane1);
+         initializePane(this.pane2);
+         }
+         catch (MalformedURLException e)
+         {
 
-            System.err.println("Registering cameras failed");
-        }*/
+         System.err.println("Registering cameras failed");
+         }*/
 
     }
 

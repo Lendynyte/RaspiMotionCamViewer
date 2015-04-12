@@ -1,6 +1,7 @@
 package camcontrols.gui;
 
 import camcontrols.configEditing.Parser;
+import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import camcontrols.dependencies.MotionCameraInterface;
@@ -165,6 +166,7 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonCancelButton(final ActionEvent event)
     {
         System.out.println("Cancel button");
+        ApplicationVariables.getInstance().setIsOptionsOpen(false);
         this.mainPane.getScene().getWindow().hide();
     }
 
@@ -659,6 +661,7 @@ public class FXMLOptionsController implements Initializable
         initializeTextBoxes();
         InitializeCBoxCam();
         InitializeCBoxResolution();
+        ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
 
 }

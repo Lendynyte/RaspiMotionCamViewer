@@ -1,5 +1,6 @@
 package camcontrols.gui;
 
+import camcontrols.dependencies.ApplicationVariables;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -35,6 +36,7 @@ public class FXMLHelpWindowController implements Initializable
     private void handleActionCloseHelpWindowAction(final ActionEvent event)
     {
         System.out.println("Cancel help");
+        ApplicationVariables.getInstance().setIsHelpOpen(false);
         this.mainPane.getScene().getWindow().hide();
     }
 
@@ -63,6 +65,7 @@ public class FXMLHelpWindowController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         this.setHelpText();
+        ApplicationVariables.getInstance().setIsHelpOpen(true);
     }
 
 }
