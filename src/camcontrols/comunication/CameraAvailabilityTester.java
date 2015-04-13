@@ -16,19 +16,23 @@ public class CameraAvailabilityTester
      * This method is used for pinging an ip adress with timeout of 5000
      *
      * @param ipAddress adress to check if reachable
+     * @param timeOut
      * @return returns true if reachable false if not reachable
      *
      */
-    public boolean isReachable(String ipAddress)
+    public boolean isReachable(String ipAddress, int timeOut)
     {
-        String command = "ping " + ipAddress;
+        String commandLinux = "ping -c 1 -w " + timeOut + " " + ipAddress;
+        //TODO(Dominik):delete later
+        String commandWindows = "ping -n 1 -w " + timeOut + " " + ipAddress;
         String inputLine;
 
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
         try
         {
-            process = runtime.exec(command);
+            //TODO(Dominik):check if linux or windows or create two versions
+            process = runtime.exec(commandWindows);
         } catch (IOException e)
         {
             System.err.println("Unable to get exec acces to remote ...");
@@ -42,8 +46,14 @@ public class CameraAvailabilityTester
             {
                 //TODO(Dominik):test on linux
                 //TODO(Dominik):check  failed and working command
-                //TODO(Dominik):iplement loguc to return right value
                 System.out.println(inputLine);
+                //TODO(Dominik):change to linux 
+                //TODO(Dominik):check something better
+                //if(inputLine.contains("1 received"))
+                if (inputLine.contains("P�ijat� = 1"))
+                {
+                    return true;
+                }
             }
         } catch (IOException e)
         {
@@ -63,12 +73,13 @@ public class CameraAvailabilityTester
      * This method pings ipaddress and prints out results
      *
      * @param ipAddress adress to ping
+     * @param timeOut time for ping respond (set to at least 100)
      */
-    public void pingCamera(String ipAddress)
+    public void pingCamera(String ipAddress, int timeOut)
     {
         System.out.println("Sending ping request to: " + ipAddress + " ...");
 
-        if (isReachable(ipAddress))
+        if (isReachable(ipAddress, timeOut))
         {
             System.out.println("Camera is reachable ...");
         }
