@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -215,19 +216,41 @@ public class FXMLDocumentLiteRevController implements Initializable
      * @param pane
      * @param webcamNumber
      */
+    /*private void startCamStream(ScrollPane pane, int webcamNumber)
+     {
+     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
+     {
+     if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
+     {
+     pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+     }
+     }));
+     timeline.setCycleCount(Animation.INDEFINITE);
+     timeline.play();
+     }*/
+    /**
+     *
+     * @param pane
+     * @param webcamNumber
+     */
     private void startCamStream(ScrollPane pane, int webcamNumber)
     {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
         {
             if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
             {
-                pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+                Platform.runLater(() ->
+                {
+                    pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+                });
             }
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
 
+    //TODO(Dominik) test this also test without timeline test if it lags
+    
     /**
      *
      * @param event
