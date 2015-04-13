@@ -52,4 +52,28 @@ public class ApplicationVariables
         this.isHelpOpen = isHelpOpen;
     }
 
+    /**
+     * This method checks operating system and returns 1 for windows 2 for linux
+     * 0 for another unknown operating system.
+     *
+     * @return 1 for windows, 2 for linux
+     */
+    public int getOperatingSystem()
+    {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("win"))
+        {
+            return 1;
+        }
+        else if (os.contains("nix") || os.contains("nux") || os.contains("aix"))
+        {
+            return 2;
+        }
+        else
+        {
+            System.err.println("Unknown operating system ...");
+            return 0;
+        }
+    }
+
 }

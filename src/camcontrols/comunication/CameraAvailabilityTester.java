@@ -1,5 +1,6 @@
 package camcontrols.comunication;
 
+import camcontrols.dependencies.ApplicationVariables;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,9 +32,20 @@ public class CameraAvailabilityTester
         Process process = null;
         try
         {
-            //TODO(Dominik):check if linux or windows or create two versions
-            process = runtime.exec(commandWindows);
-        } catch (IOException e)
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+                process = runtime.exec(commandWindows);
+            }
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+                process = runtime.exec(commandLinux);
+            }
+            else
+            {
+                System.err.println("Unable to ping ...");
+            }
+        }
+        catch (IOException e)
         {
             System.err.println("Unable to get exec acces to remote ...");
         }
@@ -44,25 +56,22 @@ public class CameraAvailabilityTester
         {
             while ((inputLine = bufferReader.readLine()) != null)
             {
-                //TODO(Dominik):test on linux
-                //TODO(Dominik):check  failed and working command
                 System.out.println(inputLine);
-                //TODO(Dominik):change to linux 
-                //TODO(Dominik):check something better
-                //if(inputLine.contains("1 received"))
-                if (inputLine.contains("P�ijat� = 1"))
+                if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1")))
                 {
                     return true;
                 }
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.err.println("Failed to read input ...");
         }
         try
         {
             bufferReader.close();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.err.println("Unable to close buffered reader ...");
         }
