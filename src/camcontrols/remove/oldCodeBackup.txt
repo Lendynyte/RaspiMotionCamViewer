@@ -1,4 +1,18 @@
-    
+
+
+    /**
+     * This method initializes Combobox for picking camera
+     */
+    private void InitializeCBoxCam()
+    {
+        ObservableList<String> cameras = FXCollections.observableArrayList(MotionCamera1.getInstance().getName(), MotionCamera2.getInstance().getName());
+        if (!this.cBoxCam.getItems().isEmpty())
+        {
+            this.cBoxCam.getItems().remove(0, 2);
+        }
+        this.cBoxCam.getItems().addAll(cameras);
+        this.cBoxCam.getSelectionModel().selectFirst();
+    }    
 
 
 

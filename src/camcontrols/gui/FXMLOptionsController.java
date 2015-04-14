@@ -48,9 +48,6 @@ public class FXMLOptionsController implements Initializable
     private AnchorPane mainPane;
 
     //<editor-fold defaultstate="collapsed" desc="Combo boxes">
-    //Combo box for picking camera to edit
-    @FXML
-    private ComboBox<String> cBoxCam;
 
     //Combo box for picking camera resolution
     @FXML
@@ -273,7 +270,6 @@ public class FXMLOptionsController implements Initializable
      */
     private void setDefaultValues()
     {
-        this.cBoxCam.getSelectionModel().selectFirst();
         this.cBoxResolution.getSelectionModel().selectFirst();
         this.tfFramerate.setText(null);
         this.chckAutoBrightness.selectedProperty().setValue(Boolean.FALSE);
@@ -356,20 +352,6 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     * This method initializes Combobox for picking camera
-     */
-    private void InitializeCBoxCam()
-    {
-        ObservableList<String> cameras = FXCollections.observableArrayList(MotionCamera1.getInstance().getName(), MotionCamera2.getInstance().getName());
-        if (!this.cBoxCam.getItems().isEmpty())
-        {
-            this.cBoxCam.getItems().remove(0, 2);
-        }
-        this.cBoxCam.getItems().addAll(cameras);
-        this.cBoxCam.getSelectionModel().selectFirst();
-    }
-
-    /**
      * This method initializes Combobox for picking resolution
      */
     private void InitializeCBoxResolution()
@@ -403,21 +385,17 @@ public class FXMLOptionsController implements Initializable
     {
         if (!isError)
         {
-            switch (this.cBoxCam.getSelectionModel().getSelectedIndex())
+            switch (this.mainPane.getScene().getRoot().getId())
             {
-                case 0:
+                case "1":
                 {
                     saveToCameraSingleton(MotionCamera1.getInstance(), "1");
-
-                    InitializeCBoxCam();
                     this.isError = false;
                 }
                 break;
-                case 1:
+                case "2":
                 {
                     saveToCameraSingleton(MotionCamera2.getInstance(), "2");
-
-                    InitializeCBoxCam();
                     this.isError = false;
                 }
                 break;
@@ -609,14 +587,14 @@ public class FXMLOptionsController implements Initializable
     private void loadSingletonToForm()
     {
         //TODO(Dominik):impelement
-        switch (this.cBoxCam.getSelectionModel().getSelectedIndex())
+        switch (this.mainPane.getScene().getRoot().getId())
         {
-            case 0:
+            case "1":
             {
                 loadToForm(MotionCamera1.getInstance());
             }
             break;
-            case 1:
+            case "2":
             {
                 loadToForm(MotionCamera2.getInstance());
             }
@@ -661,7 +639,6 @@ public class FXMLOptionsController implements Initializable
     {
         //TODO(Dominik):if save then do not initialize to default
         initializeTextBoxes();
-        InitializeCBoxCam();
         InitializeCBoxResolution();
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
