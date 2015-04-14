@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class FXMLOptionsController implements Initializable
 {

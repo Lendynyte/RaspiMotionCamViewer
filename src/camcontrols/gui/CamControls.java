@@ -1,7 +1,5 @@
 package camcontrols.gui;
 
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +9,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class CamControls extends Application
 {
@@ -19,8 +17,7 @@ public class CamControls extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        //TODO(Dominik): change to load application not launcher
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLTestVersionPicker.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLCamView.fxml"));
 
         Scene scene = new Scene(root);
 
@@ -37,5 +34,4 @@ public class CamControls extends Application
     {
         launch(args);
     }
-
 }

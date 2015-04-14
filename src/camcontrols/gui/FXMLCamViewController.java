@@ -35,7 +35,7 @@ import javafx.util.Duration;
  * @author Dominik Pauli
  * @version 0.4
  */
-public class FXMLDocumentLiteRevController implements Initializable
+public class FXMLCamViewController implements Initializable
 {
 
     //<editor-fold defaultstate="collapsed" desc="FXML form variables">
@@ -160,7 +160,7 @@ public class FXMLDocumentLiteRevController implements Initializable
     private void handleMenuCloseAction(final ActionEvent event)
     {
         System.out.println("Closing...");
-        this.mainPane.getScene().getWindow().hide();
+        Platform.exit();
     }
 
     /**
