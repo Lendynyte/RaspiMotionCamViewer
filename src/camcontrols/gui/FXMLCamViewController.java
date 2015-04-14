@@ -34,7 +34,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.4
+ * @version 0.5
  */
 public class FXMLCamViewController implements Initializable
 {
@@ -135,11 +135,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1StartStreamAction(final ActionEvent event)
     {
-        //TODO(Dominik): add checking for cameras and stuff
-
-        //TODO(Dominik): using only one camera input for now cuz i dont have 2 cameras
         startCamStream(this.pane1, 0);
-        startCamStream(this.pane2, 0);
     }
 
     /**
@@ -149,7 +145,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2StartStreamAction(final ActionEvent event)
     {
-        //TODO(Dominik):implement
+        startCamStream(this.pane2, 0);
     }
 
     /**
