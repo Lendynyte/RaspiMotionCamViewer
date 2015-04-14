@@ -37,15 +37,37 @@ public class WindowMenuClass
     /**
      * This method creates options window from fxml file
      */
-    public void createOptionsWindow()
+    public void createCamera1OptionsWindow()
     {
         try
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOptions.fxml"));
             Parent root = (Parent) fxmlLoader.load();
+            root.setId("1");
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Camera options");
+            stage.setTitle("Camera 1 settings");
+            stage.show();
+        }
+        catch (Exception e)
+        {
+            System.err.println("There was an error loading options menu FXML file");
+        }
+    }
+    
+    /**
+     * This method creates options window from fxml file
+     */
+    public void createCamera2OptionsWindow()
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOptions.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            root.setId("2");
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Camera 2 settings");
             stage.show();
         }
         catch (Exception e)

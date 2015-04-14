@@ -73,7 +73,7 @@ public class FXMLTestVersionPickerController implements Initializable
     private void handleButtonOptionsAction(final ActionEvent event)
     {
         WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createOptionsWindow();
+        wmc.createCamera1OptionsWindow();
     }
 
     @FXML

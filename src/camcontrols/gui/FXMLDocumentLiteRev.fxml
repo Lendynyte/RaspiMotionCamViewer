@@ -16,14 +16,22 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuStartStreamAction" text="Start stream" />
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuStopStreamAction" text="Stop stream" />
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCloseAction" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="Settings" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCloseAction" text="Exit application" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Camera 1">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuOptionsMenu" text="Camera options" />
+                                <MenuItem mnemonicParsing="false" text="Start stream" />
+                                <MenuItem mnemonicParsing="false" text="Stop stream" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCamera1OptionsMenu"  text="Camera options" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Camera 2">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Start stream" />
+                                <MenuItem mnemonicParsing="false" text="Stop stream" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCamera2OptionsMenu"  text="Camera options" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

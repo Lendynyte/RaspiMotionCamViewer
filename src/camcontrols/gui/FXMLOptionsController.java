@@ -154,13 +154,15 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik):remove this later just testing
         System.out.println(this.sldrBrightness.getValue());
         //TODO(Dominik):get changed variables and produce configuration file maybe create method for this   
+        
+        System.out.println(this.mainPane.getScene().getRoot().getId());
     }
 
     //TODO(Dominik):Load existing configuration on options menu startup
     /**
      * This method closes the options window
      *
-     * @param event button clicked
+     * @param event button clicke
      */
     @FXML
     private void handleButtonCancelButton(final ActionEvent event)

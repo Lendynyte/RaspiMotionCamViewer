@@ -256,12 +256,23 @@ public class FXMLDocumentLiteRevController implements Initializable
      * @param event
      */
     @FXML
-    private void handleMenuOptionsMenu(final ActionEvent event)
+    private void handleMenuCamera1OptionsMenu(final ActionEvent event)
     {
         WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createOptionsWindow();
+        wmc.createCamera1OptionsWindow();
     }
 
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCamera2OptionsMenu(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createCamera2OptionsWindow();
+    }
+    
     //TODO(Dominik): handle when i cannot connect to not crash
     /**
      * Initializes the controller class.
