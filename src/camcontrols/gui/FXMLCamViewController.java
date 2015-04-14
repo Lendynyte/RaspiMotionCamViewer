@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -55,6 +56,245 @@ public class FXMLCamViewController implements Initializable
 
     @FXML
     private ScrollPane pane2;
+
+    @FXML
+    private Button btnC1Start;
+
+    @FXML
+    private Button btnC2Start;
+
+    @FXML
+    private Button btnC1Stop;
+
+    @FXML
+    private Button btnC2Stop;
+
+    @FXML
+    private Button btnC1Reset;
+
+    @FXML
+    private Button btnC2Reset;
+
+    @FXML
+    private Button btnC1Options;
+
+    @FXML
+    private Button btnC2Options;
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="FXML camera highlighting handling">
+    /**
+     * This method changes Anchor pane color to orange to highlight it
+     *
+     * @param mouseEvent mouse entered object boundaries
+     */
+    @FXML
+    private void handleCamHighlightEvent(final MouseEvent mouseEvent)
+    {
+        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
+    }
+
+    /**
+     * This method changes Anchor pane background color to black to unhighlight
+     * it
+     *
+     * @param mouseEvent mouse left object boundaries
+     */
+    @FXML
+    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
+    {
+        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
+    }
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="FXML menu bar buttons handling">
+    /**
+     * Control used in menuBar to close window
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCloseAction(final ActionEvent event)
+    {
+        System.out.println("Closing...");
+        Platform.exit();
+    }
+
+    /**
+     * This methods show basic about popup window
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuAboutAction(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createAboutWindow();
+    }
+
+    @FXML
+    private void handleMenuCam1StartStreamAction(final ActionEvent event)
+    {
+        //TODO(Dominik): add checking for cameras and stuff
+
+        //TODO(Dominik): using only one camera input for now cuz i dont have 2 cameras
+        startCamStream(this.pane1, 0);
+        startCamStream(this.pane2, 0);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCam2StartStreamAction(final ActionEvent event)
+    {
+        //TODO(Dominik):implement
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCam1StopStreamAction(final ActionEvent event)
+    {
+        //TODO(Dominik): implement
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCam2StopStreamAction(final ActionEvent event)
+    {
+        //TODO(Dominik): implement
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCam1ResetCameraAction(final ActionEvent event)
+    {
+        //TODO(Dominik):implement
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCam2ResetCameraAction(final ActionEvent event)
+    {
+        //TODO(Dominik):implement
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCamera1OptionsMenu(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createCamera1OptionsWindow();
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuCamera2OptionsMenu(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createCamera2OptionsWindow();
+    }
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="FXML control button handling">
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC1Start(final ActionEvent event)
+    {
+        this.handleMenuCam1StartStreamAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC2Start(final ActionEvent event)
+    {
+        this.handleMenuCam2StartStreamAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC1Stop(final ActionEvent event)
+    {
+        this.handleMenuCam1StopStreamAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC2Stop(final ActionEvent event)
+    {
+        this.handleMenuCam2StopStreamAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC1Reset(final ActionEvent event)
+    {
+        this.handleMenuCam1ResetCameraAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC2Reset(final ActionEvent event)
+    {
+        this.handleMenuCam2ResetCameraAction(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC1Options(final ActionEvent event)
+    {
+        this.handleMenuCamera1OptionsMenu(event);
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnC2Options(final ActionEvent event)
+    {
+        this.handleMenuCamera2OptionsMenu(event);
+    }
 
     //</editor-fold>
     /**
@@ -129,69 +369,6 @@ public class FXMLCamViewController implements Initializable
     }
 
     /**
-     * This method changes Anchor pane color to orange to highlight it
-     *
-     * @param mouseEvent mouse entered object boundaries
-     */
-    @FXML
-    private void handleCamHighlightEvent(final MouseEvent mouseEvent)
-    {
-        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
-    }
-
-    /**
-     * This method changes Anchor pane background color to black to unhighlight
-     * it
-     *
-     * @param mouseEvent mouse left object boundaries
-     */
-    @FXML
-    private void handleCamUnhighlightEvent(final MouseEvent mouseEvent)
-    {
-        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: black;");
-    }
-
-    /**
-     * Control used in menuBar to close window
-     *
-     * @param event
-     */
-    @FXML
-    private void handleMenuCloseAction(final ActionEvent event)
-    {
-        System.out.println("Closing...");
-        Platform.exit();
-    }
-
-    /**
-     * This methods show basic about popup window
-     *
-     * @param event
-     */
-    @FXML
-    private void handleMenuAboutAction(final ActionEvent event)
-    {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createAboutWindow();
-    }
-
-    @FXML
-    private void handleMenuStartStreamAction(final ActionEvent event)
-    {
-        //TODO(Dominik): add checking for cameras and stuff
-
-        //TODO(Dominik): using only one camera input for now cuz i dont have 2 cameras
-        startCamStream(this.pane1, 0);
-        startCamStream(this.pane2, 0);
-    }
-
-    @FXML
-    private void handleMenuStopStreamAction(final ActionEvent event)
-    {
-        //TODO(Dominik): implement
-    }
-
-    /**
      * This method puts imageView inside of pane and fits its width and height
      */
     private void initializePane(ScrollPane pane)
@@ -250,29 +427,6 @@ public class FXMLCamViewController implements Initializable
     }
 
     //TODO(Dominik) test this also test without timeline test if it lags
-    
-    /**
-     *
-     * @param event
-     */
-    @FXML
-    private void handleMenuCamera1OptionsMenu(final ActionEvent event)
-    {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createCamera1OptionsWindow();
-    }
-
-    /**
-     *
-     * @param event
-     */
-    @FXML
-    private void handleMenuCamera2OptionsMenu(final ActionEvent event)
-    {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createCamera2OptionsWindow();
-    }
-    
     //TODO(Dominik): handle when i cannot connect to not crash
     /**
      * Initializes the controller class.
