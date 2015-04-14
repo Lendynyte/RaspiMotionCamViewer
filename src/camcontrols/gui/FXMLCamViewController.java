@@ -197,7 +197,7 @@ public class FXMLCamViewController implements Initializable
      * @param event
      */
     @FXML
-    private void handleMenuCamera1OptionsMenu(final ActionEvent event)
+    private void handleMenuCam1OptionsMenu(final ActionEvent event)
     {
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createCamera1OptionsWindow();
@@ -208,7 +208,7 @@ public class FXMLCamViewController implements Initializable
      * @param event
      */
     @FXML
-    private void handleMenuCamera2OptionsMenu(final ActionEvent event)
+    private void handleMenuCam2OptionsMenu(final ActionEvent event)
     {
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createCamera2OptionsWindow();
@@ -283,7 +283,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleBtnC1Options(final ActionEvent event)
     {
-        this.handleMenuCamera1OptionsMenu(event);
+        this.handleMenuCam1OptionsMenu(event);
     }
 
     /**
@@ -293,7 +293,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleBtnC2Options(final ActionEvent event)
     {
-        this.handleMenuCamera2OptionsMenu(event);
+        this.handleMenuCam2OptionsMenu(event);
     }
 
     //</editor-fold>

@@ -6,8 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="300.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="camcontrols.gui.FXMLHelpWindowController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.gui.FXMLHelpWindowController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="48.0" layoutY="-13.0" prefHeight="300.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -16,7 +15,7 @@
                         <Label fx:id="lblHelp" layoutX="82.0" layoutY="30.0" prefHeight="200.0" prefWidth="250.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                     </children>
                 </AnchorPane>
-                <AnchorPane prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: purple;">
+                <AnchorPane prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: black;">
                     <children>
                         <Button fx:id="btnClose" layoutX="101.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleActionCloseHelpWindowAction" text="Close" />
                     </children>
