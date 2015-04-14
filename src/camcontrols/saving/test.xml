@@ -1,1 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><camera><name>test</name><handle>test</handle><confPath>test</confPath><URL>test</URL><rotation>test</rotation><width>test</width><height>test</height><framerate>test</framerate><autoBrightness>test</autoBrightness><brightness>test</brightness><contrast>test</contrast><hue>test</hue><saturation>test</saturation><quality>test</quality></camera>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><camera>
+    <name>test</name>
+    <handle>test</handle>
+    <confPath>test</confPath>
+    <URL>test</URL>
+    <rotation>test</rotation>
+    <width>test</width>
+    <height>test</height>
+    <framerate>test</framerate>
+    <autoBrightness>test</autoBrightness>
+    <brightness>test</brightness>
+    <contrast>test</contrast>
+    <hue>test</hue>
+    <saturation>test</saturation>
+    <quality>test</quality>
+</camera>
