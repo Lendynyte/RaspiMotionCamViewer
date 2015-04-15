@@ -27,6 +27,17 @@ public class XMLCameraHandler
 {
 
     /**
+     * This method chcek path for XML save for application
+     * @param path expected save path
+     * @return true if save exists false if it does not exist
+     */
+    public boolean checkForXMLSave(String path)
+    {
+        //TODO(Dominik):implement
+        return false;
+    }
+    
+    /**
      *
      * http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
      *

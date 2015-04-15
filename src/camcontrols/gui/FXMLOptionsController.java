@@ -5,6 +5,7 @@ import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import camcontrols.dependencies.MotionCameraInterface;
+import camcontrols.saving.XMLCameraHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -683,12 +684,21 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     *
+     * 
      * @param XMLPath
+     * @param MotionCamera 
      */
-    private void loadXMLtoSingleton(String XMLPath)
+    private void loadXMLtoSingleton(String XMLPath, MotionCameraInterface MotionCamera)
     {
-        //TODO(Dominik):implement
+        XMLCameraHandler xmlHandler = new XMLCameraHandler();
+        if (xmlHandler.checkForXMLSave(XMLPath))
+        {
+            xmlHandler.LoadXMLFile(XMLPath, MotionCamera);
+        }
+        else
+        {
+            this.setDefaultValues();
+        }
     }
 
     //TODO(Dominik):testing
@@ -740,6 +750,9 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
     }
 
+    //TODO(Dominik):add save /load button to form
+    //TODO(Dominik):save/load to xml
+    
     //TODO(Dominik):autobrightness/default brightnesss keep only one slider
     //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
     //TODO(Dominik):at start load stuff from xml to form and to camear singletons
