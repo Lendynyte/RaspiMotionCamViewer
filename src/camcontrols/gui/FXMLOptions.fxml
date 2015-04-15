@@ -115,11 +115,11 @@
                                 <TextField fx:id="tfCamName" promptText="Camera name" GridPane.columnIndex="1" />
                                 <Label text="Camera name:" />
                         <Label text="Default brightness settings:" GridPane.rowIndex="5" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="chckEnableBrightness" mnemonicParsing="false" onAction="#handleCheckBoxEnableBrightness" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Auto contrast settings:" GridPane.rowIndex="6" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <CheckBox fx:id="chckEnableContrast" mnemonicParsing="false" onAction="#handleCheckBoxEnableContrast" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="chckEnableHue" mnemonicParsing="false" onAction="#handleCheckBoxEnableHue" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <CheckBox fx:id="chckEnableSaturation" mnemonicParsing="false" onAction="#handleCheckBoxEnableSaturation" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Auto hue settings:" GridPane.rowIndex="7" />
                         <Label text="Auto saturation settings:" GridPane.rowIndex="8" />
                         <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />

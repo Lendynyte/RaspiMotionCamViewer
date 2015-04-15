@@ -48,7 +48,6 @@ public class FXMLOptionsController implements Initializable
     private AnchorPane mainPane;
 
     //<editor-fold defaultstate="collapsed" desc="Combo boxes">
-
     //Combo box for picking camera resolution
     @FXML
     private ComboBox<String> cBoxResolution;
@@ -66,6 +65,18 @@ public class FXMLOptionsController implements Initializable
     //enable remote image storage
     @FXML
     private CheckBox chckRemoteStore;
+
+    @FXML
+    private CheckBox chckEnableBrightness;
+
+    @FXML
+    private CheckBox chckEnableContrast;
+
+    @FXML
+    private CheckBox chckEnableHue;
+
+    @FXML
+    private CheckBox chckEnableSaturation;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Text fields">
@@ -151,7 +162,7 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik):remove this later just testing
         System.out.println(this.sldrBrightness.getValue());
         //TODO(Dominik):get changed variables and produce configuration file maybe create method for this   
-        
+
         System.out.println(this.mainPane.getScene().getRoot().getId());
     }
 
@@ -348,6 +359,74 @@ public class FXMLOptionsController implements Initializable
             this.tfremoteStoragePath.setText(null);
             this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
             //TODO(Dominik):disable remote storage
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableBrightness(final ActionEvent event)
+    {
+        if (this.chckEnableBrightness.isSelected())
+        {
+            this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
+        }
+        else
+        {
+            this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableContrast(final ActionEvent event)
+    {
+        if (this.chckEnableContrast.isSelected())
+        {
+            this.sldrContrast.disableProperty().setValue(Boolean.TRUE);
+        }
+        else
+        {
+            this.sldrContrast.disableProperty().setValue(Boolean.FALSE);
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableHue(final ActionEvent event)
+    {
+        if (this.chckEnableHue.isSelected())
+        {
+            this.sldrHue.disableProperty().setValue(Boolean.TRUE);
+        }
+        else
+        {
+            this.sldrHue.disableProperty().setValue(Boolean.FALSE);
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableSaturation(final ActionEvent event)
+    {
+        if (this.chckEnableSaturation.isSelected())
+        {
+            this.sldrSaturation.disableProperty().setValue(Boolean.TRUE);
+        }
+        else
+        {
+            this.sldrSaturation.disableProperty().setValue(Boolean.FALSE);
         }
     }
 
@@ -629,6 +708,7 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
     }
 
+    //TODO(Dominik):autobrightness/default brightnesss keep only one slider
     //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
     //TODO(Dominik):at start load stuff from xml to form and to camear singletons
     /**

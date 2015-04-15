@@ -25,7 +25,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1StartStreamAction" text="Start stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1StopStreamAction" text="Stop stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1ResetCameraAction" text="Reset camera" />
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1OptionsMenu"  text="Camera options" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1OptionsMenu" text="Camera options" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Camera 2">
@@ -33,7 +33,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2StartStreamAction" text="Start stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2StopStreamAction" text="Stop stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2ResetCameraAction" text="Reset camera" />
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2OptionsMenu"  text="Camera options" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2OptionsMenu" text="Camera options" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
@@ -76,7 +76,7 @@
                         </AnchorPane>
                     </children>
                 </GridPane>
-                <AnchorPane prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: black;" />
+                <AnchorPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: black;" />
             </children>
         </VBox>
     </children>
