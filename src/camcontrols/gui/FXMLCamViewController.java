@@ -1,8 +1,11 @@
 package camcontrols.gui;
 
+import camcontrols.comunication.CameraAvailabilityTester;
+import camcontrols.comunication.SshCamerahandler;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
+import camcontrols.dependencies.MotionCameraInterface;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
@@ -20,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -80,6 +84,12 @@ public class FXMLCamViewController implements Initializable
 
     @FXML
     private Button btnC2Options;
+
+    @FXML
+    private Label lblPingC1Result;
+
+    @FXML
+    private Label lblPingC2Result;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="FXML camera highlighting handling">
@@ -292,6 +302,40 @@ public class FXMLCamViewController implements Initializable
         this.handleMenuCam2OptionsMenu(event);
     }
 
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnPingCam1(final ActionEvent event)
+    {
+        if (pingCamera(MotionCamera1.getInstance()))
+        {
+            this.lblPingC1Result.setText("Camera 1 is responding.");
+        }
+        else
+        {
+            this.lblPingC1Result.setText("Unable to reach camera 2.");
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleBtnPingCam2(final ActionEvent event)
+    {
+        if (pingCamera(MotionCamera2.getInstance()))
+        {
+            this.lblPingC2Result.setText("Camera 2 is responding.");
+        }
+        else
+        {
+            this.lblPingC2Result.setText("Unable to reach camera 2.");
+        }
+    }
+
     //</editor-fold>
     /**
      * Set ipcam webcam Driver
@@ -381,6 +425,18 @@ public class FXMLCamViewController implements Initializable
         });
     }
 
+    /**
+     * This method pings camera using ping console command and returns result as
+     * boolean
+     *
+     * @return True if camera is reachable false if it isnt
+     */
+    private boolean pingCamera(MotionCameraInterface MotionCamera)
+    {
+        CameraAvailabilityTester camTester = new CameraAvailabilityTester();
+        return camTester.isReachable(MotionCamera.getURL(), 500);
+    }
+
     //TODO(Dominik): test if timeline stops when iopen options
     //TODO(Dominik): if this does not work write method that stops timeline on options/help open
     //TODO(Dominik): and it restarts timeline when window closes
@@ -422,6 +478,8 @@ public class FXMLCamViewController implements Initializable
         timeline.play();
     }
 
+    //TODO(Dominik):add ping for each camera 
+    //TODO(Dominik):add buttons
     //TODO(Dominik) test this also test without timeline test if it lags
     //TODO(Dominik): handle when i cannot connect to not crash
     /**

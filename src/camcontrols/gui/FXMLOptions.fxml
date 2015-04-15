@@ -164,6 +164,7 @@
                     <children>
                         <HBox alignment="CENTER" layoutX="177.0" layoutY="-34.0" prefHeight="66.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
+                        <Button mnemonicParsing="false" text="Load" />
                                 <Button fx:id="applyButton" mnemonicParsing="false" onAction="#handleButtonApplyButton" text="Apply and restart">
                                     <tooltip>
                                         <Tooltip text="Apply all settings and restart selected camera" />
