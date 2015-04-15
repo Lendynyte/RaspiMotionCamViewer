@@ -305,6 +305,14 @@ public class FXMLOptionsController implements Initializable
      */
     private void setDefaultValues()
     {
+        this.chckEnableBrightness.selectedProperty().setValue(Boolean.TRUE);
+        this.chckEnableContrast.selectedProperty().setValue(Boolean.TRUE);
+        this.chckEnableHue.selectedProperty().setValue(Boolean.TRUE);
+        this.chckEnableSaturation.selectedProperty().setValue(Boolean.TRUE);
+        this.sldrBrightness.disableProperty().setValue(Boolean.TRUE);
+        this.sldrContrast.disableProperty().setValue(Boolean.TRUE);
+        this.sldrHue.disableProperty().setValue(Boolean.TRUE);
+        this.sldrSaturation.disableProperty().setValue(Boolean.TRUE);
         this.cBoxResolution.getSelectionModel().selectFirst();
         this.tfFramerate.setText(null);
         this.chckAutoBrightness.selectedProperty().setValue(Boolean.FALSE);
