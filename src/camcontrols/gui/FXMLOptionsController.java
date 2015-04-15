@@ -209,6 +209,9 @@ public class FXMLOptionsController implements Initializable
     }
     //BUTTON HANDLING END
 
+    //TODO(Dominik):lookup documentation for enable contrast etc....
+    //TODO(Dominik):maybeoly 1 brightnesss checkbox
+    //TODO(Dominik):rewrite this one
     //SLIDER HANDLING START
     /**
      *
@@ -216,7 +219,7 @@ public class FXMLOptionsController implements Initializable
      */
     private int getFXMLSldrBrightness()
     {
-        if (this.chckAutoBrightness.isSelected())
+        if (this.sldrBrightness.disableProperty().getValue())
         {
             return 0;
         }
@@ -232,7 +235,14 @@ public class FXMLOptionsController implements Initializable
      */
     private int getFXMLSldrContrast()
     {
-        return getValueFromPercentage(this.sldrContrast.getValue());
+        if (this.sldrContrast.disableProperty().getValue())
+        {
+            return 0;
+        }
+        else
+        {
+            return getValueFromPercentage(this.sldrContrast.getValue());
+        }
     }
 
     /**
@@ -241,7 +251,14 @@ public class FXMLOptionsController implements Initializable
      */
     private int getFXMLSldrHue()
     {
-        return getValueFromPercentage(this.sldrHue.getValue());
+        if (this.sldrHue.disableProperty().getValue())
+        {
+            return 0;
+        }
+        else
+        {
+            return getValueFromPercentage(this.sldrHue.getValue());
+        }
     }
 
     /**
@@ -250,7 +267,14 @@ public class FXMLOptionsController implements Initializable
      */
     private int getFXMLSldrSaturation()
     {
-        return getValueFromPercentage(this.sldrSaturation.getValue());
+        if (this.sldrSaturation.disableProperty().getValue())
+        {
+            return 0;
+        }
+        else
+        {
+            return getValueFromPercentage(this.sldrSaturation.getValue());
+        }
     }
 
     /**
