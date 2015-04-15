@@ -28,15 +28,16 @@ public class XMLCameraHandler
 
     /**
      * This method chcek path for XML save for application
+     *
      * @param path expected save path
      * @return true if save exists false if it does not exist
      */
     public boolean checkForXMLSave(String path)
     {
-        //TODO(Dominik):implement
-        return false;
+        File file = new File(path);
+        return file.exists();
     }
-    
+
     /**
      *
      * http://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
@@ -123,10 +124,10 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-            String configPath, String camURL, String camRotation, String camWidth,
-            String camHeight, String camFramerate, String camAutoBrightness,
-            String camBrightness, String camContrast, String camHue,
-            String camSaturation, String camQuality)
+                              String configPath, String camURL, String camRotation, String camWidth,
+                              String camHeight, String camFramerate, String camAutoBrightness,
+                              String camBrightness, String camContrast, String camHue,
+                              String camSaturation, String camQuality)
     {
         try
         {

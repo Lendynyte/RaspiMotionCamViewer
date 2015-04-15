@@ -1,5 +1,8 @@
 package camcontrols.gui;
 
+import camcontrols.comunication.CameraAvailabilityTester;
+import camcontrols.comunication.SshCamerahandler;
+import camcontrols.configEditing.ConfigEditor;
 import camcontrols.configEditing.Parser;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
@@ -148,6 +151,12 @@ public class FXMLOptionsController implements Initializable
 
     //parser instance
     private Parser parser;
+
+    //sshHandle instance
+    private SshCamerahandler sshHandler;
+
+    //Camera avaiability teset instance
+    private CameraAvailabilityTester pingTest;
 
     //variable for checking data from form
     private boolean isError = false;
@@ -684,9 +693,9 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     * 
+     *
      * @param XMLPath
-     * @param MotionCamera 
+     * @param MotionCamera
      */
     private void loadXMLtoSingleton(String XMLPath, MotionCameraInterface MotionCamera)
     {
@@ -743,19 +752,96 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
-     *
+     * This method creates config for camera in path from MotionCamera URL
      */
     private void applyToConfigFile()
     {
-        //TODO(Dominik):take stuff from camera singletons and send to cameras as created config file
+        ConfigEditor configEditor = new ConfigEditor();
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+                configEditor.createConfig(parser, MotionCamera1.getInstance());
+                break;
+            case "2":
+                configEditor.createConfig(parser, MotionCamera2.getInstance());
+                break;
+        }
+    }
+
+    //TODO(Dominik):get the config to right url and use the right local config path save local config path to application variables
+    /**
+     *
+     */
+    private void applySettingsToCamera()
+    {
+        if (pingCamera())
+        {
+            switch (this.mainPane.getScene().getRoot().getId())
+            {
+                case "1":
+                    this.sshHandler.sendConfFile(MotionCamera1.getInstance(), "LOCALCONFIGPATH", 500);
+                    break;
+
+                case "2":
+                    this.sshHandler.sendConfFile(MotionCamera2.getInstance(), "LOCALCONFIGPATH", 500);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * This method resetarts camera chosen by the window id and calls ethod from
+     * sshCameraHandler to restart it over ssh
+     *
+     */
+    private void restartCameraAction()
+    {
+        if (pingCamera())
+        {
+            switch (this.mainPane.getScene().getRoot().getId())
+            {
+                case "1":
+                    this.sshHandler.restartCamera(MotionCamera1.getInstance());
+                    break;
+
+                case "2":
+                    this.sshHandler.restartCamera(MotionCamera2.getInstance());
+                    break;
+            }
+        }
+        else
+        {
+            System.err.println("Unable to restart camera ...");
+        }
+    }
+
+    /**
+     * This method pings camera using ping console command and returns result as
+     * boolean
+     *
+     * @return True if camera is reachable false if it isnt
+     */
+    private boolean pingCamera()
+    {
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+                return pingTest.isReachable(MotionCamera1.getInstance().getURL(), 200);
+            case "2":
+                return pingTest.isReachable(MotionCamera2.getInstance().getURL(), 200);
+            default:
+                System.err.println("Wrong window handle ...");
+                //should never happen
+                return false;
+        }
     }
 
     //TODO(Dominik):add save /load button to form
     //TODO(Dominik):save/load to xml
-    
     //TODO(Dominik):autobrightness/default brightnesss keep only one slider
     //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
     //TODO(Dominik):at start load stuff from xml to form and to camear singletons
+    //TODO(Dominik):setup relative paths to store config files and saves
     /**
      * Initializes the controller class.
      */
