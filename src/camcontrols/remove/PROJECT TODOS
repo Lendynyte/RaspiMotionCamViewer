@@ -1,3 +1,20 @@
+
+
+Think about startup routine
+initialize cameras load drivers setup from config file
+save application settings maybe?
+
+
+
+
+
+
+
+
+
+
+
+
 Maybe add set parsed config to interface
 
 
