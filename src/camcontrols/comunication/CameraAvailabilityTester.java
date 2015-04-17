@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 public class CameraAvailabilityTester
 {
 
+    private boolean isReachable;
+
     /**
      * This method is used for pinging an ip adress with timeout of 5000
      *
@@ -23,59 +25,70 @@ public class CameraAvailabilityTester
      */
     public boolean isReachable(String ipAddress, int timeOut)
     {
-        String commandLinux = "ping -c 1 -w " + timeOut + " " + ipAddress;
-        //TODO(Dominik):delete later
-        String commandWindows = "ping -n 1 -w " + timeOut + " " + ipAddress;
-        String inputLine;
 
-        Runtime runtime = Runtime.getRuntime();
-        Process process = null;
-        try
+        Thread thread = new Thread()
         {
-            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            public void run()
             {
-                process = runtime.exec(commandWindows);
-            }
-            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
-            {
-                process = runtime.exec(commandLinux);
-            }
-            else
-            {
-                System.err.println("Unable to ping ...");
-            }
-        }
-        catch (IOException e)
-        {
-            System.err.println("Unable to get exec acces to remote ...");
-        }
+                String commandLinux = "ping -c 1 -w " + timeOut + " " + ipAddress;
+                //TODO(Dominik):delete later
+                String commandWindows = "ping -n 1 -w " + timeOut + " " + ipAddress;
+                String inputLine;
 
-        BufferedReader bufferReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-        try
-        {
-            while ((inputLine = bufferReader.readLine()) != null)
-            {
-                System.out.println(inputLine);
-                if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1")))
+                Runtime runtime = Runtime.getRuntime();
+                Process process = null;
+                try
                 {
-                    return true;
+                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+                    {
+                        process = runtime.exec(commandWindows);
+                    }
+                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+                    {
+                        process = runtime.exec(commandLinux);
+                    }
+                    else
+                    {
+                        System.err.println("Unable to ping ...");
+                    }
                 }
+                catch (IOException e)
+                {
+                    System.err.println("Unable to get exec acces to remote ...");
+                }
+
+                BufferedReader bufferReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                try
+                {
+                    while ((inputLine = bufferReader.readLine()) != null)
+                    {
+                        System.out.println(inputLine);
+                        if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1")))
+                        {
+                            // return true;
+                            isReachable = true;
+                        }
+                    }
+                }
+                catch (IOException e)
+                {
+                    System.err.println("Failed to read input ...");
+                }
+                try
+                {
+                    bufferReader.close();
+                }
+                catch (IOException e)
+                {
+                    System.err.println("Unable to close buffered reader ...");
+                }
+                // return false;
+                isReachable = false;
             }
-        }
-        catch (IOException e)
-        {
-            System.err.println("Failed to read input ...");
-        }
-        try
-        {
-            bufferReader.close();
-        }
-        catch (IOException e)
-        {
-            System.err.println("Unable to close buffered reader ...");
-        }
-        return false;
+        };
+        thread.start();
+        return isReachable;
     }
 
     /**

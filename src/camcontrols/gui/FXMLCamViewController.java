@@ -1,7 +1,6 @@
 package camcontrols.gui;
 
 import camcontrols.comunication.CameraAvailabilityTester;
-import camcontrols.comunication.SshCamerahandler;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
@@ -18,6 +17,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -86,6 +86,12 @@ public class FXMLCamViewController implements Initializable
     private Button btnC2Options;
 
     @FXML
+    private Button btnC1Ping;
+
+    @FXML
+    private Button btnC2Ping;
+
+    @FXML
     private Label lblPingC1Result;
 
     @FXML
@@ -101,7 +107,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleCamHighlightEvent(final MouseEvent mouseEvent)
     {
-        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: orange;");
+        ((Node) mouseEvent.getSource()).setStyle("-fx-background-color: darkcyan;");
     }
 
     /**
@@ -309,14 +315,16 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleBtnPingCam1(final ActionEvent event)
     {
+
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            this.lblPingC1Result.setText("Camera 1 is responding.");
+            lblPingC1Result.setText("Camera 1 is responding.");
         }
         else
         {
-            this.lblPingC1Result.setText("Unable to reach camera 2.");
+            lblPingC1Result.setText("Unable to reach camera 1.");
         }
+
     }
 
     /**
@@ -328,12 +336,13 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            this.lblPingC2Result.setText("Camera 2 is responding.");
+            lblPingC2Result.setText("Camera 2 is responding.");
         }
         else
         {
-            this.lblPingC2Result.setText("Unable to reach camera 2.");
+            lblPingC2Result.setText("Unable to reach camera 2.");
         }
+
     }
 
     //</editor-fold>
@@ -364,6 +373,7 @@ public class FXMLCamViewController implements Initializable
         //TODO(Dominik): implement
     }
 
+    //TODO(Dominik): PING IN SEPARATE THREAD
     //TODO(Dominik): add timeline variables
     //TODO(Dominik): add variable for open menu isOpen
     //TODO(Dominik): when menu is open pause timelines

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.gui.FXMLCamViewController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="660.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camcontrols.gui.FXMLCamViewController">
     <children>
         <VBox layoutX="507.0" layoutY="131.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -25,6 +26,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1StartStreamAction" text="Start stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1StopStreamAction" text="Stop stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1ResetCameraAction" text="Reset camera" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleBtnPingCam1" text="Ping camera" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam1OptionsMenu" text="Camera options" />
                             </items>
                         </Menu>
@@ -33,6 +35,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2StartStreamAction" text="Start stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2StopStreamAction" text="Stop stream" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2ResetCameraAction" text="Reset camera" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleBtnPingCam2" text="Ping camera" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCam2OptionsMenu" text="Camera options" />
                             </items>
                         </Menu>
@@ -52,7 +55,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <AnchorPane onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
+                        <AnchorPane nodeOrientation="LEFT_TO_RIGHT" onMouseEntered="#handleCamHighlightEvent" onMouseExited="#handleCamUnhighlightEvent" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
                             <children>
                                 <ScrollPane fx:id="pane1" hbarPolicy="NEVER" prefHeight="595.0" prefWidth="640.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                             </children>
@@ -76,7 +79,75 @@
                         </AnchorPane>
                     </children>
                 </GridPane>
-                <AnchorPane prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: black;" />
+                <HBox prefHeight="60.0" prefWidth="1290.0" style="-fx-background-color: black;">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: darkcyan;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Button fx:id="btnC1Start" mnemonicParsing="false" onAction="#handleBtnC1Start" text="START">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC1Stop" mnemonicParsing="false" onAction="#handleBtnC1Stop" text="STOP">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC1Reset" mnemonicParsing="false" onAction="#handleBtnC1Reset" text="RESET">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC1Options" mnemonicParsing="false" onAction="#handleBtnC1Options" text="OPTIONS">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC1Ping" mnemonicParsing="false" onAction="#handleBtnPingCam1" text="PING">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Label fx:id="lblPingC1Result" alignment="CENTER" />
+                            </children>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets left="15.0" />
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: darkcyan;" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Button fx:id="btnC2Start" mnemonicParsing="false" onAction="#handleBtnC2Start" text="START">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC2Stop" mnemonicParsing="false" onAction="#handleBtnC2Stop" text="STOP">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC2Reset" mnemonicParsing="false" onAction="#handleBtnC2Reset" text="RESET">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC2Options" mnemonicParsing="false" onAction="#handleBtnC2Options" text="OPTIONS">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Button fx:id="btnC2Ping" mnemonicParsing="false" onAction="#handleBtnPingCam2" text="PING">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Button>
+                                <Label fx:id="lblPingC2Result" alignment="CENTER" />
+                            </children>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                            <padding>
+                                <Insets left="15.0" />
+                            </padding>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </HBox>
             </children>
         </VBox>
     </children>
