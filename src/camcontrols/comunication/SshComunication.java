@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 /**
  *
  * @author Dominik Pauli
- * @version 0.1
+ * @version 0.2
  */
 public class SshComunication
 {
@@ -45,7 +45,8 @@ public class SshComunication
             this.sshSession.connect(sshTimeout);
 
             System.out.println("SSH session created ...");
-        } catch (JSchException e)
+        }
+        catch (JSchException e)
         {
             System.err.println("Unable to create ssh session ...");
         }
@@ -69,31 +70,41 @@ public class SshComunication
      */
     public void runCommand(String command, int sshTimeout)
     {
-        try
+        Thread thread = new Thread()
         {
-            ChannelExec channelExec = (ChannelExec) this.sshSession.openChannel("exec");
-            InputStream exec = channelExec.getInputStream();
-            channelExec.setCommand(command);
-            channelExec.connect(sshTimeout);
-
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(exec));
-            String line;
-
-            while ((line = bReader.readLine()) != null)
+            @Override
+            public void run()
             {
-                System.out.println(line);
+                try
+                {
+                    ChannelExec channelExec = (ChannelExec) sshSession.openChannel("exec");
+                    InputStream exec = channelExec.getInputStream();
+                    channelExec.setCommand(command);
+                    channelExec.connect(sshTimeout);
+
+                    BufferedReader bReader = new BufferedReader(new InputStreamReader(exec));
+                    String line;
+
+                    while ((line = bReader.readLine()) != null)
+                    {
+                        System.out.println(line);
+                    }
+
+                    System.out.println("Command executed ...");
+
+                    channelExec.disconnect();
+                }
+                catch (JSchException e)
+                {
+                    System.err.println("Unable to run command exec ...");
+                }
+                catch (IOException e)
+                {
+                    System.err.println("Unable to create input stream ...");
+                }
             }
-
-            System.out.println("Command executed ...");
-
-            channelExec.disconnect();
-        } catch (JSchException e)
-        {
-            System.err.println("Unable to run command exec ...");
-        } catch (IOException e)
-        {
-            System.err.println("Unable to create input stream ...");
-        }
+        };
+        thread.start();
     }
 
     /**
@@ -104,27 +115,39 @@ public class SshComunication
      */
     public void uploadFile(String remtoteConfigPath, File fileToSend, int sshTimeout)
     {
-        try
+        Thread thread = new Thread()
         {
-            ChannelSftp channelSftp = (ChannelSftp) this.sshSession.openChannel("sftp");
-            channelSftp.connect(sshTimeout);
+            @Override
+            public void run()
+            {
 
-            System.out.println("Trying to send file ...");
-            channelSftp.put(new FileInputStream(fileToSend), remtoteConfigPath, ChannelSftp.OVERWRITE);
-            System.out.println("File succesfully send...");
+                try
+                {
+                    ChannelSftp channelSftp = (ChannelSftp) sshSession.openChannel("sftp");
+                    channelSftp.connect(sshTimeout);
 
-            channelSftp.disconnect();
+                    System.out.println("Trying to send file ...");
+                    channelSftp.put(new FileInputStream(fileToSend), remtoteConfigPath, ChannelSftp.OVERWRITE);
+                    System.out.println("File succesfully send...");
 
-        } catch (JSchException e)
-        {
-            System.err.println("Unable to create sftp session ...");
-        } catch (SftpException e)
-        {
-            System.err.println("Sending file failed ...");
-        } catch (FileNotFoundException e)
-        {
-            System.err.println("File to send does not exist ...");
-        }
+                    channelSftp.disconnect();
+
+                }
+                catch (JSchException e)
+                {
+                    System.err.println("Unable to create sftp session ...");
+                }
+                catch (SftpException e)
+                {
+                    System.err.println("Sending file failed ...");
+                }
+                catch (FileNotFoundException e)
+                {
+                    System.err.println("File to send does not exist ...");
+                }
+            }
+        };
+        thread.start();
     }
 
     //TODO(Dominik):test how log it takes to download large amount of files if it is too slow add some sort of status checking and make user be able to stop download
@@ -151,10 +174,12 @@ public class SshComunication
             System.out.println("All files succesfully downloaded ...");
 
             channelSftp.disconnect();
-        } catch (JSchException e)
+        }
+        catch (JSchException e)
         {
             System.err.println("Unable to create sftp session ...");
-        } catch (SftpException e)
+        }
+        catch (SftpException e)
         {
             System.err.println("Downloading file failed ...");
         }

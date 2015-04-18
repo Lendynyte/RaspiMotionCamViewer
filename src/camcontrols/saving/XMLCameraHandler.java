@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 /**
  *
  * @author Dominik Pauli
- * @version 0.3
+ * @version 0.4
  */
 public class XMLCameraHandler
 {
@@ -47,49 +47,57 @@ public class XMLCameraHandler
      */
     public void LoadXMLFile(String filePath, MotionCameraInterface MotionCamera)
     {
-        try
+        Thread thread = new Thread()
         {
-            System.out.println("Loading file ...");
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document dc = dBuilder.parse(xmlFile);
 
-            NodeList nodeList = dc.getElementsByTagName("camera");
-
-            for (int i = 0; i < nodeList.getLength(); i++)
+            @Override
+            public void run()
             {
-                Node nNode = nodeList.item(i);
-
-                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                try
                 {
-                    Element eElement = (Element) nNode;
+                    System.out.println("Loading file ...");
+                    File xmlFile = new File(filePath);
+                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                    Document dc = dBuilder.parse(xmlFile);
 
-                    MotionCamera.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-                    MotionCamera.setHandle(eElement.getElementsByTagName("handle").item(0).getTextContent());
-                    MotionCamera.setConfigPath(eElement.getElementsByTagName("confPath").item(0).getTextContent());
-                    MotionCamera.setURL(eElement.getElementsByTagName("URL").item(0).getTextContent());
+                    NodeList nodeList = dc.getElementsByTagName("camera");
+
+                    for (int i = 0; i < nodeList.getLength(); i++)
+                    {
+                        Node nNode = nodeList.item(i);
+
+                        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                        {
+                            Element eElement = (Element) nNode;
+
+                            MotionCamera.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+                            MotionCamera.setHandle(eElement.getElementsByTagName("handle").item(0).getTextContent());
+                            MotionCamera.setConfigPath(eElement.getElementsByTagName("confPath").item(0).getTextContent());
+                            MotionCamera.setURL(eElement.getElementsByTagName("URL").item(0).getTextContent());
 
                     //TODO(Dominik):uncoment after i put right values into save
                    /* MotionCamera.setCamRotation(Integer.parseInt(eElement.getElementsByTagName("rotatinon").item(0).getTextContent()));
-                     MotionCamera.setCamWidth(Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent()));
-                     MotionCamera.setCamHeight(Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent()));
-                     MotionCamera.setCamFramerate(Integer.parseInt(eElement.getElementsByTagName("framerate").item(0).getTextContent()));
-                     MotionCamera.setCamAutoBrightness(Boolean.parseBoolean(eElement.getElementsByTagName("autoBrightness").item(0).getTextContent()));
-                     MotionCamera.setCamBrightness(Integer.parseInt(eElement.getElementsByTagName("brightness").item(0).getTextContent()));
-                     MotionCamera.setCamConstrast(Integer.parseInt(eElement.getElementsByTagName("contrast").item(0).getTextContent()));
-                     MotionCamera.setCamHue(Integer.parseInt(eElement.getElementsByTagName("hue").item(0).getTextContent()));
-                     MotionCamera.setCamSaturation(Integer.parseInt(eElement.getElementsByTagName("saturation").item(0).getTextContent()));
-                     MotionCamera.setCamQuality(Integer.parseInt(eElement.getElementsByTagName("quality").item(0).getTextContent()));*/
-                    //TODO(Dominik):add rest of options later
+                             MotionCamera.setCamWidth(Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent()));
+                             MotionCamera.setCamHeight(Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent()));
+                             MotionCamera.setCamFramerate(Integer.parseInt(eElement.getElementsByTagName("framerate").item(0).getTextContent()));
+                             MotionCamera.setCamAutoBrightness(Boolean.parseBoolean(eElement.getElementsByTagName("autoBrightness").item(0).getTextContent()));
+                             MotionCamera.setCamBrightness(Integer.parseInt(eElement.getElementsByTagName("brightness").item(0).getTextContent()));
+                             MotionCamera.setCamConstrast(Integer.parseInt(eElement.getElementsByTagName("contrast").item(0).getTextContent()));
+                             MotionCamera.setCamHue(Integer.parseInt(eElement.getElementsByTagName("hue").item(0).getTextContent()));
+                             MotionCamera.setCamSaturation(Integer.parseInt(eElement.getElementsByTagName("saturation").item(0).getTextContent()));
+                             MotionCamera.setCamQuality(Integer.parseInt(eElement.getElementsByTagName("quality").item(0).getTextContent()));*/
+                            //TODO(Dominik):add rest of options later
+                        }
+                    }
+                }
+                catch (ParserConfigurationException | SAXException | IOException e)
+                {
+                    System.err.println("Loading XML file failed");
                 }
             }
-        }
-        catch (ParserConfigurationException | SAXException | IOException e)
-        {
-            System.err.println("Loading XML file failed");
-        }
-
+        };
+        thread.start();
     }
 
     //TODO(Dominik):maybe merge these two together later
@@ -124,110 +132,119 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-                              String configPath, String camURL, String camRotation, String camWidth,
-                              String camHeight, String camFramerate, String camAutoBrightness,
-                              String camBrightness, String camContrast, String camHue,
-                              String camSaturation, String camQuality)
+            String configPath, String camURL, String camRotation, String camWidth,
+            String camHeight, String camFramerate, String camAutoBrightness,
+            String camBrightness, String camContrast, String camHue,
+            String camSaturation, String camQuality)
     {
-        try
+        Thread thread = new Thread()
         {
-            System.out.println("Creating XML file ...");
 
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            @Override
+            public void run()
+            {
+                try
+                {
+                    System.out.println("Creating XML file ...");
 
-            Document document = docBuilder.newDocument();
-            Element root = document.createElement("camera");
-            document.appendChild(root);
+                    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-            // name element
-            Element name = document.createElement("name");
-            name.appendChild(document.createTextNode(camName));
-            root.appendChild(name);
+                    Document document = docBuilder.newDocument();
+                    Element root = document.createElement("camera");
+                    document.appendChild(root);
 
-            // handle element
-            Element handle = document.createElement("handle");
-            handle.appendChild(document.createTextNode(camHandle));
-            root.appendChild(handle);
+                    // name element
+                    Element name = document.createElement("name");
+                    name.appendChild(document.createTextNode(camName));
+                    root.appendChild(name);
 
-            // configuration file path element
-            Element cPath = document.createElement("confPath");
-            cPath.appendChild(document.createTextNode(configPath));
-            root.appendChild(cPath);
+                    // handle element
+                    Element handle = document.createElement("handle");
+                    handle.appendChild(document.createTextNode(camHandle));
+                    root.appendChild(handle);
 
-            // URL element
-            Element URL = document.createElement("URL");
-            URL.appendChild(document.createTextNode(camURL));
-            root.appendChild(URL);
+                    // configuration file path element
+                    Element cPath = document.createElement("confPath");
+                    cPath.appendChild(document.createTextNode(configPath));
+                    root.appendChild(cPath);
 
-            // rotation element
-            Element rotation = document.createElement("rotation");
-            rotation.appendChild(document.createTextNode(camRotation));
-            root.appendChild(rotation);
+                    // URL element
+                    Element URL = document.createElement("URL");
+                    URL.appendChild(document.createTextNode(camURL));
+                    root.appendChild(URL);
 
-            // width element
-            Element width = document.createElement("width");
-            width.appendChild(document.createTextNode(camWidth));
-            root.appendChild(width);
+                    // rotation element
+                    Element rotation = document.createElement("rotation");
+                    rotation.appendChild(document.createTextNode(camRotation));
+                    root.appendChild(rotation);
 
-            // height element
-            Element height = document.createElement("height");
-            height.appendChild(document.createTextNode(camHeight));
-            root.appendChild(height);
+                    // width element
+                    Element width = document.createElement("width");
+                    width.appendChild(document.createTextNode(camWidth));
+                    root.appendChild(width);
 
-            // framerate element
-            Element framerate = document.createElement("framerate");
-            framerate.appendChild(document.createTextNode(camFramerate));
-            root.appendChild(framerate);
+                    // height element
+                    Element height = document.createElement("height");
+                    height.appendChild(document.createTextNode(camHeight));
+                    root.appendChild(height);
 
-            // autoBrightness element
-            Element autoBrightness = document.createElement("autoBrightness");
-            autoBrightness.appendChild(document.createTextNode(camAutoBrightness));
-            root.appendChild(autoBrightness);
+                    // framerate element
+                    Element framerate = document.createElement("framerate");
+                    framerate.appendChild(document.createTextNode(camFramerate));
+                    root.appendChild(framerate);
 
-            // brightness element
-            Element brightness = document.createElement("brightness");
-            brightness.appendChild(document.createTextNode(camBrightness));
-            root.appendChild(brightness);
+                    // autoBrightness element
+                    Element autoBrightness = document.createElement("autoBrightness");
+                    autoBrightness.appendChild(document.createTextNode(camAutoBrightness));
+                    root.appendChild(autoBrightness);
 
-            // contrast element
-            Element contrast = document.createElement("contrast");
-            contrast.appendChild(document.createTextNode(camContrast));
-            root.appendChild(contrast);
+                    // brightness element
+                    Element brightness = document.createElement("brightness");
+                    brightness.appendChild(document.createTextNode(camBrightness));
+                    root.appendChild(brightness);
 
-            // hue element
-            Element hue = document.createElement("hue");
-            hue.appendChild(document.createTextNode(camHue));
-            root.appendChild(hue);
+                    // contrast element
+                    Element contrast = document.createElement("contrast");
+                    contrast.appendChild(document.createTextNode(camContrast));
+                    root.appendChild(contrast);
 
-            // saturation element
-            Element saturation = document.createElement("saturation");
-            saturation.appendChild(document.createTextNode(camSaturation));
-            root.appendChild(saturation);
+                    // hue element
+                    Element hue = document.createElement("hue");
+                    hue.appendChild(document.createTextNode(camHue));
+                    root.appendChild(hue);
 
-            // quality element
-            Element quality = document.createElement("quality");
-            quality.appendChild(document.createTextNode(camQuality));
-            root.appendChild(quality);
+                    // saturation element
+                    Element saturation = document.createElement("saturation");
+                    saturation.appendChild(document.createTextNode(camSaturation));
+                    root.appendChild(saturation);
 
-            System.out.println("Elements added ...");
+                    // quality element
+                    Element quality = document.createElement("quality");
+                    quality.appendChild(document.createTextNode(camQuality));
+                    root.appendChild(quality);
 
-            //TODO(Dominik):add rest of options to save
-            System.out.println("Creating file ...");
+                    System.out.println("Elements added ...");
 
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource dsource = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(savePath));
-            transformer.transform(dsource, result);
+                    //TODO(Dominik):add rest of options to save
+                    System.out.println("Creating file ...");
 
-            System.out.println("File saved! ...");
+                    // write the content into xml file
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource dsource = new DOMSource(document);
+                    StreamResult result = new StreamResult(new File(savePath));
+                    transformer.transform(dsource, result);
 
-        }
-        catch (ParserConfigurationException | DOMException | TransformerException e)
-        {
-            System.err.println("Creating XML file failed! ...");
-        }
+                    System.out.println("File saved! ...");
+
+                }
+                catch (ParserConfigurationException | DOMException | TransformerException e)
+                {
+                    System.err.println("Creating XML file failed! ...");
+                }
+            }
+        };
+        thread.start();
     }
 }

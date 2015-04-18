@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Dominik Pauli
- * @version 0.4
+ * @version 0.5
  */
 public class Parser
 {
@@ -26,47 +26,56 @@ public class Parser
      */
     public void createConfFile(ArrayList<String> list, String path)
     {
-        File file;
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-
-        try
+        Thread thread = new Thread()
         {
-            file = new File(path + "/motion.conf");
-            fw = new FileWriter(file.getAbsoluteFile());
-            bw = new BufferedWriter(fw);
-
-            for (String line : list)
+            @Override
+            public void run()
             {
-                bw.write(line + '\r' + '\n');
-            }
-            bw.flush();
-            fw.flush();
-        }
-        catch (IOException e)
-        {
-            System.err.println("Creating file failed");
-        }
-        finally
-        {
-            try
-            {
-                if (bw != null)
+
+                File file;
+                FileWriter fw = null;
+                BufferedWriter bw = null;
+
+                try
                 {
-                    bw.close();
-                }
+                    file = new File(path + "/motion.conf");
+                    fw = new FileWriter(file.getAbsoluteFile());
+                    bw = new BufferedWriter(fw);
 
-                if (fw != null)
+                    for (String line : list)
+                    {
+                        bw.write(line + '\r' + '\n');
+                    }
+                    bw.flush();
+                    fw.flush();
+                }
+                catch (IOException e)
                 {
-                    fw.close();
+                    System.err.println("Creating file failed");
                 }
+                finally
+                {
+                    try
+                    {
+                        if (bw != null)
+                        {
+                            bw.close();
+                        }
 
+                        if (fw != null)
+                        {
+                            fw.close();
+                        }
+
+                    }
+                    catch (IOException e)
+                    {
+                        System.out.println("There was error closing streams");
+                    }
+                }
             }
-            catch (IOException e)
-            {
-                System.out.println("There was error closing streams");
-            }
-        }
+        };
+        thread.start();
     }
 
     /**
@@ -79,42 +88,52 @@ public class Parser
      */
     public void loadConfLines(ArrayList<String> list, String path)
     {
-        FileReader fr = null;
-        BufferedReader br = null;
-        String currentLine = null;
-
-        try
+        Thread thread = new Thread()
         {
-            fr = new FileReader(path);
-            br = new BufferedReader(fr);
 
-            while ((currentLine = br.readLine()) != null)
+            @Override
+            public void run()
             {
-                list.add(currentLine); // add data to provided list
-            }
-        }
-        catch (IOException e)
-        {// file was not found 
-            System.err.println("File was not loaded");
-        }
-        finally
-        {// if we cannot read we still close our streams
-            try
-            {
-                if (br != null)
-                { // close buffered reader
-                    br.close();
+
+                FileReader fr = null;
+                BufferedReader br = null;
+                String currentLine = null;
+
+                try
+                {
+                    fr = new FileReader(path);
+                    br = new BufferedReader(fr);
+
+                    while ((currentLine = br.readLine()) != null)
+                    {
+                        list.add(currentLine); // add data to provided list
+                    }
                 }
-                if (fr != null)
-                { // close filereader
-                    fr.close();
+                catch (IOException e)
+                {// file was not found 
+                    System.err.println("File was not loaded");
+                }
+                finally
+                {// if we cannot read we still close our streams
+                    try
+                    {
+                        if (br != null)
+                        { // close buffered reader
+                            br.close();
+                        }
+                        if (fr != null)
+                        { // close filereader
+                            fr.close();
+                        }
+                    }
+                    catch (IOException e)
+                    {// Unable to close the file
+                        System.err.println("There was error closing streams");
+                    }
                 }
             }
-            catch (IOException e)
-            {// Unable to close the file
-                System.err.println("There was error closing streams");
-            }
-        }
+        };
+        thread.start();
     }
 
     /**
