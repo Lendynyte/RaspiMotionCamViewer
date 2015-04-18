@@ -15,9 +15,9 @@ public class XMLTester
     {
         XMLCameraHandler xml = new XMLCameraHandler();
 
-        xml.createXMLFile("c://test/test.xml", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test");
+        xml.createXMLFile("j://test/test.xml", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test");
 
-        xml.LoadXMLFile("c://test/test.xml", MotionCamera1.getInstance());
+        xml.LoadXMLFile("j://test/test.xml", MotionCamera1.getInstance());
         
         System.out.println(MotionCamera1.getInstance().getName());
         System.out.println(MotionCamera1.getInstance().getHandle());

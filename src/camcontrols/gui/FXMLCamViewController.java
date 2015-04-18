@@ -373,12 +373,6 @@ public class FXMLCamViewController implements Initializable
         //TODO(Dominik): implement
     }
 
-    //TODO(Dominik): PING IN SEPARATE THREAD
-    //TODO(Dominik): add timeline variables
-    //TODO(Dominik): add variable for open menu isOpen
-    //TODO(Dominik): when menu is open pause timelines
-    //TODO(Dominik): when menu is closed start timelines
-    //TODO(Dominik): Check if on windows and use webcampanel if on rpi use timeline
     //TODO(Dominik): check for cameras only after pinging them first
     //TODO(Dominik): show warning only when i debug mode
     //TODO(Dominik):implement debug mode
@@ -406,15 +400,23 @@ public class FXMLCamViewController implements Initializable
     private ImageView repaintImage(BufferedImage grabbedImage)
     {
         WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
-
-        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        Thread thread = new Thread()
         {
-            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            @Override
+            public void run()
             {
-                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+                PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+                for (int x = 0; x < grabbedImage.getWidth(); x++)
+                {
+                    for (int y = 0; y < grabbedImage.getHeight(); y++)
+                    {
+                        pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+                    }
+                }
             }
-        }
+        };
+        thread.start();
         return new ImageView(writableImage);
     }
 
@@ -488,8 +490,6 @@ public class FXMLCamViewController implements Initializable
         timeline.play();
     }
 
-    //TODO(Dominik):add ping for each camera 
-    //TODO(Dominik):add buttons
     //TODO(Dominik) test this also test without timeline test if it lags
     //TODO(Dominik): handle when i cannot connect to not crash
     /**

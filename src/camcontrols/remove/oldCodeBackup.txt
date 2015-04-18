@@ -1,5 +1,67 @@
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @param grabbedImage
+     * @return
+     */
+    private ImageView repaintImage(BufferedImage grabbedImage)
+    {
+        WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+            }
+        }
+        return new ImageView(writableImage);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*private void pingCamerasafe()
      {
      Task task = new Task<Void>()
