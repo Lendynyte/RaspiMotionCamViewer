@@ -1,6 +1,7 @@
 package camcontrols.gui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class CamControls extends Application
 
         Scene scene = new Scene(root);
 
+        stage.setOnCloseRequest(event -> Platform.exit());
         stage.setTitle("Raspberry pi surveillance camera system");
         stage.setScene(scene);
         stage.show();
