@@ -35,16 +35,22 @@ public class FXMLOptionsController implements Initializable
 
     //<editor-fold defaultstate="collapsed" desc="Control buttons">
     @FXML
-    private Button applyButton;
+    private Button btnApply;
 
     @FXML
-    private Button cancelButton;
+    private Button btnCancel;
 
     @FXML
-    private Button resetButton;
+    private Button btnReset;
 
     @FXML
-    private Button saveButton;
+    private Button btnSave;
+
+    @FXML
+    private Button btnLoad;
+
+    @FXML
+    private Button btnClose;
 //</editor-fold>
 
     //main anchor pane
@@ -161,9 +167,9 @@ public class FXMLOptionsController implements Initializable
     //variable for checking data from form
     private boolean isError = false;
 
-    //BUTTON HANDLING START
+    //<editor-fold defaultstate="collapsed" desc="Button handling">
     @FXML
-    private void handleButtonApplyButton(final ActionEvent event)
+    private void handleButtonApply(final ActionEvent event)
     {
         saveToXMLSaveFile();
         applyToCamera();
@@ -178,14 +184,25 @@ public class FXMLOptionsController implements Initializable
 
     //TODO(Dominik):Load existing configuration on options menu startup
     /**
+     * This method closes the options window and cancels all settings
+     *
+     * @param event button clicke
+     */
+    @FXML
+    private void handleButtonCancel(final ActionEvent event)
+    {
+        ApplicationVariables.getInstance().setIsOptionsOpen(false);
+        this.mainPane.getScene().getWindow().hide();
+    }
+
+    /**
      * This method closes the options window
      *
      * @param event button clicke
      */
     @FXML
-    private void handleButtonCancelButton(final ActionEvent event)
+    private void handleButtonClose(final ActionEvent event)
     {
-        System.out.println("Cancel button");
         ApplicationVariables.getInstance().setIsOptionsOpen(false);
         this.mainPane.getScene().getWindow().hide();
     }
@@ -195,13 +212,13 @@ public class FXMLOptionsController implements Initializable
      * @param event button clicked
      */
     @FXML
-    private void handleButtonResetToDefaultButton(final ActionEvent event)
+    private void handleButtonResetToDefault(final ActionEvent event)
     {
         this.setDefaultValues();
     }
 
     @FXML
-    private void handleButtonSaveButton(final ActionEvent event)
+    private void handleButtonSave(final ActionEvent event)
     {
         applyToCamera();
         saveToXMLSaveFile();
@@ -217,8 +234,14 @@ public class FXMLOptionsController implements Initializable
         //TODO(Dominik): rename this variable in cameras
         System.out.println(MotionCamera1.getInstance().isCamAutoBrightness());
     }
-    //BUTTON HANDLING END
 
+    @FXML
+    private void handleButtonLoad(final ActionEvent event)
+    {
+        //TODO(Dominik): Implement loading from xml
+    }
+
+    //</editor-fold>
     //TODO(Dominik):lookup documentation for enable contrast etc....
     //TODO(Dominik):maybeoly 1 brightnesss checkbox
     //TODO(Dominik):rewrite this one
@@ -347,7 +370,7 @@ public class FXMLOptionsController implements Initializable
      * @param event checkobox checked event
      */
     @FXML
-    private void handleCheckBoxAutoBrightnessCheckBox(final ActionEvent event)
+    private void handleCheckBoxAutoBrightness(final ActionEvent event)
     {
         if (this.chckAutoBrightness.isSelected())
         {
@@ -367,7 +390,7 @@ public class FXMLOptionsController implements Initializable
      * @param event checkobox checked event
      */
     @FXML
-    private void handleCheckBoxSendAutoEmailCheckBox(final ActionEvent event)
+    private void handleCheckBoxSendAutoEmail(final ActionEvent event)
     {
         if (this.chckAlerMail.isSelected())
         {
@@ -389,7 +412,7 @@ public class FXMLOptionsController implements Initializable
      * @param event checkobox checked event
      */
     @FXML
-    private void handleCheckBoxRemoteImagesCheckBox(final ActionEvent event)
+    private void handleCheckBoxRemoteImages(final ActionEvent event)
     {
         if (this.chckRemoteStore.isSelected())
         {
