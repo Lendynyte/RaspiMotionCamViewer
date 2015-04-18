@@ -14,6 +14,27 @@ public class WindowMenuClass
 {
 
     /**
+     * This methods shows application settings window
+     *
+     */
+    public void createAboutApplicationSettingsWindow()
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLApplicationSettings.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Application settings");
+            stage.show();
+        }
+        catch (Exception e)
+        {
+            System.err.println("There was an error loading help menu FXML file");
+        }
+    }
+
+    /**
      * This methods show basic about popup window
      *
      */
@@ -54,7 +75,7 @@ public class WindowMenuClass
             System.err.println("There was an error loading options menu FXML file");
         }
     }
-    
+
     /**
      * This method creates options window from fxml file
      */

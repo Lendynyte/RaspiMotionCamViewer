@@ -17,7 +17,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Settings" />
+                                <MenuItem mnemonicParsing="false" onAction="#handleMenuApplicationSettings" text="Settings" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCloseAction" text="Exit application" />
                             </items>
                         </Menu>
@@ -84,25 +84,30 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: darkcyan;" HBox.hgrow="ALWAYS">
                             <children>
                                 <Button fx:id="btnC1Start" mnemonicParsing="false" onAction="#handleBtnC1Start" text="START">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC1Stop" mnemonicParsing="false" onAction="#handleBtnC1Stop" text="STOP">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC1Reset" mnemonicParsing="false" onAction="#handleBtnC1Reset" text="RESET">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC1Options" mnemonicParsing="false" onAction="#handleBtnC1Options" text="OPTIONS">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC1Ping" mnemonicParsing="false" onAction="#handleBtnPingCam1" text="PING">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Label fx:id="lblPingC1Result" alignment="CENTER" />
                             </children>
                             <HBox.margin>
@@ -115,25 +120,30 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: darkcyan;" HBox.hgrow="ALWAYS">
                             <children>
                                 <Button fx:id="btnC2Start" mnemonicParsing="false" onAction="#handleBtnC2Start" text="START">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC2Stop" mnemonicParsing="false" onAction="#handleBtnC2Stop" text="STOP">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC2Reset" mnemonicParsing="false" onAction="#handleBtnC2Reset" text="RESET">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC2Options" mnemonicParsing="false" onAction="#handleBtnC2Options" text="OPTIONS">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="btnC2Ping" mnemonicParsing="false" onAction="#handleBtnPingCam2" text="PING">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font></Button>
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                </Button>
                                 <Label fx:id="lblPingC2Result" alignment="CENTER" />
                             </children>
                             <HBox.margin>

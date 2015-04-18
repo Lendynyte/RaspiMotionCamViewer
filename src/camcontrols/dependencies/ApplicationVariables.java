@@ -3,7 +3,7 @@ package camcontrols.dependencies;
 /**
  *
  * @author Dominik Pauli
- * @version 0.1
+ * @version 0.2
  */
 public class ApplicationVariables
 {
@@ -15,6 +15,7 @@ public class ApplicationVariables
         //to stop instantatiaon
         this.isHelpOpen = false;
         this.isOptionsOpen = false;
+
     }
 
     public static ApplicationVariables getInstance()
@@ -29,8 +30,47 @@ public class ApplicationVariables
     //variable determining if options menu is open
     private boolean isOptionsOpen;
 
-    //variable determining of help menu is open
+    //variable determining if help menu is open
     private boolean isHelpOpen;
+
+    //variable determining if application settings menu is open
+    private boolean isSettingsOpen;
+
+    //save directory path
+    private String xmlSaveDirectoryPath;
+
+    //install directory path
+    private String installDirectoryPath;
+
+    public boolean isIsSettingsOpen()
+    {
+        return isSettingsOpen;
+    }
+
+    public void setIsSettingsOpen(boolean isSettingsOpen)
+    {
+        this.isSettingsOpen = isSettingsOpen;
+    }
+
+    public String getXmlSaveDirectoryPath()
+    {
+        return xmlSaveDirectoryPath;
+    }
+
+    public void setXmlSaveDirectoryPath(String xmlSaveDirectoryPath)
+    {
+        this.xmlSaveDirectoryPath = xmlSaveDirectoryPath;
+    }
+
+    public String getInstallDirectoryPath()
+    {
+        return installDirectoryPath;
+    }
+
+    public void setInstallDirectoryPath(String installDirectoryPath)
+    {
+        this.installDirectoryPath = installDirectoryPath;
+    }
 
     public boolean isIsOptionsOpen()
     {

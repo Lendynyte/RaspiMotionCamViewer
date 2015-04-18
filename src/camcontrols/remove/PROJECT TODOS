@@ -1,5 +1,17 @@
 
 
+
+
+
+
+
+add camera name and ip somewhere under or above the camera and into options so i see what i am changing
+
+
+
+
+
+
 Think about startup routine
 initialize cameras load drivers setup from config file
 save application settings maybe?

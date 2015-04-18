@@ -37,7 +37,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.5
+ * @version 0.6
  */
 public class FXMLCamViewController implements Initializable
 {
@@ -223,6 +223,17 @@ public class FXMLCamViewController implements Initializable
     {
         WindowMenuClass wmc = new WindowMenuClass();
         wmc.createCamera2OptionsWindow();
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuApplicationSettings(final ActionEvent event)
+    {
+        WindowMenuClass wmc = new WindowMenuClass();
+        wmc.createAboutApplicationSettingsWindow();
     }
 
     //</editor-fold>
@@ -477,7 +488,7 @@ public class FXMLCamViewController implements Initializable
     {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
         {
-            if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
+            if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
             {
                 Platform.runLater(() ->
                 {
