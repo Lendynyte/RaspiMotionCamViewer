@@ -11,6 +11,7 @@ import camcontrols.dependencies.MotionCameraInterface;
 import camcontrols.saving.XMLCameraHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -793,12 +794,6 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
-    //TODO(Dominik):this method should load xml at start if it can and nothing ifit cnnot maybe use on load
-    private void initXMLForm()
-    {
-        //TODO(Dominik):implement
-    }
-
     /**
      *
      */
@@ -934,8 +929,10 @@ public class FXMLOptionsController implements Initializable
     {
         initializeTextBoxes();
         InitializeCBoxResolution();
-    //TODO(Dominik):change xml loadding  
-        //   loadXMLSave();
+        Platform.runLater(() ->
+        {
+            loadXMLSave();
+        });
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
 
