@@ -238,7 +238,8 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonLoad(final ActionEvent event)
     {
-        //TODO(Dominik): Implement loading from xml
+        loadXMLSave();
+        loadSingletonToForm();
     }
 
     //</editor-fold>
@@ -332,7 +333,14 @@ public class FXMLOptionsController implements Initializable
         return (int) Math.floor(2.55 * percentage);
     }
 
-    //TODO(Dominik):add checkbox next to sliders to enable/disable 0 = disabled in motion.conf after that just add +1 in percentages
+    /**
+     *
+     */
+    private void setDefaultSingletonValues()
+    {
+        //TODO(Dominik):implement
+    }
+
     /**
      * This method sets default values for options form
      */
@@ -514,12 +522,39 @@ public class FXMLOptionsController implements Initializable
         this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
     }
 
+    //TODO(Dominik):currently loading from wrong path fix this and check 
     /**
      *
      */
     private void saveToXMLSaveFile()
     {
-        //TODO(Dominik):implement saving settings to save file
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                saveToCameraSingleton(MotionCamera1.getInstance(), "1");
+                createXMLSave(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave1.xml");
+            }
+            break;
+            case "2":
+            {
+                saveToCameraSingleton(MotionCamera2.getInstance(), "2");
+                createXMLSave(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave2.xml");
+            }
+            break;
+        }
+    }
+
+    /**
+     *
+     * @param MotionCamera
+     * @param savePath
+     */
+    private void createXMLSave(MotionCameraInterface MotionCamera, String savePath)
+    {
+        XMLCameraHandler xmlHandler = new XMLCameraHandler();
+
+        xmlHandler.createCamSave(MotionCamera, savePath);
     }
 
     /**
@@ -716,6 +751,29 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
+     * This method is called when loading XML save to singleton it handles
+     * calling of method loaxXMLtoSingleton for right camera and with right path
+     */
+    private void loadXMLSave()
+    {
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                loadXMLtoSingleton(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave1.xml", MotionCamera1.getInstance());
+            }
+            break;
+            case "2":
+            {
+                loadXMLtoSingleton(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave2.xml", MotionCamera2.getInstance());
+            }
+            break;
+        }
+    }
+
+    /**
+     * This method loads xml to for if xml save is not found it loads default
+     * configuration
      *
      * @param XMLPath
      * @param MotionCamera
@@ -729,17 +787,23 @@ public class FXMLOptionsController implements Initializable
         }
         else
         {
+            System.out.println("XML file not found loading default configuration ...");
+            //TODO(Dominik):SET DEFAULT VALUES TO SINGLETON
             this.setDefaultValues();
         }
     }
 
-    //TODO(Dominik):testing
+    //TODO(Dominik):this method should load xml at start if it can and nothing ifit cnnot maybe use on load
+    private void initXMLForm()
+    {
+        //TODO(Dominik):implement
+    }
+
     /**
      *
      */
     private void loadSingletonToForm()
     {
-        //TODO(Dominik):impelement
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
@@ -753,7 +817,6 @@ public class FXMLOptionsController implements Initializable
             }
             break;
         }
-
     }
 
     /**
@@ -852,28 +915,27 @@ public class FXMLOptionsController implements Initializable
                 return pingTest.isReachable(MotionCamera1.getInstance().getURL(), 200);
             case "2":
                 return pingTest.isReachable(MotionCamera2.getInstance().getURL(), 200);
-            default:
+            default: //should never happen
                 System.err.println("Wrong window handle ...");
-                //should never happen
                 return false;
         }
     }
 
-    //TODO(Dominik):add save /load button to form
     //TODO(Dominik):save/load to xml
     //TODO(Dominik):autobrightness/default brightnesss keep only one slider
-    //TODO(Dominik):if i swap camera in menu change load settings from camera singleton
-    //TODO(Dominik):at start load stuff from xml to form and to camear singletons
-    //TODO(Dominik):setup relative paths to store config files and saves
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        //TODO(Dominik):if save then do not initialize to default
         initializeTextBoxes();
         InitializeCBoxResolution();
+    //TODO(Dominik):change xml loadding  
+        //   loadXMLSave();
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
 

@@ -101,9 +101,9 @@ public class XMLCameraHandler
     }
 
     //TODO(Dominik):maybe merge these two together later
-    public void createCamSave(MotionCameraInterface MotionCamera)
+    public void createCamSave(MotionCameraInterface MotionCamera, String savePath)
     {
-        createXMLFile(MotionCamera.getXMLSavePath(), MotionCamera.getName(),
+        createXMLFile(savePath, MotionCamera.getName(),
                 MotionCamera.getHandle(), MotionCamera.getConfigPath(),
                 MotionCamera.getURL(), MotionCamera.getCamRotation() + "",
                 MotionCamera.getCamWidth() + "", MotionCamera.getCamHeight() + "",
@@ -132,10 +132,10 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-            String configPath, String camURL, String camRotation, String camWidth,
-            String camHeight, String camFramerate, String camAutoBrightness,
-            String camBrightness, String camContrast, String camHue,
-            String camSaturation, String camQuality)
+                              String configPath, String camURL, String camRotation, String camWidth,
+                              String camHeight, String camFramerate, String camAutoBrightness,
+                              String camBrightness, String camContrast, String camHue,
+                              String camSaturation, String camQuality)
     {
         Thread thread = new Thread()
         {
@@ -242,6 +242,7 @@ public class XMLCameraHandler
                 catch (ParserConfigurationException | DOMException | TransformerException e)
                 {
                     System.err.println("Creating XML file failed! ...");
+                    e.printStackTrace();
                 }
             }
         };

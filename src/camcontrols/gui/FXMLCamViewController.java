@@ -500,6 +500,17 @@ public class FXMLCamViewController implements Initializable
         timeline.play();
     }
 
+    /**
+     * This method is used for initializing application variables and is called
+     * on load
+     */
+    private void startInit()
+    {
+        //TODO(Dominik):change variables for linux
+        ApplicationVariables.getInstance().setXmlSaveDirectoryPath("c:\test");
+        ApplicationVariables.getInstance().setInstallDirectoryPath("c:\test");
+    }
+
     //TODO(Dominik) test this also test without timeline test if it lags
     //TODO(Dominik): handle when i cannot connect to not crash
     /**
@@ -511,6 +522,8 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        this.startInit();
+
         //TODO(Dominik): remove from init block
         /*try
          {
@@ -537,7 +550,6 @@ public class FXMLCamViewController implements Initializable
 
          System.err.println("Registering cameras failed");
          }*/
-
     }
 
 }
