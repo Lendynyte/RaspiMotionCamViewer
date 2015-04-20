@@ -553,9 +553,7 @@ public class FXMLOptionsController implements Initializable
      */
     private void createXMLSave(MotionCameraInterface MotionCamera, String savePath)
     {
-        XMLCameraHandler xmlHandler = new XMLCameraHandler();
-
-        xmlHandler.createCamSave(MotionCamera, savePath);
+        new XMLCameraHandler().createCamSave(MotionCamera, savePath);
     }
 
     /**

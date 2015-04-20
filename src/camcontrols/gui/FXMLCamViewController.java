@@ -455,8 +455,7 @@ public class FXMLCamViewController implements Initializable
      */
     private boolean pingCamera(MotionCameraInterface MotionCamera)
     {
-        CameraAvailabilityTester camTester = new CameraAvailabilityTester();
-        return camTester.isReachable(MotionCamera.getURL(), 500);
+        return new CameraAvailabilityTester().isReachable(MotionCamera.getURL(), 500);
     }
 
     //TODO(Dominik): test if timeline stops when iopen options

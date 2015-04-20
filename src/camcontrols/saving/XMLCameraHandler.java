@@ -1,5 +1,6 @@
 package camcontrols.saving;
 
+import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCameraInterface;
 import java.io.File;
 import java.io.IOException;
@@ -100,7 +101,104 @@ public class XMLCameraHandler
         thread.start();
     }
 
-    //TODO(Dominik):maybe merge these two together later
+    /**
+     *
+     */
+    public void loadApplicationSave()
+    {
+        Thread thread = new Thread()
+        {
+
+            @Override
+            public void run()
+            {
+                try
+                {
+                    System.out.println("Loading file ...");
+                    File xmlFile = new File(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/appSave.xml");
+                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                    Document dc = dBuilder.parse(xmlFile);
+
+                    NodeList nodeList = dc.getElementsByTagName("application");
+
+                    for (int i = 0; i < nodeList.getLength(); i++)
+                    {
+                        Node nNode = nodeList.item(i);
+
+                        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                        {
+                            Element eElement = (Element) nNode;
+
+                            ApplicationVariables.getInstance().setXmlSaveDirectoryPath(eElement.getElementsByTagName("savePath").item(0).getTextContent());
+
+                        }
+                    }
+                }
+                catch (ParserConfigurationException | SAXException | IOException e)
+                {
+                    System.err.println("Loading XML file failed");
+                }
+            }
+        };
+        thread.start();
+    }
+
+    /**
+     * This method is used to create xml save of application variables manily
+     * for future use
+     */
+    public void createApplicationSave()
+    {
+        Thread thread = new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    System.out.println("Creating XML file ...");
+
+                    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+                    Document document = docBuilder.newDocument();
+                    Element root = document.createElement("application");
+                    document.appendChild(root);
+
+                    // savePath element
+                    Element savePath = document.createElement("savePath");
+                    savePath.appendChild(document.createTextNode(ApplicationVariables.getInstance().getXmlSaveDirectoryPath()));
+                    root.appendChild(savePath);
+
+                    System.out.println("Elements added ...");
+
+                    System.out.println("Creating file ...");
+
+                    // write the content into xml file
+                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource dsource = new DOMSource(document);
+                    StreamResult result = new StreamResult(new File(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/appSave.xml"));
+                    transformer.transform(dsource, result);
+
+                    System.out.println("File saved! ...");
+
+                }
+                catch (ParserConfigurationException | DOMException | TransformerException e)
+                {
+                    System.err.println("Creating XML file failed! ...");
+                }
+            }
+        };
+        thread.start();
+    }
+
+    /**
+     *
+     * @param MotionCamera
+     * @param savePath
+     */
     public void createCamSave(MotionCameraInterface MotionCamera, String savePath)
     {
         createXMLFile(savePath, MotionCamera.getName(),
@@ -131,11 +229,11 @@ public class XMLCameraHandler
      * @param camSaturation
      * @param camQuality
      */
-    public void createXMLFile(String savePath, String camName, String camHandle,
-                              String configPath, String camURL, String camRotation, String camWidth,
-                              String camHeight, String camFramerate, String camAutoBrightness,
-                              String camBrightness, String camContrast, String camHue,
-                              String camSaturation, String camQuality)
+    private void createXMLFile(String savePath, String camName, String camHandle,
+                               String configPath, String camURL, String camRotation, String camWidth,
+                               String camHeight, String camFramerate, String camAutoBrightness,
+                               String camBrightness, String camContrast, String camHue,
+                               String camSaturation, String camQuality)
     {
         Thread thread = new Thread()
         {
