@@ -110,6 +110,9 @@ public class FXMLOptionsController implements Initializable
     //camera display name
     @FXML
     private TextField tfCamName;
+
+    @FXML
+    private TextField tfResult;
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Sliders">
@@ -173,17 +176,19 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonApply(final ActionEvent event)
     {
         saveToXMLSaveFile();
-        applyToCamera();
-        applyToConfigFile();
-        System.out.println("apply button");
-        //TODO(Dominik):remove this later just testing
-        System.out.println(this.sldrBrightness.getValue());
-        //TODO(Dominik):get changed variables and produce configuration file maybe create method for this   
-
-        System.out.println(this.mainPane.getScene().getRoot().getId());
+        if (pingCamera())
+        {
+            applyToCamera();
+            applyToConfigFile();
+            this.tfResult.setText("Configuration applied to camera ...");
+            restartCameraAction();
+        }
+        else
+        {
+            this.tfResult.setText("Unable to reach camera to apply settings ...");
+        }
     }
 
-    //TODO(Dominik):Load existing configuration on options menu startup
     /**
      * This method closes the options window and cancels all settings
      *
@@ -405,13 +410,11 @@ public class FXMLOptionsController implements Initializable
         {
             this.tfAlertEmail.disableProperty().setValue(Boolean.FALSE);
             this.tfAlertEmail.textProperty().setValue(null);
-            //TODO(Dominik):send mail
         }
         else
         {
             this.tfAlertEmail.setText(null);
             this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
-            //TODO(Dominik):turn off mailing
         }
     }
 
@@ -426,13 +429,11 @@ public class FXMLOptionsController implements Initializable
         if (this.chckRemoteStore.isSelected())
         {
             this.tfremoteStoragePath.disableProperty().setValue(Boolean.FALSE);
-            //TODO(Dominik):enableremote storage
         }
         else
         {
             this.tfremoteStoragePath.setText(null);
             this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
-            //TODO(Dominik):disable remote storage
         }
     }
 
@@ -787,7 +788,7 @@ public class FXMLOptionsController implements Initializable
         else
         {
             System.out.println("XML file not found loading default configuration ...");
-            //TODO(Dominik):SET DEFAULT VALUES TO SINGLETON
+            this.setDefaultSingletonValues();
             this.setDefaultValues();
         }
     }
