@@ -159,14 +159,8 @@ public class FXMLOptionsController implements Initializable
     private Tooltip tltpQualSldr;
     //</editor-fold>
 
-    //parser instance
-    private Parser parser;
-
     //sshHandle instance
     private SshCamerahandler sshHandler;
-
-    //Camera avaiability teset instance
-    private CameraAvailabilityTester pingTest;
 
     //variable for checking data from form
     private boolean isError = false;
@@ -175,17 +169,19 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        saveToXMLSaveFile();
         if (pingCamera())
         {
             applyToCamera();
+            saveToXMLSaveFile();
             applyToConfigFile();
             this.tfResult.setText("Configuration applied to camera ...");
             restartCameraAction();
+            System.out.println("OK");
         }
         else
         {
-            this.tfResult.setText("Unable to reach camera to apply settings ...");
+            //this.tfResult.setText("Unable to reach camera to apply settings ...");
+            System.out.println("UNABLE to ping");
         }
     }
 
@@ -228,17 +224,6 @@ public class FXMLOptionsController implements Initializable
     {
         applyToCamera();
         saveToXMLSaveFile();
-        //TODO(Dominik): remove testing 
-        System.out.println("Save Button");
-        System.out.println(MotionCamera1.getInstance().getName());
-        System.out.println(getFXMLCamName("1"));
-        System.out.println(MotionCamera1.getInstance().getURL());
-        System.out.println(MotionCamera1.getInstance().getCamWidth());
-        System.out.println(MotionCamera1.getInstance().getCamHeight());
-        System.out.println(getFXMLResolutionHeight());
-        System.out.println(MotionCamera1.getInstance().getCamFramerate());
-        //TODO(Dominik): rename this variable in cameras
-        System.out.println(MotionCamera1.getInstance().isCamAutoBrightness());
     }
 
     @FXML
@@ -344,7 +329,8 @@ public class FXMLOptionsController implements Initializable
      */
     private void setDefaultSingletonValues()
     {
-        //TODO(Dominik):implement
+        //TODO(Dominik):DEFAULT IN CONF SHOULD BE DEFAULT IN CAMERA TEST AND CONFIRM
+        applyToCamera();
     }
 
     /**
@@ -525,6 +511,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):currently loading from wrong path fix this and check 
+    //TODO(Dominik):broken paths
     /**
      *
      */
@@ -831,24 +818,32 @@ public class FXMLOptionsController implements Initializable
         this.tfCamName.setText(MotionCamera.getName());
     }
 
+    //TODO(Dominik):actually edit the config to work put values inside
+    private void changeConfigItems(MotionCameraInterface motionCamera)
+    {
+        new ConfigEditor().editConfigList(new Parser(), null, null, null, null, null, null, null, null, null, null, null, null);
+        //TODO(Dominik):IMPLEMENT
+    }
+
     /**
      * This method creates config for camera in path from MotionCamera URL
      */
     private void applyToConfigFile()
     {
-        ConfigEditor configEditor = new ConfigEditor();
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
-                configEditor.createConfig(parser, MotionCamera1.getInstance());
+                changeConfigItems(MotionCamera1.getInstance());
+                new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance());
                 break;
             case "2":
-                configEditor.createConfig(parser, MotionCamera2.getInstance());
+                changeConfigItems(MotionCamera2.getInstance());
+                new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance());
                 break;
         }
     }
 
-    //TODO(Dominik):get the config to right url and use the right local config path save local config path to application variables
+    //TODO(Dominik):check if path is right
     /**
      *
      */
@@ -859,11 +854,11 @@ public class FXMLOptionsController implements Initializable
             switch (this.mainPane.getScene().getRoot().getId())
             {
                 case "1":
-                    this.sshHandler.sendConfFile(MotionCamera1.getInstance(), "LOCALCONFIGPATH", 500);
+                    this.sshHandler.sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 500);
                     break;
 
                 case "2":
-                    this.sshHandler.sendConfFile(MotionCamera2.getInstance(), "LOCALCONFIGPATH", 500);
+                    this.sshHandler.sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam2/motion.conf", 500);
                     break;
             }
         }
@@ -906,16 +901,15 @@ public class FXMLOptionsController implements Initializable
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
-                return pingTest.isReachable(MotionCamera1.getInstance().getURL(), 200);
+                return new CameraAvailabilityTester().isReachable(MotionCamera1.getInstance().getURL(), 200);
             case "2":
-                return pingTest.isReachable(MotionCamera2.getInstance().getURL(), 200);
+                return new CameraAvailabilityTester().isReachable(MotionCamera2.getInstance().getURL(), 200);
             default: //should never happen
                 System.err.println("Wrong window handle ...");
                 return false;
         }
     }
 
-    //TODO(Dominik):save/load to xml
     //TODO(Dominik):autobrightness/default brightnesss keep only one slider
     /**
      * Initializes the controller class.
