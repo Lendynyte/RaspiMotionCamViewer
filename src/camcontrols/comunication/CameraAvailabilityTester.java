@@ -63,7 +63,7 @@ public class CameraAvailabilityTester
                 {
                     while ((inputLine = bufferReader.readLine()) != null)
                     {
-                        System.out.println(inputLine);
+                      //  System.out.println(inputLine);
                         if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1")))
                         {
                             // return true;

@@ -1,6 +1,7 @@
 package camcontrols.gui;
 
 import camcontrols.comunication.CameraAvailabilityTester;
+import camcontrols.comunication.SshCamerahandler;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
@@ -143,14 +144,21 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuAboutAction(final ActionEvent event)
     {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createAboutWindow();
+        new WindowMenuClass().createAboutWindow();
     }
 
     @FXML
     private void handleMenuCam1StartStreamAction(final ActionEvent event)
     {
-        startCamStream(this.pane1, 0);
+        if (pingCamera(MotionCamera1.getInstance()))
+        {
+            startCamStream(this.pane1, 0);
+            lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
+        }
+        else
+        {
+            lblPingC1Result.setText("Unable to reach camera: " + MotionCamera1.getInstance().getName());
+        }
     }
 
     /**
@@ -160,7 +168,15 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2StartStreamAction(final ActionEvent event)
     {
-        startCamStream(this.pane2, 0);
+        if (pingCamera(MotionCamera2.getInstance()))
+        {
+            startCamStream(this.pane2, 1);
+            lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
+        }
+        else
+        {
+            lblPingC2Result.setText("Unable to reach camera: " + MotionCamera2.getInstance().getName());
+        }
     }
 
     /**
@@ -190,7 +206,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1ResetCameraAction(final ActionEvent event)
     {
-        //TODO(Dominik):implement
+        restartCamera(MotionCamera1.getInstance(), 2);
     }
 
     /**
@@ -200,7 +216,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2ResetCameraAction(final ActionEvent event)
     {
-        //TODO(Dominik):implement
+        restartCamera(MotionCamera2.getInstance(), 2);
     }
 
     /**
@@ -210,8 +226,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1OptionsMenu(final ActionEvent event)
     {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createCamera1OptionsWindow();
+        new WindowMenuClass().createCamera1OptionsWindow();
     }
 
     /**
@@ -221,8 +236,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2OptionsMenu(final ActionEvent event)
     {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createCamera2OptionsWindow();
+        new WindowMenuClass().createCamera2OptionsWindow();
     }
 
     /**
@@ -232,8 +246,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuApplicationSettings(final ActionEvent event)
     {
-        WindowMenuClass wmc = new WindowMenuClass();
-        wmc.createAboutApplicationSettingsWindow();
+        new WindowMenuClass().createAboutApplicationSettingsWindow();
     }
 
     //</editor-fold>
@@ -328,11 +341,11 @@ public class FXMLCamViewController implements Initializable
 
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            lblPingC1Result.setText("Camera 1 is responding.");
+            lblPingC1Result.setText("Camera " + MotionCamera1.getInstance().getName() + " is responding.");
         }
         else
         {
-            lblPingC1Result.setText("Unable to reach camera 1.");
+            lblPingC1Result.setText("Unable to reach camera: " + MotionCamera1.getInstance().getName());
         }
 
     }
@@ -346,11 +359,11 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            lblPingC2Result.setText("Camera 2 is responding.");
+            lblPingC2Result.setText("Camera " + MotionCamera2.getInstance().getName() + " is responding.");
         }
         else
         {
-            lblPingC2Result.setText("Unable to reach camera 2.");
+            lblPingC2Result.setText("Unable to reach camera: " + MotionCamera2.getInstance().getName());
         }
 
     }
@@ -375,12 +388,22 @@ public class FXMLCamViewController implements Initializable
         IpCamDeviceRegistry.register("Camera 2", MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
     }
 
+    //TODO(Dominik):test
     /**
      *
      */
     private void openWebcams()
     {
-        //TODO(Dominik): implement
+        if (pingCamera(MotionCamera1.getInstance()) && !Webcam.getWebcams().get(0).isOpen())
+        {
+            runMotion(MotionCamera1.getInstance());
+            Webcam.getWebcams().get(0).open();
+        }
+        if (pingCamera(MotionCamera2.getInstance()) && !Webcam.getWebcams().get(1).isOpen())
+        {
+            runMotion(MotionCamera2.getInstance());
+            Webcam.getWebcams().get(1).open();
+        }
     }
 
     //TODO(Dominik): check for cameras only after pinging them first
@@ -399,6 +422,29 @@ public class FXMLCamViewController implements Initializable
         if (Webcam.getWebcams().get(1).isOpen())
         {
             Webcam.getWebcams().get(1).close();
+        }
+    }
+
+    /**
+     *
+     * @param MotioCamera
+     */
+    private void restartCamera(MotionCameraInterface MotioCamera, int camId)
+    {
+        if (pingCamera(MotioCamera))
+        {
+            new SshCamerahandler().restartCamera(MotioCamera);
+        }
+        else
+        {
+            switch (camId)
+            {
+                case 1:
+                    this.lblPingC1Result.setText("Unable to reach camera: " + MotioCamera.getName());
+                    break;
+                case 2:
+                    this.lblPingC2Result.setText("Unable to reach camera: " + MotioCamera.getName());
+            }
         }
     }
 
@@ -456,6 +502,11 @@ public class FXMLCamViewController implements Initializable
     private boolean pingCamera(MotionCameraInterface MotionCamera)
     {
         return new CameraAvailabilityTester().isReachable(MotionCamera.getURL(), 500);
+    }
+
+    private void runMotion(MotionCameraInterface MotionCamera)
+    {
+        new SshCamerahandler().runMotion(MotionCamera, 200);
     }
 
     //TODO(Dominik): test if timeline stops when iopen options
@@ -521,7 +572,7 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        this.startInit();
+        //this.startInit();
 
         //TODO(Dominik): remove from init block
         /*try
