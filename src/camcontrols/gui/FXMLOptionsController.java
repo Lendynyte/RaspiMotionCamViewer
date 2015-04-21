@@ -819,12 +819,20 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):actually edit the config to work put values inside
-    private void changeConfigItems(MotionCameraInterface motionCamera)
+    private void changeConfigItems(MotionCameraInterface motionCamera, String savePath)
     {
-        new ConfigEditor().editConfigList(new Parser(), null, null, null, null, null, null, null, null, null, null, null, null);
+        new ConfigEditor().editConfigList(new Parser(), ApplicationVariables.getInstance().getInstallDirectoryPath() + savePath, null, null, null, null, null, null, null, null, null, null, null);
         //TODO(Dominik):IMPLEMENT
     }
 
+    /*
+    
+     public void editConfigList(Parser parser, String defaultConfPath, MotionCameraInterface MotionCamera,
+     String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+     String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+     String targetSaturation, String targetQuality)
+     {
+     */
     /**
      * This method creates config for camera in path from MotionCamera URL
      */
@@ -833,11 +841,11 @@ public class FXMLOptionsController implements Initializable
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
-                changeConfigItems(MotionCamera1.getInstance());
+                changeConfigItems(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance());
                 break;
             case "2":
-                changeConfigItems(MotionCamera2.getInstance());
+                changeConfigItems(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam2/motion.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance());
                 break;
         }

@@ -35,7 +35,6 @@ public class ConfigEditor
         MotionCamera.getParsedConfig().clear();
 
         parser.loadConfLines(MotionCamera.getParsedConfig(), defaultConfPath);
-        System.out.println("loaded");
     }
 
     /**
@@ -75,7 +74,6 @@ public class ConfigEditor
             @Override
             public void run()
             {
-
                 if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
                 {
                     loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
@@ -176,7 +174,7 @@ public class ConfigEditor
 
         if (lineNumber == -1)
         {
-            System.err.println("Config File is broken loading default config...");
+            //System.err.println("Config File is broken loading default config...");
             return false;
         }
 
