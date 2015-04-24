@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -187,6 +188,7 @@ public class FXMLCamViewController implements Initializable
     private void handleMenuCam1StopStreamAction(final ActionEvent event)
     {
         //TODO(Dominik): implement
+
     }
 
     /**
@@ -561,6 +563,18 @@ public class FXMLCamViewController implements Initializable
         ApplicationVariables.getInstance().setInstallDirectoryPath("c:\test");
     }
 
+    /**
+     * This method sets image to init image
+     *
+     * @param initImagePath
+     * @return
+     */
+    private ImageView startImageInit(String initImagePath)
+    {
+        return new ImageView(new Image(initImagePath));
+    }
+
+    //TODO(Dominik):CUrently broken i do not set imageVIew constrains when getting it from bufferedImage so i have to constrain it or or not get new imageView need to look at this more 
     //TODO(Dominik) test this also test without timeline test if it lags
     //TODO(Dominik): handle when i cannot connect to not crash
     /**
@@ -572,8 +586,23 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+       /* Platform.runLater(() ->
+        {
+            this.pane1.setContent((this.startImageInit("c://test/offline.png").fitWidthProperty().bind(pane1.widthProperty());
+        });
         //this.startInit();
 
+        (startImageInit("c://test/offline.png")).fitWidthProperty().bind(pane1.widthProperty());
+        
+        
+        */
+     /*   setPreserveRatio(false);
+                setSmooth(true);
+
+                fitWidthProperty().bind(pane.widthProperty());
+                fitHeightProperty().bind(pane.heightProperty());
+        */
+        
         //TODO(Dominik): remove from init block
         /*try
          {
