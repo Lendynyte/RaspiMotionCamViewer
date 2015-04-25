@@ -1,5 +1,6 @@
 package camcontrols.comunication;
 
+import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -17,58 +18,21 @@ import java.io.InputStreamReader;
 /**
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class SshComunication
 {
 
-    private JSch jschSSH;
-    private Session sshSession;
-
     /**
-     * This method connects to remote machine trough ssh using Jsch.
      *
      * @param login
      * @param password
      * @param ip
      * @param sshPort
-     * @param sshTimeout
-     */
-    public void sshConnect(String login, String password, String ip, int sshPort, int sshTimeout)
-    {
-        try
-        {
-            this.jschSSH = new JSch();
-            this.sshSession = jschSSH.getSession(login, ip, sshPort);
-            this.sshSession.setPassword(password);
-            this.sshSession.setConfig("StrictHostKeyChecking", "no");
-            this.sshSession.connect(sshTimeout);
-
-            System.out.println("SSH session created ...");
-        }
-        catch (JSchException e)
-        {
-            System.err.println("Unable to create ssh session ...");
-        }
-    }
-
-    /**
-     * This method disconnects current ssh session by calling Jsch method for
-     * disconnect.
-     */
-    public void sshDisconnect()
-    {
-        this.sshSession.disconnect();
-
-        System.out.println("Disconnected ...");
-    }
-
-    /**
-     *
      * @param command
      * @param sshTimeout
      */
-    public void runCommand(String command, int sshTimeout)
+    public void runCommand(String login, String password, String ip, int sshPort, String command, int sshTimeout)
     {
         Thread thread = new Thread()
         {
@@ -77,6 +41,15 @@ public class SshComunication
             {
                 try
                 {
+                    //creating ssh session
+                    System.out.println("Creating new SSH session ...");
+                    Session sshSession = new JSch().getSession(login, ip, sshPort);
+                    sshSession.setPassword(password);
+                    sshSession.setConfig("StrictHostKeyChecking", "no");
+                    sshSession.connect(sshTimeout);
+                    System.out.println("SSH session created ...");
+
+                    //sending commands
                     ChannelExec channelExec = (ChannelExec) sshSession.openChannel("exec");
                     InputStream exec = channelExec.getInputStream();
                     channelExec.setCommand(command);
@@ -93,6 +66,7 @@ public class SshComunication
                     System.out.println("Command executed ...");
 
                     channelExec.disconnect();
+                    sshSession.disconnect();
                 }
                 catch (JSchException e)
                 {
@@ -109,11 +83,15 @@ public class SshComunication
 
     /**
      *
+     * @param login
      * @param remtoteConfigPath
+     * @param ip
+     * @param password
+     * @param sshPort
      * @param fileToSend
      * @param sshTimeout
      */
-    public void uploadFile(String remtoteConfigPath, File fileToSend, int sshTimeout)
+    public void uploadFile(String login, String password, String ip, int sshPort, String remtoteConfigPath, File fileToSend, int sshTimeout)
     {
         Thread thread = new Thread()
         {
@@ -123,15 +101,24 @@ public class SshComunication
 
                 try
                 {
-                    ChannelSftp channelSftp = (ChannelSftp) sshSession.openChannel("sftp");
-                    channelSftp.connect(sshTimeout);
+                    //creating ssh session
+                    System.out.println("Creating new SSH session ...");
+                    Session sshSession = new JSch().getSession(login, ip, sshPort);
+                    sshSession.setPassword(password);
+                    sshSession.setConfig("StrictHostKeyChecking", "no");
+                    sshSession.connect(sshTimeout);
+                    System.out.println("SSH session created ...");
 
+                    //sending files
+                    Channel channel = sshSession.openChannel("sftp");
+                    channel.connect(sshTimeout);
+                    ChannelSftp channelSFTP = (ChannelSftp) channel;
+                    channelSFTP.cd(remtoteConfigPath);
                     System.out.println("Trying to send file ...");
-                    channelSftp.put(new FileInputStream(fileToSend), remtoteConfigPath, ChannelSftp.OVERWRITE);
-                    System.out.println("File succesfully send...");
-
-                    channelSftp.disconnect();
-
+                    channelSFTP.put(new FileInputStream(fileToSend), fileToSend.getName());
+                    System.out.println("File succesfully send ...");
+                    channelSFTP.disconnect();
+                    sshSession.disconnect();
                 }
                 catch (JSchException e)
                 {
@@ -153,49 +140,58 @@ public class SshComunication
     //TODO(Dominik):test how log it takes to download large amount of files if it is too slow add some sort of status checking and make user be able to stop download
     /**
      *
+     * @param login
+     * @param password
      * @param folderName
+     * @param sshPort
+     * @param ip
      * @param storageFolderPath
      * @param sshTimeout
      */
-    public void downloadFiles(String folderName, String storageFolderPath, int sshTimeout)
+    public void downloadFiles(String login, String password, String ip, int sshPort, String folderName, String storageFolderPath, int sshTimeout)
     {
-        try
-        {
-            ChannelSftp channelSftp = (ChannelSftp) this.sshSession.openChannel("sftp");
-            channelSftp.connect(sshTimeout);
 
-            System.out.println("Trying to download files ...");
-            for (Object file : channelSftp.ls(folderName))
+        Thread thread = new Thread()
+        {
+            @Override
+            public void run()
             {
-                System.out.println("Saving file" + ((ChannelSftp.LsEntry) file).getFilename());
-                channelSftp.get(folderName + ((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
-                System.out.println("File succesfully downloaded ...");
+                try
+                {
+                    //creating ssh session
+                    System.out.println("Creating new SSH session ...");
+                    Session sshSession = new JSch().getSession(login, ip, sshPort);
+                    sshSession.setPassword(password);
+                    sshSession.setConfig("StrictHostKeyChecking", "no");
+                    sshSession.connect(sshTimeout);
+                    System.out.println("SSH session created ...");
+
+                    //downloading files
+                    ChannelSftp channelSftp = (ChannelSftp) sshSession.openChannel("sftp");
+                    channelSftp.connect(sshTimeout);
+
+                    System.out.println("Trying to download files ...");
+                    for (Object file : channelSftp.ls(folderName))
+                    {
+                        System.out.println("Saving file" + ((ChannelSftp.LsEntry) file).getFilename());
+                        channelSftp.get(folderName + ((ChannelSftp.LsEntry) file).getFilename(), storageFolderPath);
+                        System.out.println("File succesfully downloaded ...");
+                    }
+                    System.out.println("All files succesfully downloaded ...");
+
+                    channelSftp.disconnect();
+                    sshSession.disconnect();
+                }
+                catch (JSchException e)
+                {
+                    System.err.println("Unable to create sftp session ...");
+                }
+                catch (SftpException e)
+                {
+                    System.err.println("Downloading file failed ...");
+                }
             }
-            System.out.println("All files succesfully downloaded ...");
-
-            channelSftp.disconnect();
-        }
-        catch (JSchException e)
-        {
-            System.err.println("Unable to create sftp session ...");
-        }
-        catch (SftpException e)
-        {
-            System.err.println("Downloading file failed ...");
-        }
+        };
+        thread.start();
     }
-
-    /**
-     *
-     * @param login
-     * @param password
-     * @param ip
-     * @param port
-     * @param sshTimeout
-     */
-    public SshComunication(String login, String password, String ip, int port, int sshTimeout)
-    {
-        sshConnect(login, password, ip, port, sshTimeout);
-    }
-
 }

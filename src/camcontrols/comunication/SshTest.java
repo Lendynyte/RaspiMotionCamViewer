@@ -16,11 +16,12 @@ public class SshTest
 
         String login = "pi";
         String password = "raspberry";
-        String ip = "picamera1";
+        String ip = "192.168.1.5";
         int port = 22;
         int timeout = 10000;
         String command1 = "sudo motion";
         String command2 = "sudo reboot";
+        String configPath = "/home/pi";
 
         /*shComunication ssh = new SshComunication(login, password, ip, port, timeout);
 
@@ -30,11 +31,12 @@ public class SshTest
         MotionCamera1.getInstance().setCamLogin(login);
         MotionCamera1.getInstance().setCamPassword(password);
         MotionCamera1.getInstance().setURL(ip);
+        MotionCamera1.getInstance().setConfigPath(configPath);
 
-        //TODO(Dominik):when sending add /motion.conf to file or it prob wont work .. test it
-        
+        ssh.sendConfFile(MotionCamera1.getInstance(), "j://test/destroyed.conf", timeout);
+
         //ssh.runMotion(MotionCamera1.getInstance());
-        ssh.turnOffRaspberry(MotionCamera1.getInstance(), 10000);
+       // ssh.turnOffRaspberry(MotionCamera1.getInstance(), 10000);
 
     }
 }

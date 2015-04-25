@@ -6,14 +6,10 @@ import java.io.File;
 /**
  *
  * @author Dominik Pauli
- * @version 0.1
+ * @version 0.2
  */
 public class SshCamerahandler
 {
-    //TODO(Dominik): implement
-    //TODO(Dominik): this classs is called when i need to restart and such
-    //TODO(Dominik): add login password to MotionCamera1/2
-    //TODO(Dominik): make password handling secure
 
     /**
      *
@@ -21,11 +17,7 @@ public class SshCamerahandler
      */
     public void restartCamera(MotionCameraInterface MotionCamera)
     {
-        SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, 10000);
-
-        sshComunication.runCommand("sudo reboot", 10000);
-
-        sshComunication.sshDisconnect();
+        new SshComunication().runCommand(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, "sudo reboot", 10000);
     }
 
     /**
@@ -35,11 +27,7 @@ public class SshCamerahandler
      */
     public void turnOffRaspberry(MotionCameraInterface MotionCamera, int sshTimeout)
     {
-        SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, 10000);
-
-        sshComunication.runCommand("sudo shutdown -h now", sshTimeout);
-
-        sshComunication.sshDisconnect();
+        new SshComunication().runCommand(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, "sudo shutdown -h now", sshTimeout);
     }
 
     /**
@@ -49,11 +37,7 @@ public class SshCamerahandler
      */
     public void runMotion(MotionCameraInterface MotionCamera, int sshTimeout)
     {
-        SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, sshTimeout);
-
-        sshComunication.runCommand("sudo motion", sshTimeout);
-
-        sshComunication.sshDisconnect();
+        new SshComunication().runCommand(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, "sudo motion", sshTimeout);
     }
 
     /**
@@ -64,11 +48,7 @@ public class SshCamerahandler
      */
     public void sendConfFile(MotionCameraInterface MotionCamera, String confFileLocation, int sshTimeout)
     {
-        SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, sshTimeout);
-
-        sshComunication.uploadFile(MotionCamera.getConfigPath(), new File(confFileLocation), sshTimeout);
-
-        sshComunication.sshDisconnect();
+        new SshComunication().uploadFile(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, MotionCamera.getConfigPath(), new File(confFileLocation), sshTimeout);
     }
 
     /**
@@ -79,11 +59,6 @@ public class SshCamerahandler
      */
     public void downLoadImageFiles(MotionCameraInterface MotionCamera, String storagePath, int sshTimeout)
     {
-        SshComunication sshComunication = new SshComunication(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, sshTimeout);
-
-        sshComunication.downloadFiles(MotionCamera.getImageFolderPath(), storagePath, sshTimeout);
-        
-        sshComunication.sshDisconnect();
+        new SshComunication().downloadFiles(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, MotionCamera.getImageFolderPath(), storagePath, sshTimeout);
     }
-
 }
