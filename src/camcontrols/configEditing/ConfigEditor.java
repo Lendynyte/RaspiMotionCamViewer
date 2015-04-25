@@ -65,11 +65,11 @@ public class ConfigEditor
      * @param targetQuality
      */
     public void editConfigList(Parser parser, String defaultConfPath, MotionCameraInterface MotionCamera,
-                               String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
-                               String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
-                               String targetSaturation, String targetQuality)
+            String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+            String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+            String targetSaturation, String targetQuality)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -124,8 +124,7 @@ public class ConfigEditor
                     loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**

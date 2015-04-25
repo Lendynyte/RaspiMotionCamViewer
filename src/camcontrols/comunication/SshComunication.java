@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 /**
  *
  * @author Dominik Pauli
- * @version 0.3
+ * @version 0.4
  */
 public class SshComunication
 {
@@ -34,7 +34,7 @@ public class SshComunication
      */
     public void runCommand(String login, String password, String ip, int sshPort, String command, int sshTimeout)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -77,8 +77,7 @@ public class SshComunication
                     System.err.println("Unable to create input stream ...");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -93,7 +92,7 @@ public class SshComunication
      */
     public void uploadFile(String login, String password, String ip, int sshPort, String remtoteConfigPath, File fileToSend, int sshTimeout)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -133,8 +132,7 @@ public class SshComunication
                     System.err.println("File to send does not exist ...");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     //TODO(Dominik):test how log it takes to download large amount of files if it is too slow add some sort of status checking and make user be able to stop download
@@ -150,8 +148,7 @@ public class SshComunication
      */
     public void downloadFiles(String login, String password, String ip, int sshPort, String folderName, String storageFolderPath, int sshTimeout)
     {
-
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -191,7 +188,6 @@ public class SshComunication
                     System.err.println("Downloading file failed ...");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 }

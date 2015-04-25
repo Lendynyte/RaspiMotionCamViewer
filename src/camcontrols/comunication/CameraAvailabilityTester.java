@@ -4,6 +4,9 @@ import camcontrols.dependencies.ApplicationVariables;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,15 +28,18 @@ public class CameraAvailabilityTester
      */
     public boolean isReachable(String ipAddress, int timeOut)
     {
+        final CountDownLatch latch = new CountDownLatch(1);
 
         Thread thread = new Thread()
         {
+            @Override
             public void run()
             {
                 String commandLinux = "ping -c 1 -w " + timeOut + " " + ipAddress;
-                //TODO(Dominik):delete later
                 String commandWindows = "ping -n 1 -w " + timeOut + " " + ipAddress;
                 String inputLine;
+
+                isReachable = false;
 
                 Runtime runtime = Runtime.getRuntime();
                 Process process = null;
@@ -49,7 +55,7 @@ public class CameraAvailabilityTester
                     }
                     else
                     {
-                        System.err.println("Unable to ping ...");
+                        System.err.println("Unable to ping, unknown operating system ...");
                     }
                 }
                 catch (IOException e)
@@ -63,13 +69,14 @@ public class CameraAvailabilityTester
                 {
                     while ((inputLine = bufferReader.readLine()) != null)
                     {
-                      //  System.out.println(inputLine);
-                        if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1")))
+                        System.out.println(inputLine);
+                        if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1") || inputLine.contains("Přijaté = 1")))
                         {
-                            // return true;
                             isReachable = true;
+                            break;
                         }
                     }
+                    latch.countDown();
                 }
                 catch (IOException e)
                 {
@@ -83,11 +90,25 @@ public class CameraAvailabilityTester
                 {
                     System.err.println("Unable to close buffered reader ...");
                 }
-                // return false;
-                isReachable = false;
             }
         };
         thread.start();
+       /* try
+        {
+           // latch.await();
+        }
+        catch (InterruptedException ex)
+        {
+            Logger.getLogger(CameraAvailabilityTester.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        /*try
+         {
+         thread.join();
+         }
+         catch (InterruptedException e)
+         {
+         System.err.println("Ping thread interrupted ...");
+         }*/
         return isReachable;
     }
 

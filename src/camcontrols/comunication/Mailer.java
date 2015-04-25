@@ -41,12 +41,11 @@ public class Mailer
      */
     private static void generateAndSendEmail(String emailLogin, String emailPassword, String targetEmail, String imagePath)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
             {
-
                 try
                 {
                     //Create mail server
@@ -104,8 +103,7 @@ public class Mailer
                     System.err.println("Unable to send email ...");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**

@@ -48,7 +48,7 @@ public class XMLCameraHandler
      */
     public void LoadXMLFile(String filePath, MotionCameraInterface MotionCamera)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
 
             @Override
@@ -97,8 +97,7 @@ public class XMLCameraHandler
                     System.err.println("Loading XML file failed");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -106,7 +105,7 @@ public class XMLCameraHandler
      */
     public void loadApplicationSave()
     {
-        Thread thread = new Thread()
+        new Thread()
         {
 
             @Override
@@ -140,8 +139,7 @@ public class XMLCameraHandler
                     System.err.println("Loading XML file failed");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -150,7 +148,7 @@ public class XMLCameraHandler
      */
     public void createApplicationSave()
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -190,8 +188,7 @@ public class XMLCameraHandler
                     System.err.println("Creating XML file failed! ...");
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -230,12 +227,12 @@ public class XMLCameraHandler
      * @param camQuality
      */
     private void createXMLFile(String savePath, String camName, String camHandle,
-                               String configPath, String camURL, String camRotation, String camWidth,
-                               String camHeight, String camFramerate, String camAutoBrightness,
-                               String camBrightness, String camContrast, String camHue,
-                               String camSaturation, String camQuality)
+            String configPath, String camURL, String camRotation, String camWidth,
+            String camHeight, String camFramerate, String camAutoBrightness,
+            String camBrightness, String camContrast, String camHue,
+            String camSaturation, String camQuality)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
 
             @Override
@@ -343,7 +340,6 @@ public class XMLCameraHandler
                     e.printStackTrace();
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 }

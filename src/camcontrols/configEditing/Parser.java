@@ -26,7 +26,7 @@ public class Parser
      */
     public void createConfFile(ArrayList<String> list, String path)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
             @Override
             public void run()
@@ -74,8 +74,7 @@ public class Parser
                     }
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -88,7 +87,7 @@ public class Parser
      */
     public void loadConfLines(ArrayList<String> list, String path)
     {
-        Thread thread = new Thread()
+        new Thread()
         {
 
             @Override
@@ -132,8 +131,7 @@ public class Parser
                     }
                 }
             }
-        };
-        thread.start();
+        }.start();
     }
 
     /**
@@ -145,8 +143,7 @@ public class Parser
      */
     public String createFullCameraPath(String camName, String mainFolderPath)
     {
-        String fullPath = mainFolderPath + (camName.trim().toLowerCase());
-        return fullPath;
+        return mainFolderPath + (camName.trim().toLowerCase());
     }
 
     /**
