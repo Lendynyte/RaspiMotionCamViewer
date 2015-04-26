@@ -87,51 +87,42 @@ public class Parser
      */
     public void loadConfLines(ArrayList<String> list, String path)
     {
-        new Thread()
+        FileReader fr = null;
+        BufferedReader br = null;
+        String currentLine = null;
+
+        try
         {
+            fr = new FileReader(path);
+            br = new BufferedReader(fr);
 
-            @Override
-            public void run()
+            while ((currentLine = br.readLine()) != null)
             {
-
-                FileReader fr = null;
-                BufferedReader br = null;
-                String currentLine = null;
-
-                try
-                {
-                    fr = new FileReader(path);
-                    br = new BufferedReader(fr);
-
-                    while ((currentLine = br.readLine()) != null)
-                    {
-                        list.add(currentLine); // add data to provided list
-                    }
+                list.add(currentLine); // add data to provided list
+            }
+        }
+        catch (IOException e)
+        {// file was not found 
+            System.err.println("File was not loaded");
+        }
+        finally
+        {// if we cannot read we still close our streams
+            try
+            {
+                if (br != null)
+                { // close buffered reader
+                    br.close();
                 }
-                catch (IOException e)
-                {// file was not found 
-                    System.err.println("File was not loaded");
-                }
-                finally
-                {// if we cannot read we still close our streams
-                    try
-                    {
-                        if (br != null)
-                        { // close buffered reader
-                            br.close();
-                        }
-                        if (fr != null)
-                        { // close filereader
-                            fr.close();
-                        }
-                    }
-                    catch (IOException e)
-                    {// Unable to close the file
-                        System.err.println("There was error closing streams");
-                    }
+                if (fr != null)
+                { // close filereader
+                    fr.close();
                 }
             }
-        }.start();
+            catch (IOException e)
+            {// Unable to close the file
+                System.err.println("There was error closing streams");
+            }
+        }
     }
 
     /**

@@ -44,7 +44,9 @@ public class ConfigEditor
      */
     public void createConfig(Parser parser, MotionCameraInterface MotionCamera)
     {
+        parser.createConfigFolders(MotionCamera.getConfigPath());
         parser.createConfFile(MotionCamera.getParsedConfig(), MotionCamera.getConfigPath());
+        System.out.println("File created ...");
     }
 
     //TODO(Dominik): still needs rework
@@ -69,62 +71,55 @@ public class ConfigEditor
             String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality)
     {
-        new Thread()
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
         {
-            @Override
-            public void run()
-            {
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "framerate", targetFramerate))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "framerate", targetFramerate))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "auto_brightness", targetAutoBright))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "auto_brightness", targetAutoBright))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "brightness", "auto_brightness", targetBrightness))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "brightness", "auto_brightness", targetBrightness))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "contrast", targetContrast))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "contrast", targetContrast))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "hue", targetHeight))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "hue", targetHue))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "saturation", targetSaturation))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "saturation", targetSaturation))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
 
-                if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "quality", "stream_quality", targetQuality))
-                {
-                    loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-                }
-            }
-        }.start();
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "quality", "stream_quality", targetQuality))
+        {
+            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+        }
     }
 
     /**

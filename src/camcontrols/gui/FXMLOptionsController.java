@@ -169,20 +169,19 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        if (pingCamera())
-        {
-            applyToCamera();
-            saveToXMLSaveFile();
-            applyToConfigFile();
-            this.tfResult.setText("Configuration applied to camera ...");
-            restartCameraAction();
-            System.out.println("OK");
-        }
-        else
-        {
-            //this.tfResult.setText("Unable to reach camera to apply settings ...");
-            System.out.println("UNABLE to ping");
-        }
+        /* if (pingCamera())
+         {*/
+        applyToCamera();
+        // saveToXMLSaveFile();
+        applyToConfigFile();
+//        this.tfResult.setText("Configuration applied to camera ...");
+        //  restartCameraAction();
+       /* }
+         else
+         {
+         //this.tfResult.setText("Unable to reach camera to apply settings ...");
+         System.out.println("UNABLE to ping");
+         }*/
     }
 
     /**
@@ -690,6 +689,11 @@ public class FXMLOptionsController implements Initializable
      */
     private String getFXMLURL()
     {
+        if (this.tfCamURL.getText().isEmpty())
+        {
+            //TODO(Dominik): return right camera name
+            return "Camera";
+        }
         return this.tfCamURL.getText().trim();
     }
 
@@ -821,8 +825,17 @@ public class FXMLOptionsController implements Initializable
     //TODO(Dominik):actually edit the config to work put values inside
     private void changeConfigItems(MotionCameraInterface motionCamera, String savePath)
     {
-        new ConfigEditor().editConfigList(new Parser(), ApplicationVariables.getInstance().getInstallDirectoryPath() + savePath, null, null, null, null, null, null, null, null, null, null, null);
-        //TODO(Dominik):IMPLEMENT
+        //TODO(Dominik): check
+        String abr;
+        if (motionCamera.isCamAutoBrightness())
+        {
+            abr = "on";
+        }
+        abr = "off";
+
+        new ConfigEditor().editConfigList(new Parser(), ApplicationVariables.getInstance().getInstallDirectoryPath() + savePath, motionCamera, motionCamera.getCamWidth() + "",
+                motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
     }
 
     /*
@@ -840,12 +853,13 @@ public class FXMLOptionsController implements Initializable
     {
         switch (this.mainPane.getScene().getRoot().getId())
         {
+            //TODO(Dominik): fix paths when i get the correct path in main moduel
             case "1":
-                changeConfigItems(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf");
+                changeConfigItems(MotionCamera1.getInstance(), "/destroyed.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance());
                 break;
             case "2":
-                changeConfigItems(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam2/motion.conf");
+                changeConfigItems(MotionCamera2.getInstance(), "/cam2/motion.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance());
                 break;
         }
@@ -930,6 +944,11 @@ public class FXMLOptionsController implements Initializable
     {
         initializeTextBoxes();
         InitializeCBoxResolution();
+        
+        //TODO(Dominik): remove later and load 
+        MotionCamera1.getInstance().setConfigPath("j://test/cam1");
+        ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
+        
         Platform.runLater(() ->
         {
             loadXMLSave();
