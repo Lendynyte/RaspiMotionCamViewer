@@ -15,7 +15,7 @@ public class XMLTester
     {
         XMLCameraHandler xml = new XMLCameraHandler();
 
-       // xml.createXMLFile("j://test/test.xml", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test");
+        xml.createXMLFile("j://test/test.xml", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test", "test");
 
         xml.LoadXMLFile("j://test/test.xml", MotionCamera1.getInstance());
         

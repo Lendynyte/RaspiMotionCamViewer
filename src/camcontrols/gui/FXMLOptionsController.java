@@ -172,7 +172,7 @@ public class FXMLOptionsController implements Initializable
         /* if (pingCamera())
          {*/
         applyToCamera();
-        // saveToXMLSaveFile();
+        saveToXMLSaveFile();
         applyToConfigFile();
 //        this.tfResult.setText("Configuration applied to camera ...");
         //  restartCameraAction();
@@ -509,8 +509,7 @@ public class FXMLOptionsController implements Initializable
         this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
     }
 
-    //TODO(Dominik):currently loading from wrong path fix this and check 
-    //TODO(Dominik):broken paths
+    //TODO(Dominik): all values have to be set before doing this fix
     /**
      *
      */
@@ -520,13 +519,11 @@ public class FXMLOptionsController implements Initializable
         {
             case "1":
             {
-                saveToCameraSingleton(MotionCamera1.getInstance(), "1");
                 createXMLSave(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave1.xml");
             }
             break;
             case "2":
             {
-                saveToCameraSingleton(MotionCamera2.getInstance(), "2");
                 createXMLSave(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave2.xml");
             }
             break;
@@ -944,11 +941,12 @@ public class FXMLOptionsController implements Initializable
     {
         initializeTextBoxes();
         InitializeCBoxResolution();
-        
+
         //TODO(Dominik): remove later and load 
         MotionCamera1.getInstance().setConfigPath("j://test/cam1");
         ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
-        
+        ApplicationVariables.getInstance().setXmlSaveDirectoryPath("j://test/cam1");
+
         Platform.runLater(() ->
         {
             loadXMLSave();

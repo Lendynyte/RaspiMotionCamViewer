@@ -15,7 +15,8 @@ public class ApplicationVariables
         //to stop instantatiaon
         this.isHelpOpen = false;
         this.isOptionsOpen = false;
-
+        this.isCreatingFile = false;
+        this.isSendingFile = false;
     }
 
     public static ApplicationVariables getInstance()
@@ -36,11 +37,37 @@ public class ApplicationVariables
     //variable determining if application settings menu is open
     private boolean isSettingsOpen;
 
+    //applicatin is creating file
+    private boolean isCreatingFile;
+
+    //application is sending file
+    private boolean isSendingFile;
+
     //save directory path
     private String xmlSaveDirectoryPath;
 
     //install directory path
     private String installDirectoryPath;
+
+    public boolean isIsCreatingFile()
+    {
+        return isCreatingFile;
+    }
+
+    public void setIsCreatingFile(boolean isCreatingFile)
+    {
+        this.isCreatingFile = isCreatingFile;
+    }
+
+    public boolean isIsSendingFile()
+    {
+        return isSendingFile;
+    }
+
+    public void setIsSendingFile(boolean isSendingFile)
+    {
+        this.isSendingFile = isSendingFile;
+    }
 
     public boolean isIsSettingsOpen()
     {

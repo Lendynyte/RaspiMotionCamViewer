@@ -198,6 +198,7 @@ public class XMLCameraHandler
      */
     public void createCamSave(MotionCameraInterface MotionCamera, String savePath)
     {
+        //TODO(Dominik): rewrite handle url config patj autobrightness
         createXMLFile(savePath, MotionCamera.getName(),
                 MotionCamera.getHandle(), MotionCamera.getConfigPath(),
                 MotionCamera.getURL(), MotionCamera.getCamRotation() + "",
@@ -226,7 +227,7 @@ public class XMLCameraHandler
      * @param camSaturation
      * @param camQuality
      */
-    private void createXMLFile(String savePath, String camName, String camHandle,
+    public void createXMLFile(String savePath, String camName, String camHandle,
             String configPath, String camURL, String camRotation, String camWidth,
             String camHeight, String camFramerate, String camAutoBrightness,
             String camBrightness, String camContrast, String camHue,
