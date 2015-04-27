@@ -228,10 +228,10 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-            String configPath, String camURL, String camRotation, String camWidth,
-            String camHeight, String camFramerate, String camAutoBrightness,
-            String camBrightness, String camContrast, String camHue,
-            String camSaturation, String camQuality)
+                              String configPath, String camURL, String camRotation, String camWidth,
+                              String camHeight, String camFramerate, String camAutoBrightness,
+                              String camBrightness, String camContrast, String camHue,
+                              String camSaturation, String camQuality)
     {
         new Thread()
         {
@@ -342,5 +342,40 @@ public class XMLCameraHandler
                 }
             }
         }.start();
+    }
+
+    /**
+     *
+     * @param motionCamera
+     * @param savePath
+     */
+    public void loadCameraURLs(MotionCameraInterface motionCamera, String savePath)
+    {
+        try
+        {
+            System.out.println("Loading file ...");
+            File xmlFile = new File(savePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document dc = dBuilder.parse(xmlFile);
+
+            NodeList nodeList = dc.getElementsByTagName("camera");
+
+            for (int i = 0; i < nodeList.getLength(); i++)
+            {
+                Node nNode = nodeList.item(i);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
+                {
+                    Element eElement = (Element) nNode;
+
+                    motionCamera.setURL(eElement.getElementsByTagName("URL").item(0).getTextContent());
+                }
+            }
+        }
+        catch (ParserConfigurationException | SAXException | IOException e)
+        {
+            System.err.println("Loading XML file failed");
+        }
     }
 }

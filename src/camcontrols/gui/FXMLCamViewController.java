@@ -6,6 +6,7 @@ import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCamera1;
 import camcontrols.dependencies.MotionCamera2;
 import camcontrols.dependencies.MotionCameraInterface;
+import camcontrols.saving.XMLCameraHandler;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
@@ -596,6 +597,18 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        MotionCamera1.getInstance().setXMLSavePath("c://test");
+        MotionCamera2.getInstance().setXMLSavePath("c://test");
+        XMLCameraHandler xmlHandler = new XMLCameraHandler();
+        if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
+        {
+            xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+        }
+        if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
+        {
+            xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+        }
+
         /* Platform.runLater(() ->
          {
          this.pane1.setContent((this.startImageInit("c://test/offline.png").fitWidthProperty().bind(pane1.widthProperty());
@@ -612,7 +625,6 @@ public class FXMLCamViewController implements Initializable
          fitWidthProperty().bind(pane.widthProperty());
          fitHeightProperty().bind(pane.heightProperty());
          */
-
         //TODO(Dominik): remove from init block
         /*try
          {
