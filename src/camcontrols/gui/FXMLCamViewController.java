@@ -580,9 +580,17 @@ public class FXMLCamViewController implements Initializable
      * @param initImagePath
      * @return
      */
-    private ImageView startImageInit(String initImagePath)
+    private ImageView startImageInit(String initImagePath, ScrollPane pane)
     {
-        return new ImageView(new Image(initImagePath));
+        return new ImageView(new Image(initImagePath))
+        {
+            {
+                setPreserveRatio(false);
+                setSmooth(true);
+                fitWidthProperty().bind(pane.widthProperty());
+                fitHeightProperty().bind(pane.heightProperty());
+            }
+        };
     }
 
     //TODO(Dominik):CUrently broken i do not set imageVIew constrains when getting it from bufferedImage so i have to constrain it or or not get new imageView need to look at this more 
@@ -597,17 +605,23 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        MotionCamera1.getInstance().setXMLSavePath("c://test");
-        MotionCamera2.getInstance().setXMLSavePath("c://test");
-        XMLCameraHandler xmlHandler = new XMLCameraHandler();
-        if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
+        Platform.runLater(() ->
         {
-            xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-        }
-        if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
-        {
-            xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-        }
+            this.pane1.setContent(this.startImageInit("c://test/init.png", this.pane1));
+            this.pane2.setContent(this.startImageInit("c://test/init.png", this.pane2));
+
+            MotionCamera1.getInstance().setXMLSavePath("c://test");
+            MotionCamera2.getInstance().setXMLSavePath("c://test");
+            XMLCameraHandler xmlHandler = new XMLCameraHandler();
+            if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
+            {
+                xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+            }
+            if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
+            {
+                xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+            }
+        });
 
         /* Platform.runLater(() ->
          {
