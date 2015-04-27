@@ -475,7 +475,17 @@ public class FXMLCamViewController implements Initializable
             }
         };
         thread.start();
-        return new ImageView(writableImage);
+        return new ImageView(writableImage)
+        {
+            {
+                setPreserveRatio(false);
+                setSmooth(true);
+
+                //TODO(Dominik):test and fix panes
+                fitWidthProperty().bind(pane1.widthProperty());
+                fitHeightProperty().bind(pane1.heightProperty());
+            }
+        };
     }
 
     /**
@@ -586,23 +596,23 @@ public class FXMLCamViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-       /* Platform.runLater(() ->
-        {
-            this.pane1.setContent((this.startImageInit("c://test/offline.png").fitWidthProperty().bind(pane1.widthProperty());
-        });
-        //this.startInit();
+        /* Platform.runLater(() ->
+         {
+         this.pane1.setContent((this.startImageInit("c://test/offline.png").fitWidthProperty().bind(pane1.widthProperty());
+         });
+         //this.startInit();
 
-        (startImageInit("c://test/offline.png")).fitWidthProperty().bind(pane1.widthProperty());
+         (startImageInit("c://test/offline.png")).fitWidthProperty().bind(pane1.widthProperty());
         
         
-        */
-     /*   setPreserveRatio(false);
-                setSmooth(true);
+         */
+        /*   setPreserveRatio(false);
+         setSmooth(true);
 
-                fitWidthProperty().bind(pane.widthProperty());
-                fitHeightProperty().bind(pane.heightProperty());
-        */
-        
+         fitWidthProperty().bind(pane.widthProperty());
+         fitHeightProperty().bind(pane.heightProperty());
+         */
+
         //TODO(Dominik): remove from init block
         /*try
          {

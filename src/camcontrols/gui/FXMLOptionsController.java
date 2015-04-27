@@ -169,19 +169,20 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        /* if (pingCamera())
-         {*/
-        applyToCamera();
-        saveToXMLSaveFile();
-        applyToConfigFile();
-//        this.tfResult.setText("Configuration applied to camera ...");
-        //  restartCameraAction();
-       /* }
-         else
-         {
-         //this.tfResult.setText("Unable to reach camera to apply settings ...");
-         System.out.println("UNABLE to ping");
-         }*/
+        //TODO(Dominik): use icmp for ping
+        if (pingCamera())
+        {
+            applyToCamera();
+            //    saveToXMLSaveFile();
+            applyToConfigFile();
+            this.tfResult.setText("Configuration applied to camera ...");
+            restartCameraAction();
+        }
+        else
+        {
+            this.tfResult.setText("Unable to reach camera to apply settings ...");
+            System.out.println("UNABLE to ping");
+        }
     }
 
     /**
@@ -216,19 +217,20 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonResetToDefault(final ActionEvent event)
     {
         this.setDefaultValues();
+        this.setDefaultSingletonValues();
     }
 
     @FXML
     private void handleButtonSave(final ActionEvent event)
     {
         applyToCamera();
-        saveToXMLSaveFile();
+        //    saveToXMLSaveFile();
     }
 
     @FXML
     private void handleButtonLoad(final ActionEvent event)
     {
-        loadXMLSave();
+        //  loadXMLSave();
         loadSingletonToForm();
     }
 
@@ -328,7 +330,6 @@ public class FXMLOptionsController implements Initializable
      */
     private void setDefaultSingletonValues()
     {
-        //TODO(Dominik):DEFAULT IN CONF SHOULD BE DEFAULT IN CAMERA TEST AND CONFIRM
         applyToCamera();
     }
 
@@ -422,6 +423,7 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
+    //TODO(Dominik): remove replaced with auto brightness
     /**
      *
      * @param event
@@ -505,8 +507,31 @@ public class FXMLOptionsController implements Initializable
      */
     private void initializeTextBoxes()
     {
+        this.tfCamName.setText(getCameraName());
+        this.tfCamURL.setText("NO URL");
+        this.tfFramerate.setText("2");
         this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
         this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String getCameraName()
+    {
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                return MotionCamera1.getInstance().getName();
+            }
+            case "2":
+            {
+                return MotionCamera2.getInstance().getName();
+            }
+        }
+        return "Unnamed Camera";
     }
 
     //TODO(Dominik): all values have to be set before doing this fix
@@ -929,7 +954,6 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
-    //TODO(Dominik):autobrightness/default brightnesss keep only one slider
     /**
      * Initializes the controller class.
      *
@@ -939,9 +963,6 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        initializeTextBoxes();
-        InitializeCBoxResolution();
-
         //TODO(Dominik): remove later and load 
         MotionCamera1.getInstance().setConfigPath("j://test/cam1");
         ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
@@ -949,7 +970,10 @@ public class FXMLOptionsController implements Initializable
 
         Platform.runLater(() ->
         {
-            loadXMLSave();
+            initializeTextBoxes();
+            InitializeCBoxResolution();
+
+          //  loadXMLSave();
         });
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
