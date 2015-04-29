@@ -973,7 +973,7 @@ public class FXMLOptionsController implements Initializable
             initializeTextBoxes();
             InitializeCBoxResolution();
 
-          //  loadXMLSave();
+            //  loadXMLSave();
         });
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }

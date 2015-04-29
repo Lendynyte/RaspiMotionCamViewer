@@ -14,7 +14,9 @@ public class CamaTestrTestr
     {
         CameraAvailabilityTester camtestr = new CameraAvailabilityTester();
 
-        camtestr.pingCamera("8.8.8.8", 1);
+       // camtestr.pingCamera("8.8.8.8", 1);
+        
+        camtestr.isReachable("192.168.1.242", 10);
         //windows ping -n 1 -w timeout 8.8.8.8
         //linux ping -c 1 -w timeout 8.8.8.8
     }

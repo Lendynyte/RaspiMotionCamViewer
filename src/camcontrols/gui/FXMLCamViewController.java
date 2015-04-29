@@ -514,12 +514,12 @@ public class FXMLCamViewController implements Initializable
      */
     private boolean pingCamera(MotionCameraInterface MotionCamera)
     {
-        return new CameraAvailabilityTester().isReachable(MotionCamera.getURL(), 500);
+        return new CameraAvailabilityTester().isReachable(MotionCamera.getURL(), 200);
     }
 
     private void runMotion(MotionCameraInterface MotionCamera)
     {
-        new SshCamerahandler().runMotion(MotionCamera, 200);
+        new SshCamerahandler().runMotion(MotionCamera, 20);
     }
 
     //TODO(Dominik): test if timeline stops when iopen options
@@ -609,6 +609,9 @@ public class FXMLCamViewController implements Initializable
         {
             this.pane1.setContent(this.startImageInit("c://test/init.png", this.pane1));
             this.pane2.setContent(this.startImageInit("c://test/init.png", this.pane2));
+
+            //TODO(Dominik):remove
+            MotionCamera1.getInstance().setURL("8.8.8.8");
 
             MotionCamera1.getInstance().setXMLSavePath("c://test");
             MotionCamera2.getInstance().setXMLSavePath("c://test");

@@ -1,134 +1,60 @@
 package camcontrols.comunication;
 
-import camcontrols.dependencies.ApplicationVariables;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.icmp4j.IcmpPingRequest;
+import org.icmp4j.IcmpPingResponse;
+import org.icmp4j.IcmpPingUtil;
 
 /**
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class CameraAvailabilityTester
 {
 
-    private boolean isReachable;
-
     /**
-     * This method is used for pinging an ip adress with timeout of 5000
      *
-     * @param ipAddress adress to check if reachable
-     * @param timeOut
-     * @return returns true if reachable false if not reachable
-     *
+     * @param hostAdress
+     * @param timeout
+     * @return
      */
-    public boolean isReachable(String ipAddress, int timeOut)
+    public boolean isReachable(String hostAdress, int timeout)
     {
-        final CountDownLatch latch = new CountDownLatch(1);
-
-        Thread thread = new Thread()
+        try
         {
-            @Override
-            public void run()
-            {
-                String commandLinux = "ping -c 1 -w " + timeOut + " " + ipAddress;
-                String commandWindows = "ping -n 1 -w " + timeOut + " " + ipAddress;
-                String inputLine;
+            final IcmpPingRequest request = IcmpPingUtil.createIcmpPingRequest();
+            request.setHost(hostAdress);
+            request.setTimeout(timeout);
 
-                isReachable = false;
+            final IcmpPingResponse response = IcmpPingUtil.executePingRequest(request);
 
-                Runtime runtime = Runtime.getRuntime();
-                Process process = null;
-                try
-                {
-                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
-                    {
-                        process = runtime.exec(commandWindows);
-                    }
-                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
-                    {
-                        process = runtime.exec(commandLinux);
-                    }
-                    else
-                    {
-                        System.err.println("Unable to ping, unknown operating system ...");
-                    }
-                }
-                catch (IOException e)
-                {
-                    System.err.println("Unable to get exec acces to remote ...");
-                }
+            final String formatResponse = IcmpPingUtil.formatResponse(response);
 
-                BufferedReader bufferReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-                try
-                {
-                    while ((inputLine = bufferReader.readLine()) != null)
-                    {
-                        System.out.println(inputLine);
-                        if (inputLine.contains("P�ijat� = 1") || (inputLine.contains("1 received")) || (inputLine.contains("Received = 1") || inputLine.contains("Přijaté = 1")))
-                        {
-                            isReachable = true;
-                            break;
-                        }
-                    }
-                    latch.countDown();
-                }
-                catch (IOException e)
-                {
-                    System.err.println("Failed to read input ...");
-                }
-                try
-                {
-                    bufferReader.close();
-                }
-                catch (IOException e)
-                {
-                    System.err.println("Unable to close buffered reader ...");
-                }
-            }
-        };
-        thread.start();
-       /* try
-        {
-           // latch.await();
+            return !formatResponse.contains("Error");
         }
-        catch (InterruptedException ex)
+        catch (Exception e)
         {
-            Logger.getLogger(CameraAvailabilityTester.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        /*try
-         {
-         thread.join();
-         }
-         catch (InterruptedException e)
-         {
-         System.err.println("Ping thread interrupted ...");
-         }*/
-        return isReachable;
+            System.err.println("Host does not exist ...");
+            return false;
+        }
     }
 
     /**
-     * This method pings ipaddress and prints out results
-     *
-     * @param ipAddress adress to ping
-     * @param timeOut time for ping respond (set to at least 100)
+     * 
+     * @param hostAdress
+     * @param timeout
+     * @param hostName
+     * @return 
      */
-    public void pingCamera(String ipAddress, int timeOut)
+    public String ping(String hostAdress, int timeout, String hostName)
     {
-        System.out.println("Sending ping request to: " + ipAddress + " ...");
-
-        if (isReachable(ipAddress, timeOut))
+        if (isReachable(hostAdress, timeout))
         {
-            System.out.println("Camera is reachable ...");
+            return hostName + "is reachable ...";
         }
         else
         {
-            System.err.println("Unable to reach camera ...");
+            return "Unable to reach " + hostName + " ...";
         }
     }
 }
