@@ -40,7 +40,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.6
+ * @version 0.7
  */
 public class FXMLCamViewController implements Initializable
 {
@@ -158,8 +158,10 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            startCamStream(this.pane1, 0, timelineCam1);
+            timelineCam1 = startCamStream(pane1, 0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
+            timelineCam1.setCycleCount(Animation.INDEFINITE);
+            timelineCam1.play();
         }
         else
         {
@@ -176,8 +178,11 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            startCamStream(this.pane2, 1, timelineCam2);
+            //TODO(Dominik): change camera id to 1
+            timelineCam2 = startCamStream(pane2, 0);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
+            timelineCam2.setCycleCount(Animation.INDEFINITE);
+            timelineCam2.play();
         }
         else
         {
@@ -193,7 +198,7 @@ public class FXMLCamViewController implements Initializable
     private void handleMenuCam1StopStreamAction(final ActionEvent event)
     {
         this.timelineCam1.stop();
-        this.closeWebcam(0);
+        this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera1.getInstance().getName());
     }
 
     /**
@@ -203,7 +208,8 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2StopStreamAction(final ActionEvent event)
     {
-        //TODO(Dominik): implement
+        this.timelineCam2.stop();
+        this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera2.getInstance().getName());
     }
 
     /**
@@ -387,12 +393,18 @@ public class FXMLCamViewController implements Initializable
     /**
      * This method has to be called only once
      *
-     * @throws MalformedURLException
      */
-    private void registerCameras() throws MalformedURLException
+    private void registerCameras()
     {
-        IpCamDeviceRegistry.register("Camera 1", "http://" + MotionCamera1.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
-        IpCamDeviceRegistry.register("Camera 2", "http://" + MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+        try
+        {
+            IpCamDeviceRegistry.register("Camera 1", "http://" + MotionCamera1.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+            IpCamDeviceRegistry.register("Camera 2", "http://" + MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+        }
+        catch (MalformedURLException ex)
+        {
+            System.err.println("Registering cameras failed ...");
+        }
     }
 
     /**
@@ -528,9 +540,9 @@ public class FXMLCamViewController implements Initializable
      * @param pane
      * @param webcamNumber
      */
-    private void startCamStream(ScrollPane pane, int webcamNumber, Timeline timeline)
+    private Timeline startCamStream(ScrollPane pane, int webcamNumber)
     {
-        timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev ->
+        return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
         {
             //TODO(Dominik): this does not start when options closed
             if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
@@ -541,8 +553,6 @@ public class FXMLCamViewController implements Initializable
                 });
             }
         }));
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
     }
 
     /**
@@ -575,7 +585,6 @@ public class FXMLCamViewController implements Initializable
         };
     }
 
-    //TODO(Dominik): handle when i cannot connect to not crash
     /**
      * Initializes the controller class.
      *
@@ -606,25 +615,18 @@ public class FXMLCamViewController implements Initializable
          }
          });*/
 
-        try
-        {
-            //TODO(Dominik): remove testing
-            MotionCamera1.getInstance().setURL("192.168.1.10");
-            MotionCamera2.getInstance().setURL("192.168.1.10");
 
-            registerCameras();
-            System.out.println(Webcam.getWebcams());
+        //TODO(Dominik): handle when i cannot connect to not crash  
+        //TODO(Dominik): currently cannot change ip when program is running if stop then load it will crash
+        //TODO(Dominik): remove testing
+        MotionCamera1.getInstance().setURL("192.168.1.10");
+        MotionCamera2.getInstance().setURL("192.168.1.10");
 
-            openWebcam(0);
-            //openWebcam(1);
+        registerCameras();
+        System.out.println(Webcam.getWebcams());
 
-            startCamStream(pane1, 0, timelineCam1);
-            //startCamStream(pane2, 0);
-        }
-        catch (MalformedURLException e)
-        {
-            System.err.println("Registering cameras failed");
-        }
+        openWebcam(0);
+        //openWebcam(1);
     }
 
 }
