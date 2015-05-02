@@ -546,8 +546,8 @@ public class FXMLCamViewController implements Initializable
     {
         return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
         {
-            //TODO(Dominik): this does not start when options closed
-            if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
+            //TODO(Dominik): this does not start when options closed commented for now
+            // if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
             {
                 Platform.runLater(() ->
                 {
@@ -607,6 +607,7 @@ public class FXMLCamViewController implements Initializable
         //TODO(Dominik): handle when i cannot connect to not crash  
         //TODO(Dominik): currently cannot change ip when program is running if stop then load it will crash
         //TODO(Dominik): remove testing
+        //TODO(Dominik): have to do checking for cameras if i have only 1 to not load it etc...
 
         Platform.runLater(() ->
         {
