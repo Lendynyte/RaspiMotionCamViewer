@@ -50,7 +50,7 @@ public class CameraAvailabilityTester
     {
         if (isReachable(hostAdress, timeout))
         {
-            return hostName + "is reachable ...";
+            return hostName + " is reachable ...";
         }
         else
         {

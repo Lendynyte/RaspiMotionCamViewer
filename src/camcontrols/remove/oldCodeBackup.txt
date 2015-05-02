@@ -1,6 +1,136 @@
 
 
 
+
+
+
+
+    /**
+     *
+     */
+    private void closeWebcams()
+    {
+        if (Webcam.getWebcams().get(0).isOpen())
+        {
+            Webcam.getWebcams().get(0).close();
+        }
+        if (Webcam.getWebcams().get(1).isOpen())
+        {
+            Webcam.getWebcams().get(1).close();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TODO(Dominik):test
+    /**
+     *
+     */
+    private void openWebcams()
+    {
+        if (pingCamera(MotionCamera1.getInstance()) && !Webcam.getWebcams().get(0).isOpen())
+        {
+            runMotion(MotionCamera1.getInstance());
+            Webcam.getWebcams().get(0).open();
+        }
+        if (pingCamera(MotionCamera2.getInstance()) && !Webcam.getWebcams().get(1).isOpen())
+        {
+            runMotion(MotionCamera2.getInstance());
+            Webcam.getWebcams().get(1).open();
+        }
+    }
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @param pane
+     * @param webcamNumber
+     */
+    /*private void startCamStream(ScrollPane pane, int webcamNumber)
+     {
+     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
+     {
+     if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
+     {
+     pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+     }
+     }));
+     timeline.setCycleCount(Animation.INDEFINITE);
+     timeline.play();
+     }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * This method puts imageView inside of pane and fits its width and height
+     */
+    private void initializePane(ScrollPane pane)
+    {
+        pane.setContent(new ImageView()
+        {
+            {
+                setPreserveRatio(false);
+                setSmooth(true);
+
+                fitWidthProperty().bind(pane.widthProperty());
+                fitHeightProperty().bind(pane.heightProperty());
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     
 
     private boolean isReachable;

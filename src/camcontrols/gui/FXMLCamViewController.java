@@ -99,6 +99,10 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private Label lblPingC2Result;
 
+    private Timeline timelineCam1;
+
+    private Timeline timelineCam2;
+
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="FXML camera highlighting handling">
     /**
@@ -154,7 +158,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            startCamStream(this.pane1, 0);
+            startCamStream(this.pane1, 0, timelineCam1);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
         }
         else
@@ -172,7 +176,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            startCamStream(this.pane2, 1);
+            startCamStream(this.pane2, 1, timelineCam2);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
         }
         else
@@ -188,8 +192,8 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1StopStreamAction(final ActionEvent event)
     {
-        //TODO(Dominik): implement
-
+        this.timelineCam1.stop();
+        this.closeWebcam(0);
     }
 
     /**
@@ -387,44 +391,62 @@ public class FXMLCamViewController implements Initializable
      */
     private void registerCameras() throws MalformedURLException
     {
-        IpCamDeviceRegistry.register("Camera 1", MotionCamera1.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
-        IpCamDeviceRegistry.register("Camera 2", MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+        IpCamDeviceRegistry.register("Camera 1", "http://" + MotionCamera1.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
+        IpCamDeviceRegistry.register("Camera 2", "http://" + MotionCamera2.getInstance().getURL() + ":8081/video.mjpg", IpCamMode.PUSH);
     }
 
-    //TODO(Dominik):test
     /**
+     * This method is used for opening cameras
      *
+     * @param camId 0 for camera 1 1 for camera 2
      */
-    private void openWebcams()
+    private void openWebcam(int camId)
     {
-        if (pingCamera(MotionCamera1.getInstance()) && !Webcam.getWebcams().get(0).isOpen())
+        switch (camId)
         {
-            runMotion(MotionCamera1.getInstance());
-            Webcam.getWebcams().get(0).open();
-        }
-        if (pingCamera(MotionCamera2.getInstance()) && !Webcam.getWebcams().get(1).isOpen())
-        {
-            runMotion(MotionCamera2.getInstance());
-            Webcam.getWebcams().get(1).open();
+            case 0:
+            {
+                if (pingCamera(MotionCamera1.getInstance()) && !Webcam.getWebcams().get(0).isOpen())
+                {
+                    Webcam.getWebcams().get(0).open();
+                }
+            }
+            break;
+            case 1:
+            {
+                if (pingCamera(MotionCamera2.getInstance()) && !Webcam.getWebcams().get(1).isOpen())
+                {
+                    Webcam.getWebcams().get(1).open();
+                }
+            }
+            break;
         }
     }
 
-    //TODO(Dominik): check for cameras only after pinging them first
-    //TODO(Dominik): show warning only when i debug mode
-    //TODO(Dominik):implement debug mode
-    //TODO(Dominik): fix check if cameras exist
     /**
      *
+     * @param camId 0 for cam1 1 for cam2
      */
-    private void closeWebcams()
+    private void closeWebcam(int camId)
     {
-        if (Webcam.getWebcams().get(0).isOpen())
+        switch (camId)
         {
-            Webcam.getWebcams().get(0).close();
-        }
-        if (Webcam.getWebcams().get(1).isOpen())
-        {
-            Webcam.getWebcams().get(1).close();
+            case 0:
+            {
+                if (Webcam.getWebcams().get(0).isOpen())
+                {
+                    Webcam.getWebcams().get(0).close();
+                }
+            }
+            break;
+            case 1:
+            {
+                if (Webcam.getWebcams().get(1).isOpen())
+                {
+                    Webcam.getWebcams().get(1).close();
+                }
+            }
+            break;
         }
     }
 
@@ -459,51 +481,26 @@ public class FXMLCamViewController implements Initializable
     private ImageView repaintImage(BufferedImage grabbedImage)
     {
         WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
-        Thread thread = new Thread()
-        {
-            @Override
-            public void run()
-            {
-                PixelWriter pixelWriter = writableImage.getPixelWriter();
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
 
-                for (int x = 0; x < grabbedImage.getWidth(); x++)
-                {
-                    for (int y = 0; y < grabbedImage.getHeight(); y++)
-                    {
-                        pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
-                    }
-                }
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
             }
-        };
-        thread.start();
+        }
+
         return new ImageView(writableImage)
         {
             {
                 setPreserveRatio(false);
                 setSmooth(true);
 
-                //TODO(Dominik):test and fix panes
                 fitWidthProperty().bind(pane1.widthProperty());
                 fitHeightProperty().bind(pane1.heightProperty());
             }
         };
-    }
-
-    /**
-     * This method puts imageView inside of pane and fits its width and height
-     */
-    private void initializePane(ScrollPane pane)
-    {
-        pane.setContent(new ImageView()
-        {
-            {
-                setPreserveRatio(false);
-                setSmooth(true);
-
-                fitWidthProperty().bind(pane.widthProperty());
-                fitHeightProperty().bind(pane.heightProperty());
-            }
-        });
     }
 
     /**
@@ -517,40 +514,25 @@ public class FXMLCamViewController implements Initializable
         return new CameraAvailabilityTester().isReachable(MotionCamera.getURL(), 200);
     }
 
+    /**
+     *
+     * @param MotionCamera
+     */
     private void runMotion(MotionCameraInterface MotionCamera)
     {
-        new SshCamerahandler().runMotion(MotionCamera, 20);
+        new SshCamerahandler().runMotion(MotionCamera, 200);
     }
 
-    //TODO(Dominik): test if timeline stops when iopen options
-    //TODO(Dominik): if this does not work write method that stops timeline on options/help open
-    //TODO(Dominik): and it restarts timeline when window closes
     /**
      *
      * @param pane
      * @param webcamNumber
      */
-    /*private void startCamStream(ScrollPane pane, int webcamNumber)
-     {
-     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
-     {
-     if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen()) //both windows closed
-     {
-     pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
-     }
-     }));
-     timeline.setCycleCount(Animation.INDEFINITE);
-     timeline.play();
-     }*/
-    /**
-     *
-     * @param pane
-     * @param webcamNumber
-     */
-    private void startCamStream(ScrollPane pane, int webcamNumber)
+    private void startCamStream(ScrollPane pane, int webcamNumber, Timeline timeline)
     {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev ->
+        timeline = new Timeline(new KeyFrame(Duration.seconds(2), ev ->
         {
+            //TODO(Dominik): this does not start when options closed
             if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
             {
                 Platform.runLater(() ->
@@ -593,8 +575,6 @@ public class FXMLCamViewController implements Initializable
         };
     }
 
-    //TODO(Dominik):CUrently broken i do not set imageVIew constrains when getting it from bufferedImage so i have to constrain it or or not get new imageView need to look at this more 
-    //TODO(Dominik) test this also test without timeline test if it lags
     //TODO(Dominik): handle when i cannot connect to not crash
     /**
      * Initializes the controller class.
@@ -604,70 +584,47 @@ public class FXMLCamViewController implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {
-        Platform.runLater(() ->
-        {
-            this.pane1.setContent(this.startImageInit("c://test/init.png", this.pane1));
-            this.pane2.setContent(this.startImageInit("c://test/init.png", this.pane2));
-
-            //TODO(Dominik):remove
-            MotionCamera1.getInstance().setURL("8.8.8.8");
-
-            MotionCamera1.getInstance().setXMLSavePath("c://test");
-            MotionCamera2.getInstance().setXMLSavePath("c://test");
-            XMLCameraHandler xmlHandler = new XMLCameraHandler();
-            if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
-            {
-                xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-            }
-            if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
-            {
-                xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-            }
-        });
-
-        /* Platform.runLater(() ->
+    {/*
+         Platform.runLater(() ->
          {
-         this.pane1.setContent((this.startImageInit("c://test/offline.png").fitWidthProperty().bind(pane1.widthProperty());
-         });
-         //this.startInit();
+         //  this.pane1.setContent(this.startImageInit("c://test/init.png", this.pane1));
+         //  this.pane2.setContent(this.startImageInit("c://test/init.png", this.pane2));
 
-         (startImageInit("c://test/offline.png")).fitWidthProperty().bind(pane1.widthProperty());
-        
-        
-         */
-        /*   setPreserveRatio(false);
-         setSmooth(true);
+         //TODO(Dominik):remove
+         MotionCamera1.getInstance().setURL("8.8.8.8");
 
-         fitWidthProperty().bind(pane.widthProperty());
-         fitHeightProperty().bind(pane.heightProperty());
-         */
-        //TODO(Dominik): remove from init block
-        /*try
+         MotionCamera1.getInstance().setXMLSavePath("j://test");
+         MotionCamera2.getInstance().setXMLSavePath("j://test");
+         XMLCameraHandler xmlHandler = new XMLCameraHandler();
+         if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
          {
-         //TODO(Dominik): remove testing
-         MotionCamera1.getInstance().setURL("http://192.168.1.10");
-         MotionCamera2.getInstance().setURL("http://192.168.1.10");
-
-         registerCameras();
-
-         System.out.println(Webcam.getWebcams());
-
-         //  openWebcams();
-         Webcam.getWebcams().get(0).open();
-         System.out.println(Webcam.getWebcams().get(0).isOpen());
-
-         System.out.println(Webcam.getWebcams().get(0).getImage());
-
-         //  testStream();
-         initializePane(this.pane1);
-         initializePane(this.pane2);
+         //  xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
          }
-         catch (MalformedURLException e)
+         if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
          {
+         //   xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+         }
+         });*/
 
-         System.err.println("Registering cameras failed");
-         }*/
+        try
+        {
+            //TODO(Dominik): remove testing
+            MotionCamera1.getInstance().setURL("192.168.1.10");
+            MotionCamera2.getInstance().setURL("192.168.1.10");
+
+            registerCameras();
+            System.out.println(Webcam.getWebcams());
+
+            openWebcam(0);
+            //openWebcam(1);
+
+            startCamStream(pane1, 0, timelineCam1);
+            //startCamStream(pane2, 0);
+        }
+        catch (MalformedURLException e)
+        {
+            System.err.println("Registering cameras failed");
+        }
     }
 
 }
