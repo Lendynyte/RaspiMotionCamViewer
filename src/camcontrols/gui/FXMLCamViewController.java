@@ -199,6 +199,7 @@ public class FXMLCamViewController implements Initializable
     {
         this.timelineCam1.stop();
         this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera1.getInstance().getName());
+        this.startImageInit("IMAGEPATH", pane1);
     }
 
     /**
@@ -210,6 +211,7 @@ public class FXMLCamViewController implements Initializable
     {
         this.timelineCam2.stop();
         this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera2.getInstance().getName());
+        this.startImageInit("IMAGEPATH", pane2);
     }
 
     /**
@@ -574,15 +576,23 @@ public class FXMLCamViewController implements Initializable
      */
     private ImageView startImageInit(String initImagePath, ScrollPane pane)
     {
-        return new ImageView(new Image(initImagePath))
+        if (new XMLCameraHandler().checkForXMLSave(initImagePath))
         {
+            return new ImageView(new Image(initImagePath))
             {
-                setPreserveRatio(false);
-                setSmooth(true);
-                fitWidthProperty().bind(pane.widthProperty());
-                fitHeightProperty().bind(pane.heightProperty());
-            }
-        };
+                {
+                    setPreserveRatio(false);
+                    setSmooth(true);
+                    fitWidthProperty().bind(pane.widthProperty());
+                    fitHeightProperty().bind(pane.heightProperty());
+                }
+            };
+        }
+        else
+        {
+            System.err.println("No init image found ...");
+            return null;
+        }
     }
 
     /**
@@ -593,40 +603,40 @@ public class FXMLCamViewController implements Initializable
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
-    {/*
-         Platform.runLater(() ->
-         {
-         //  this.pane1.setContent(this.startImageInit("c://test/init.png", this.pane1));
-         //  this.pane2.setContent(this.startImageInit("c://test/init.png", this.pane2));
-
-         //TODO(Dominik):remove
-         MotionCamera1.getInstance().setURL("8.8.8.8");
-
-         MotionCamera1.getInstance().setXMLSavePath("j://test");
-         MotionCamera2.getInstance().setXMLSavePath("j://test");
-         XMLCameraHandler xmlHandler = new XMLCameraHandler();
-         if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
-         {
-         //  xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-         }
-         if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
-         {
-         //   xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-         }
-         });*/
-
-
+    {
         //TODO(Dominik): handle when i cannot connect to not crash  
         //TODO(Dominik): currently cannot change ip when program is running if stop then load it will crash
         //TODO(Dominik): remove testing
-        MotionCamera1.getInstance().setURL("192.168.1.10");
-        MotionCamera2.getInstance().setURL("192.168.1.10");
 
-        registerCameras();
-        System.out.println(Webcam.getWebcams());
+        Platform.runLater(() ->
+        {
+            //setup application variables
+            startInit();
 
-        openWebcam(0);
-        //openWebcam(1);
+            //INIT IMAGE LOADING
+            this.startImageInit("IMAGEPATH", pane1);
+            this.startImageInit("IMAGEPATH", pane2);
+
+            //SETTING UP PATHS FROM XML
+            XMLCameraHandler xmlHandler = new XMLCameraHandler();
+            if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
+            {
+                //  xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+            }
+            if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
+            {
+                //   xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
+            }
+
+            //STREAN PREPARATION
+            MotionCamera1.getInstance().setURL("192.168.1.10");
+            MotionCamera2.getInstance().setURL("192.168.1.10");
+
+            registerCameras();
+            System.out.println(Webcam.getWebcams());
+
+            openWebcam(0);
+            //openWebcam(1);
+        });
     }
-
 }
