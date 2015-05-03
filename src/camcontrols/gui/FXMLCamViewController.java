@@ -34,6 +34,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -140,6 +141,24 @@ public class FXMLCamViewController implements Initializable
     {
         System.out.println("Closing...");
         Platform.exit();
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleMenuToggleFullscreenAction(final ActionEvent event)
+    {
+        Stage primaryStage = (Stage) this.mainPane.getScene().getWindow();
+        if (primaryStage.isFullScreen())
+        {
+            primaryStage.setFullScreen(Boolean.FALSE);
+        }
+        else
+        {
+            primaryStage.setFullScreen(Boolean.TRUE);
+        }
     }
 
     /**
