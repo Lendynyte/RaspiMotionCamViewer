@@ -1,5 +1,6 @@
 package camcontrols.configEditing;
 
+import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCameraInterface;
 import java.util.ArrayList;
 
@@ -45,7 +46,8 @@ public class ConfigEditor
     public void createConfig(Parser parser, MotionCameraInterface MotionCamera)
     {
         parser.createConfigFolders(MotionCamera.getConfigPath());
-        parser.createConfFile(MotionCamera.getParsedConfig(), MotionCamera.getConfigPath());
+        //TODO(Dominik): FIX
+        parser.createConfFile(MotionCamera.getParsedConfig(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cam1");
         System.out.println("File created ...");
     }
 
@@ -71,7 +73,8 @@ public class ConfigEditor
             String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality)
     {
-        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
+        //TODO(Dominik): HAVE TO FING WORKING RESOLUTIONS THESE CRASH MOTION
+       /* if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
         {
             loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
         }
@@ -79,7 +82,7 @@ public class ConfigEditor
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
         {
             loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-        }
+        }*/
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
         {

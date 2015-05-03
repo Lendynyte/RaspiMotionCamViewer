@@ -655,6 +655,7 @@ public class FXMLCamViewController implements Initializable
             registerCameras();
             System.out.println(Webcam.getWebcams());
 
+            //TODO(Dominik): not do at init
             openWebcam(0);
             //openWebcam(1);
         });

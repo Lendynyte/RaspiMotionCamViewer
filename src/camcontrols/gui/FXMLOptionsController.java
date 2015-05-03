@@ -170,19 +170,24 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonApply(final ActionEvent event)
     {
         //TODO(Dominik): use icmp for ping
-        if (pingCamera())
+        // if (pingCamera())
         {
             applyToCamera();
             //    saveToXMLSaveFile();
             applyToConfigFile();
-            this.tfResult.setText("Configuration applied to camera ...");
-            restartCameraAction();
+//            this.tfResult.setText("Configuration applied to camera ...");
+            //TODO(Dominik): have to change url in conf this is here for now
+            MotionCamera1.getInstance().setURL("192.168.1.10");
+            
+            applySettingsToCamera();
+            
+           // restartCameraAction();
         }
-        else
-        {
-            this.tfResult.setText("Unable to reach camera to apply settings ...");
-            System.out.println("UNABLE to ping");
-        }
+        //else
+        //  {
+        // this.tfResult.setText("Unable to reach camera to apply settings ...");
+        //   System.out.println("UNABLE to ping");
+        //  }
     }
 
     /**
@@ -877,11 +882,11 @@ public class FXMLOptionsController implements Initializable
         {
             //TODO(Dominik): fix paths when i get the correct path in main moduel
             case "1":
-                changeConfigItems(MotionCamera1.getInstance(), "/destroyed.conf");
+                changeConfigItems(MotionCamera1.getInstance(), "/default.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance());
                 break;
             case "2":
-                changeConfigItems(MotionCamera2.getInstance(), "/cam2/motion.conf");
+                changeConfigItems(MotionCamera2.getInstance(), "/default.conf");
                 new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance());
                 break;
         }
@@ -893,16 +898,16 @@ public class FXMLOptionsController implements Initializable
      */
     private void applySettingsToCamera()
     {
-        if (pingCamera())
+        //if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
                 case "1":
-                    this.sshHandler.sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 500);
+                    new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
                     break;
 
                 case "2":
-                    this.sshHandler.sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam2/motion.conf", 500);
+                    new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
                     break;
             }
         }
@@ -915,23 +920,23 @@ public class FXMLOptionsController implements Initializable
      */
     private void restartCameraAction()
     {
-        if (pingCamera())
+        // if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
                 case "1":
-                    this.sshHandler.restartCamera(MotionCamera1.getInstance());
+                    new SshCamerahandler().restartCamera(MotionCamera1.getInstance());
                     break;
 
                 case "2":
-                    this.sshHandler.restartCamera(MotionCamera2.getInstance());
+                    new SshCamerahandler().restartCamera(MotionCamera2.getInstance());
                     break;
             }
         }
-        else
-        {
-            System.err.println("Unable to restart camera ...");
-        }
+        /*else
+         {
+         System.err.println("Unable to restart camera ...");
+         }*/
     }
 
     /**
@@ -945,14 +950,17 @@ public class FXMLOptionsController implements Initializable
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
-                return new CameraAvailabilityTester().isReachable(MotionCamera1.getInstance().getURL(), 200);
+                return new CameraAvailabilityTester().isReachable("http://" + MotionCamera1.getInstance().getURL(), 10000);
             case "2":
-                return new CameraAvailabilityTester().isReachable(MotionCamera2.getInstance().getURL(), 200);
+                return new CameraAvailabilityTester().isReachable("http://" + MotionCamera2.getInstance().getURL(), 10000);
             default: //should never happen
                 System.err.println("Wrong window handle ...");
                 return false;
         }
     }
+    
+    
+    //TODO(Dominik): PATHS ARE BROKEN HAVE TO FIX BUT IT WORKS I HAVE NO IDE HOW
 
     /**
      * Initializes the controller class.
@@ -963,17 +971,29 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        //TODO(Dominik): remove later and load 
-        MotionCamera1.getInstance().setConfigPath("j://test/cam1");
-        ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
-        ApplicationVariables.getInstance().setXmlSaveDirectoryPath("j://test/cam1");
+            //TODO(Dominik): remove later and load 
+        //WINDOWS
+        //  MotionCamera1.getInstance().setConfigPath("j://test/cam1");
+        //  MotionCamera2.getInstance().setConfigPath("j://test/cam2");
+        // ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
+        //  ApplicationVariables.getInstance().setXmlSaveDirectoryPath("j://test/cam1");
+        //RASPBERRY PI 
+        MotionCamera1.getInstance().setConfigPath("/home/pi");
+        //  MotionCamera2.getInstance().setConfigPath("/etc");
+
+        MotionCamera1.getInstance().setURL("192.168.1.10");
+        MotionCamera1.getInstance().setCamLogin("pi");
+        MotionCamera1.getInstance().setCamPassword("raspberry");
+
+        ApplicationVariables.getInstance().setInstallDirectoryPath("/home/pi/CamControls");
+        ApplicationVariables.getInstance().setXmlSaveDirectoryPath("/home/pi/CamControls");
 
         Platform.runLater(() ->
         {
             initializeTextBoxes();
             InitializeCBoxResolution();
 
-            //  loadXMLSave();
+            //loadXMLSave();
         });
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
