@@ -220,9 +220,16 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1StopStreamAction(final ActionEvent event)
     {
-        this.timelineCam1.stop();
-        this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera1.getInstance().getName());
-        this.startImageInit("IMAGEPATH", pane1);
+        if (this.timelineCam1.getStatus().equals(Animation.Status.RUNNING))
+        {
+            this.timelineCam1.stop();
+            this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera1.getInstance().getName());
+            this.startImageInit("IMAGEPATH", pane1);
+        }
+        else
+        {
+            System.out.println("Nothing to stop");
+        }
     }
 
     /**
@@ -232,9 +239,16 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam2StopStreamAction(final ActionEvent event)
     {
-        this.timelineCam2.stop();
-        this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera2.getInstance().getName());
-        this.startImageInit("IMAGEPATH", pane2);
+        if (this.timelineCam2.getStatus().equals(Animation.Status.RUNNING))
+        {
+            this.timelineCam2.stop();
+            this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera2.getInstance().getName());
+            this.startImageInit("IMAGEPATH", pane2);
+        }
+        else
+        {
+            System.out.println("Nothing to stop");
+        }
     }
 
     /**
@@ -244,7 +258,7 @@ public class FXMLCamViewController implements Initializable
     @FXML
     private void handleMenuCam1ResetCameraAction(final ActionEvent event)
     {
-        restartCamera(MotionCamera1.getInstance(), 2);
+        restartCamera(MotionCamera1.getInstance(), 1);
     }
 
     /**
@@ -552,11 +566,17 @@ public class FXMLCamViewController implements Initializable
             switch (webcamNumber)
             {
                 case 0:
-                    repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
+                    Platform.runLater(() ->
+                    {
+                        repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
+                    });
                     break;
 
                 case 1:
-                    repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
+                    Platform.runLater(() ->
+                    {
+                        repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
+                    });
                     break;
             }
         }));
@@ -577,6 +597,8 @@ public class FXMLCamViewController implements Initializable
         this.imageView1.fitWidthProperty().bind(pane1.widthProperty());
         this.imageView1.fitHeightProperty().bind(pane1.heightProperty());
 
+        this.timelineCam1 = new Timeline();
+
         //TODO(Dominik): test
         //ImageView 2
         this.imageView2 = new ImageView();
@@ -586,6 +608,8 @@ public class FXMLCamViewController implements Initializable
         this.imageView2.setSmooth(true);
         this.imageView2.fitWidthProperty().bind(pane2.widthProperty());
         this.imageView2.fitHeightProperty().bind(pane2.heightProperty());
+
+        this.timelineCam2 = new Timeline();
     }
 
     /**
