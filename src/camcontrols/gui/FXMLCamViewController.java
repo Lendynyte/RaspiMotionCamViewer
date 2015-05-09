@@ -521,36 +521,14 @@ public class FXMLCamViewController implements Initializable
      *
      * @param grabbedImage
      */
-    private void repaintImage1(BufferedImage grabbedImage)
+    private void repaintImage(BufferedImage grabbedImage, WritableImage image)
     {
-        if (image1.getWidth() != grabbedImage.getWidth() || image1.getHeight() != grabbedImage.getHeight())
+        if (image.getWidth() != grabbedImage.getWidth() || image.getHeight() != grabbedImage.getHeight())
         {
-            image1 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            image = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
         }
 
         PixelWriter pixelWriter = image1.getPixelWriter();
-
-        for (int x = 0; x < grabbedImage.getWidth(); x++)
-        {
-            for (int y = 0; y < grabbedImage.getHeight(); y++)
-            {
-                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
-            }
-        }
-    }
-
-    /**
-     *
-     * @param grabbedImage
-     */
-    private void repaintImage2(BufferedImage grabbedImage)
-    {
-        if (image2.getWidth() != grabbedImage.getWidth() || image2.getHeight() != grabbedImage.getHeight())
-        {
-            image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
-        }
-
-        PixelWriter pixelWriter = image2.getPixelWriter();
 
         for (int x = 0; x < grabbedImage.getWidth(); x++)
         {
@@ -574,11 +552,11 @@ public class FXMLCamViewController implements Initializable
             switch (webcamNumber)
             {
                 case 0:
-                    repaintImage1(Webcam.getWebcams().get(0).getImage());
+                    repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
                     break;
 
                 case 1:
-                    repaintImage2(Webcam.getWebcams().get(1).getImage());
+                    repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
                     break;
             }
         }));

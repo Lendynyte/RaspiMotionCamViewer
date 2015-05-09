@@ -4,6 +4,28 @@
 
 
 
+    /**
+     *
+     * @param grabbedImage
+     */
+    private void repaintImage2(BufferedImage grabbedImage)
+    {
+        if (image2.getWidth() != grabbedImage.getWidth() || image2.getHeight() != grabbedImage.getHeight())
+        {
+            image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        }
+
+        PixelWriter pixelWriter = image2.getPixelWriter();
+
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+            }
+        }
+    }
+
 
 
 
