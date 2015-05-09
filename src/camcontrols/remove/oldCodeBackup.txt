@@ -17,6 +17,80 @@
 
 
 
+    /**
+     *
+     * @param grabbedImage
+     * @return
+     */
+    /*  private ImageView repaintImage(BufferedImage grabbedImage)
+     {
+     WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+     PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+     for (int x = 0; x < grabbedImage.getWidth(); x++)
+     {
+     for (int y = 0; y < grabbedImage.getHeight(); y++)
+     {
+     pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+     }
+     }
+
+     return new ImageView(writableImage)
+     {
+     {
+     setPreserveRatio(false);
+     setSmooth(true);
+
+     fitWidthProperty().bind(pane1.widthProperty());
+     fitHeightProperty().bind(pane1.heightProperty());
+     }
+     };
+     }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @param pane
+     * @param webcamNumber
+     */
+    /* private Timeline startCamStream(ScrollPane pane, int webcamNumber)
+     {
+     return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
+     {
+     //TODO(Dominik): this does not start when options closed commented for now
+     // if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
+     {
+     Platform.runLater(() ->
+     {
+     pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
+     });
+     }
+     }));
+     }*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**

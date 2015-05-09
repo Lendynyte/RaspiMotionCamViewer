@@ -177,7 +177,9 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            timelineCam1 = startCamStream(pane1, 0);
+            //TODO(Dominik): fix
+            //timelineCam1 = startCamStream(pane1, 0);
+            timelineCam1 = startCamStreamTest(0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
             timelineCam1.setCycleCount(Animation.INDEFINITE);
             timelineCam1.play();
@@ -198,7 +200,9 @@ public class FXMLCamViewController implements Initializable
         if (pingCamera(MotionCamera2.getInstance()))
         {
             //TODO(Dominik): change camera id to 1
-            timelineCam2 = startCamStream(pane2, 0);
+            //TODO(Dominik): fix
+            //timelineCam2 = startCamStream(pane2, 0);
+            timelineCam2 = startCamStreamTest(0);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
             timelineCam2.setCycleCount(Animation.INDEFINITE);
             timelineCam2.play();
@@ -411,6 +415,13 @@ public class FXMLCamViewController implements Initializable
         Webcam.setDriver(new IpCamDriver());
     }
 
+    //TODO(Dominik): move
+    private WritableImage image1;
+    private WritableImage image2;
+
+    private ImageView imageView1;
+    private ImageView imageView2;
+
     /**
      * This method has to be called only once
      *
@@ -509,12 +520,15 @@ public class FXMLCamViewController implements Initializable
     /**
      *
      * @param grabbedImage
-     * @return
      */
-    private ImageView repaintImage(BufferedImage grabbedImage)
+    private void repaintImage1(BufferedImage grabbedImage)
     {
-        WritableImage writableImage = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
+        if (image1.getWidth() != grabbedImage.getWidth() || image1.getHeight() != grabbedImage.getHeight())
+        {
+            image1 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        }
+
+        PixelWriter pixelWriter = image1.getPixelWriter();
 
         for (int x = 0; x < grabbedImage.getWidth(); x++)
         {
@@ -523,17 +537,77 @@ public class FXMLCamViewController implements Initializable
                 pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
             }
         }
+    }
 
-        return new ImageView(writableImage)
+    /**
+     *
+     * @param grabbedImage
+     */
+    private void repaintImage2(BufferedImage grabbedImage)
+    {
+        if (image2.getWidth() != grabbedImage.getWidth() || image2.getHeight() != grabbedImage.getHeight())
         {
-            {
-                setPreserveRatio(false);
-                setSmooth(true);
+            image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        }
 
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
+        PixelWriter pixelWriter = image2.getPixelWriter();
+
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
             }
-        };
+        }
+    }
+
+    /**
+     *
+     * @param imageView
+     * @param webcamNumber
+     * @return
+     */
+    private Timeline startCamStreamTest(int webcamNumber)
+    {
+        return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
+        {
+            switch (webcamNumber)
+            {
+                case 0:
+                    repaintImage1(Webcam.getWebcams().get(0).getImage());
+                    break;
+
+                case 1:
+                    repaintImage2(Webcam.getWebcams().get(1).getImage());
+                    break;
+            }
+        }));
+    }
+
+    /**
+     *
+     */
+    private void initImageViews()
+    {
+        //TODO(Dominik): test
+        //Imageview 1
+        this.imageView1 = new ImageView();
+        this.imageView1.setImage(this.image1);
+
+        this.imageView1.setPreserveRatio(false);
+        this.imageView1.setSmooth(true);
+        this.imageView1.fitWidthProperty().bind(pane1.widthProperty());
+        this.imageView1.fitHeightProperty().bind(pane1.heightProperty());
+
+        //TODO(Dominik): test
+        //ImageView 2
+        this.imageView2 = new ImageView();
+        this.imageView2.setImage(this.image2);
+
+        this.imageView2.setPreserveRatio(false);
+        this.imageView2.setSmooth(true);
+        this.imageView2.fitWidthProperty().bind(pane2.widthProperty());
+        this.imageView2.fitHeightProperty().bind(pane2.heightProperty());
     }
 
     /**
@@ -557,26 +631,6 @@ public class FXMLCamViewController implements Initializable
     }
 
     /**
-     *
-     * @param pane
-     * @param webcamNumber
-     */
-    private Timeline startCamStream(ScrollPane pane, int webcamNumber)
-    {
-        return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
-        {
-            //TODO(Dominik): this does not start when options closed commented for now
-            // if (!ApplicationVariables.getInstance().isIsHelpOpen() && !ApplicationVariables.getInstance().isIsOptionsOpen() && !ApplicationVariables.getInstance().isIsSettingsOpen()) //both windows closed
-            {
-                Platform.runLater(() ->
-                {
-                    pane.setContent(repaintImage(Webcam.getWebcams().get(webcamNumber).getImage()));
-                });
-            }
-        }));
-    }
-
-    /**
      * This method is used for initializing application variables and is called
      * on load
      */
@@ -585,6 +639,7 @@ public class FXMLCamViewController implements Initializable
         //TODO(Dominik):change variables for linux
         ApplicationVariables.getInstance().setXmlSaveDirectoryPath("c:\test");
         ApplicationVariables.getInstance().setInstallDirectoryPath("c:\test");
+
     }
 
     /**
@@ -633,10 +688,11 @@ public class FXMLCamViewController implements Initializable
             //setup application variables
             startInit();
 
+            initImageViews();
+
             //INIT IMAGE LOADING
             this.startImageInit("IMAGEPATH", pane1);
             this.startImageInit("IMAGEPATH", pane2);
-
             //SETTING UP PATHS FROM XML
             XMLCameraHandler xmlHandler = new XMLCameraHandler();
             if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
