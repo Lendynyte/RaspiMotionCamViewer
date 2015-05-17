@@ -535,14 +535,52 @@ public class FXMLCamViewController implements Initializable
      *
      * @param grabbedImage
      */
-    private void repaintImage(BufferedImage grabbedImage, WritableImage image)
+    /*
+     private void repaintImage(BufferedImage grabbedImage, WritableImage image)
+     {
+     if (image.getWidth() != grabbedImage.getWidth() || image.getHeight() != grabbedImage.getHeight())
+     {
+     image = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+     }
+
+     PixelWriter pixelWriter = image1.getPixelWriter();
+
+     for (int x = 0; x < grabbedImage.getWidth(); x++)
+     {
+     for (int y = 0; y < grabbedImage.getHeight(); y++)
+     {
+     pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+     }
+     }
+     }*/
+    private void repaintImage1(BufferedImage grabbedImage)
     {
-        if (image.getWidth() != grabbedImage.getWidth() || image.getHeight() != grabbedImage.getHeight())
+        if (image1.getWidth() != grabbedImage.getWidth() || image1.getHeight() != grabbedImage.getHeight())
         {
-            image = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            image1 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
         }
 
         PixelWriter pixelWriter = image1.getPixelWriter();
+
+        for (int x = 0; x < grabbedImage.getWidth(); x++)
+        {
+            for (int y = 0; y < grabbedImage.getHeight(); y++)
+            {
+                pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
+            }
+        }
+        //TODO(Dominik): check if this must be here
+        this.imageView1.setImage(image1);
+    }
+
+    private void repaintImage2(BufferedImage grabbedImage)
+    {
+        if (image2.getWidth() != grabbedImage.getWidth() || image2.getHeight() != grabbedImage.getHeight())
+        {
+            image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+        }
+
+        PixelWriter pixelWriter = image2.getPixelWriter();
 
         for (int x = 0; x < grabbedImage.getWidth(); x++)
         {
@@ -568,14 +606,16 @@ public class FXMLCamViewController implements Initializable
                 case 0:
                     Platform.runLater(() ->
                     {
-                        repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
+                        //repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
+                        repaintImage1(Webcam.getWebcams().get(0).getImage());
                     });
                     break;
 
                 case 1:
                     Platform.runLater(() ->
                     {
-                        repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
+                        //repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
+                        repaintImage2(Webcam.getWebcams().get(1).getImage());
                     });
                     break;
             }
@@ -588,6 +628,10 @@ public class FXMLCamViewController implements Initializable
     private void initImageViews()
     {
         //TODO(Dominik): test
+        
+        this.image1 = new WritableImage((int)this.pane1.getWidth(), (int)this.pane1.getHeight());
+        this.image2 = new WritableImage((int)this.pane2.getWidth(), (int)this.pane2.getHeight());
+        
         //Imageview 1
         this.imageView1 = new ImageView();
         this.imageView1.setImage(this.image1);
@@ -693,8 +737,8 @@ public class FXMLCamViewController implements Initializable
             initImageViews();
 
             //INIT IMAGE LOADING
-            this.startImageInit("IMAGEPATH", pane1);
-            this.startImageInit("IMAGEPATH", pane2);
+            //this.startImageInit("IMAGEPATH", pane1);
+            //this.startImageInit("IMAGEPATH", pane2);
             //SETTING UP PATHS FROM XML
             XMLCameraHandler xmlHandler = new XMLCameraHandler();
             if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
