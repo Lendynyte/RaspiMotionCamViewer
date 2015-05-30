@@ -123,31 +123,18 @@
                                 <CheckBox fx:id="chckEnableSaturation" mnemonicParsing="false" onAction="#handleCheckBoxEnableSaturation" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                 <Label text="Auto hue settings:" GridPane.rowIndex="7" />
                                 <Label text="Auto saturation settings:" GridPane.rowIndex="8" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                <Label text="Label" GridPane.rowIndex="15" />
-                                <Label text="Label" GridPane.rowIndex="16" />
-                                <Label text="Label" GridPane.rowIndex="17" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="11" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="14" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="15" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="16" />
-                                <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="17" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="17" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="11" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="12" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="13" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="14" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="15" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="16" />
-                                <TextField GridPane.columnIndex="3" GridPane.rowIndex="17" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                <Label GridPane.rowIndex="15" />
+                                <Label GridPane.rowIndex="16" />
+                                <Label GridPane.rowIndex="17" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="15" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="16" />
+                                <Label GridPane.columnIndex="2" GridPane.rowIndex="17" />
                             </children>
                             <opaqueInsets>
                                 <Insets />

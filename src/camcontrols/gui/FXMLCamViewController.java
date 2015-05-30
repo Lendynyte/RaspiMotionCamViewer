@@ -12,6 +12,7 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -628,10 +629,10 @@ public class FXMLCamViewController implements Initializable
     private void initImageViews()
     {
         //TODO(Dominik): test
-        
-        this.image1 = new WritableImage((int)this.pane1.getWidth(), (int)this.pane1.getHeight());
-        this.image2 = new WritableImage((int)this.pane2.getWidth(), (int)this.pane2.getHeight());
-        
+
+        this.image1 = new WritableImage((int) this.pane1.getWidth(), (int) this.pane1.getHeight());
+        this.image2 = new WritableImage((int) this.pane2.getWidth(), (int) this.pane2.getHeight());
+
         //Imageview 1
         this.imageView1 = new ImageView();
         this.imageView1.setImage(this.image1);
@@ -715,6 +716,24 @@ public class FXMLCamViewController implements Initializable
         }
     }
 
+    //TODO(Dominik): remove later this was used for taking presentation screenshots
+    private ImageView loadStartupImageSlowlyOnWindowsNoChecking()
+    {
+        File file = new File("j://rpi/offline.png");
+        Image imageo = new Image(file.toURI().toString());
+        
+        return new ImageView(imageo)
+        {
+            {
+                setPreserveRatio(false);
+                setSmooth(true);
+
+                fitWidthProperty().bind(pane1.widthProperty());
+                fitHeightProperty().bind(pane1.heightProperty());
+            }
+        };
+    }
+
     /**
      * Initializes the controller class.
      *
@@ -734,8 +753,7 @@ public class FXMLCamViewController implements Initializable
             //setup application variables
             startInit();
 
-            initImageViews();
-
+            //initImageViews();
             //INIT IMAGE LOADING
             //this.startImageInit("IMAGEPATH", pane1);
             //this.startImageInit("IMAGEPATH", pane2);
@@ -760,6 +778,10 @@ public class FXMLCamViewController implements Initializable
             //TODO(Dominik): not do at init
             openWebcam(0);
             //openWebcam(1);
+
+            this.pane1.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
+            this.pane2.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
+
         });
     }
 }
