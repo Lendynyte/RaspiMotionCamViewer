@@ -178,8 +178,6 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            //TODO(Dominik): fix
-            //timelineCam1 = startCamStream(pane1, 0);
             timelineCam1 = startCamStreamTest(0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
             timelineCam1.setCycleCount(Animation.INDEFINITE);
@@ -200,10 +198,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            //TODO(Dominik): change camera id to 1
-            //TODO(Dominik): fix
-            //timelineCam2 = startCamStream(pane2, 0);
-            timelineCam2 = startCamStreamTest(0);
+            timelineCam2 = startCamStreamTest(1);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
             timelineCam2.setCycleCount(Animation.INDEFINITE);
             timelineCam2.play();
@@ -533,32 +528,15 @@ public class FXMLCamViewController implements Initializable
     }
 
     /**
-     *
-     * @param grabbedImage
+     * 
+     * @param grabbedImage 
      */
-    /*
-     private void repaintImage(BufferedImage grabbedImage, WritableImage image)
-     {
-     if (image.getWidth() != grabbedImage.getWidth() || image.getHeight() != grabbedImage.getHeight())
-     {
-     image = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
-     }
-
-     PixelWriter pixelWriter = image1.getPixelWriter();
-
-     for (int x = 0; x < grabbedImage.getWidth(); x++)
-     {
-     for (int y = 0; y < grabbedImage.getHeight(); y++)
-     {
-     pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
-     }
-     }
-     }*/
     private void repaintImage1(BufferedImage grabbedImage)
     {
         if (image1.getWidth() != grabbedImage.getWidth() || image1.getHeight() != grabbedImage.getHeight())
         {
-            image1 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            this.image1 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            this.imageView1.setImage(this.image1);
         }
 
         PixelWriter pixelWriter = image1.getPixelWriter();
@@ -570,15 +548,18 @@ public class FXMLCamViewController implements Initializable
                 pixelWriter.setArgb(x, y, grabbedImage.getRGB(x, y));
             }
         }
-        //TODO(Dominik): check if this must be here
-        this.imageView1.setImage(image1);
     }
 
+    /**
+     * 
+     * @param grabbedImage 
+     */
     private void repaintImage2(BufferedImage grabbedImage)
     {
         if (image2.getWidth() != grabbedImage.getWidth() || image2.getHeight() != grabbedImage.getHeight())
         {
-            image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            this.image2 = new WritableImage(grabbedImage.getWidth(), grabbedImage.getHeight());
+            this.imageView2.setImage(this.image2);
         }
 
         PixelWriter pixelWriter = image2.getPixelWriter();
@@ -607,7 +588,6 @@ public class FXMLCamViewController implements Initializable
                 case 0:
                     Platform.runLater(() ->
                     {
-                        //repaintImage(Webcam.getWebcams().get(0).getImage(), this.image1);
                         repaintImage1(Webcam.getWebcams().get(0).getImage());
                     });
                     break;
@@ -615,8 +595,8 @@ public class FXMLCamViewController implements Initializable
                 case 1:
                     Platform.runLater(() ->
                     {
-                        //repaintImage(Webcam.getWebcams().get(1).getImage(), this.image2);
-                        repaintImage2(Webcam.getWebcams().get(1).getImage());
+                        //TODO(Dominik):change webcam number to 1 in get
+                        repaintImage2(Webcam.getWebcams().get(0).getImage());
                     });
                     break;
             }
@@ -628,11 +608,9 @@ public class FXMLCamViewController implements Initializable
      */
     private void initImageViews()
     {
-        //TODO(Dominik): test
-
         this.image1 = new WritableImage((int) this.pane1.getWidth(), (int) this.pane1.getHeight());
         this.image2 = new WritableImage((int) this.pane2.getWidth(), (int) this.pane2.getHeight());
-
+     
         //Imageview 1
         this.imageView1 = new ImageView();
         this.imageView1.setImage(this.image1);
@@ -643,8 +621,9 @@ public class FXMLCamViewController implements Initializable
         this.imageView1.fitHeightProperty().bind(pane1.heightProperty());
 
         this.timelineCam1 = new Timeline();
+        
+        this.pane1.setContent(this.imageView1);
 
-        //TODO(Dominik): test
         //ImageView 2
         this.imageView2 = new ImageView();
         this.imageView2.setImage(this.image2);
@@ -655,6 +634,8 @@ public class FXMLCamViewController implements Initializable
         this.imageView2.fitHeightProperty().bind(pane2.heightProperty());
 
         this.timelineCam2 = new Timeline();
+        
+        this.pane2.setContent(this.imageView2);
     }
 
     /**
@@ -753,7 +734,7 @@ public class FXMLCamViewController implements Initializable
             //setup application variables
             startInit();
 
-            //initImageViews();
+            initImageViews();
             //INIT IMAGE LOADING
             //this.startImageInit("IMAGEPATH", pane1);
             //this.startImageInit("IMAGEPATH", pane2);
@@ -779,8 +760,8 @@ public class FXMLCamViewController implements Initializable
             openWebcam(0);
             //openWebcam(1);
 
-            this.pane1.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
-            this.pane2.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
+            //this.pane1.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
+            //this.pane2.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
 
         });
     }
