@@ -769,8 +769,8 @@ public class FXMLCamViewController implements Initializable
             }
 
             //STREAN PREPARATION
-            MotionCamera1.getInstance().setURL("192.168.1.10");
-            MotionCamera2.getInstance().setURL("192.168.1.10");
+            MotionCamera1.getInstance().setURL("192.168.1.102");
+            MotionCamera2.getInstance().setURL("192.168.1.102");
 
             registerCameras();
             System.out.println(Webcam.getWebcams());

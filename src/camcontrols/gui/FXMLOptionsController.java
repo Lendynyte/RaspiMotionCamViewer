@@ -979,7 +979,8 @@ public class FXMLOptionsController implements Initializable
         //  ApplicationVariables.getInstance().setXmlSaveDirectoryPath("j://test/cam1");
         //RASPBERRY PI 
         MotionCamera1.getInstance().setConfigPath("/home/pi");
-        //  MotionCamera2.getInstance().setConfigPath("/etc");
+        //MotionCamera1.getInstance().setConfigPath("/etc");
+        //MotionCamera2.getInstance().setConfigPath("/etc");
 
         MotionCamera1.getInstance().setURL("192.168.1.10");
         MotionCamera1.getInstance().setCamLogin("pi");
