@@ -178,7 +178,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
-            timelineCam1 = startCamStreamTest(0);
+            timelineCam1 = startCamStream(0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
             timelineCam1.setCycleCount(Animation.INDEFINITE);
             timelineCam1.play();
@@ -198,7 +198,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            timelineCam2 = startCamStreamTest(1);
+            timelineCam2 = startCamStream(1);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
             timelineCam2.setCycleCount(Animation.INDEFINITE);
             timelineCam2.play();
@@ -579,7 +579,7 @@ public class FXMLCamViewController implements Initializable
      * @param webcamNumber
      * @return
      */
-    private Timeline startCamStreamTest(int webcamNumber)
+    private Timeline startCamStream(int webcamNumber)
     {
         return new Timeline(new KeyFrame(Duration.seconds(2), ev ->
         {
