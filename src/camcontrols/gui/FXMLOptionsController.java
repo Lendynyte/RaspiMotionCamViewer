@@ -178,10 +178,10 @@ public class FXMLOptionsController implements Initializable
 //            this.tfResult.setText("Configuration applied to camera ...");
             //TODO(Dominik): have to change url in conf this is here for now
             MotionCamera1.getInstance().setURL("192.168.1.10");
-            
+
             applySettingsToCamera();
-            
-           // restartCameraAction();
+
+            // restartCameraAction();
         }
         //else
         //  {
@@ -892,13 +892,12 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
-    //TODO(Dominik):check if path is right
     /**
      *
      */
     private void applySettingsToCamera()
     {
-        //if (pingCamera())
+        if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
@@ -920,7 +919,7 @@ public class FXMLOptionsController implements Initializable
      */
     private void restartCameraAction()
     {
-        // if (pingCamera())
+        if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
@@ -933,10 +932,10 @@ public class FXMLOptionsController implements Initializable
                     break;
             }
         }
-        /*else
-         {
-         System.err.println("Unable to restart camera ...");
-         }*/
+        else
+        {
+            System.err.println("Unable to restart camera ...");
+        }
     }
 
     /**
@@ -958,10 +957,8 @@ public class FXMLOptionsController implements Initializable
                 return false;
         }
     }
-    
-    
-    //TODO(Dominik): PATHS ARE BROKEN HAVE TO FIX BUT IT WORKS I HAVE NO IDE HOW
 
+    //TODO(Dominik): PATHS ARE BROKEN HAVE TO FIX BUT IT WORKS I HAVE NO IDE HOW
     /**
      * Initializes the controller class.
      *
@@ -971,7 +968,7 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-            //TODO(Dominik): remove later and load 
+        //TODO(Dominik): remove later and load 
         //WINDOWS
         //  MotionCamera1.getInstance().setConfigPath("j://test/cam1");
         //  MotionCamera2.getInstance().setConfigPath("j://test/cam2");

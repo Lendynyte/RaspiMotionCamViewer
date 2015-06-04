@@ -4,6 +4,51 @@
 
 
 
+
+    //TODO(Dominik): remove later this was used for taking presentation screenshots
+    private ImageView loadStartupImageSlowlyOnWindowsNoChecking()
+    {
+        //File file = new File("j://rpi/offline.png");
+        File file = new File("/offline.png");
+        Image imageo = new Image(file.toURI().toString());
+        
+        return new ImageView(imageo)
+        {
+            {
+                setPreserveRatio(false);
+                setSmooth(true);
+
+                fitWidthProperty().bind(pane1.widthProperty());
+                fitHeightProperty().bind(pane1.heightProperty());
+            }
+        };
+    }
+
+    private void setsmth()
+    {
+        //this.imageView1 = new ImageView(new Image(getClass().getResourceAsStream("/offline.png")));
+        this.imageView1.setImage(new Image(getClass().getResourceAsStream("/offline.png")));
+        //this.pane1.setContent(this.imageView1);
+        System.out.println("imgset");
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      *
      * @param grabbedImage

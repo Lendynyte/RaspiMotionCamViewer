@@ -42,7 +42,7 @@ import javafx.util.Duration;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.7
+ * @version 0.8
  */
 public class FXMLCamViewController implements Initializable
 {
@@ -104,6 +104,13 @@ public class FXMLCamViewController implements Initializable
     private Timeline timelineCam1;
 
     private Timeline timelineCam2;
+    
+    
+    private WritableImage image1;
+    private WritableImage image2;
+
+    private ImageView imageView1;
+    private ImageView imageView2;
 
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="FXML camera highlighting handling">
@@ -178,6 +185,8 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera1.getInstance()))
         {
+            openWebcam(0);
+
             timelineCam1 = startCamStream(0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
             timelineCam1.setCycleCount(Animation.INDEFINITE);
@@ -198,6 +207,9 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
+            //TODO(Dominik): change to for 2 cams
+            openWebcam(0);
+
             timelineCam2 = startCamStream(1);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
             timelineCam2.setCycleCount(Animation.INDEFINITE);
@@ -220,7 +232,7 @@ public class FXMLCamViewController implements Initializable
         {
             this.timelineCam1.stop();
             this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera1.getInstance().getName());
-            this.startImageInit("IMAGEPATH", pane1);
+            this.startImageInit("/offline.png", this.imageView1);
         }
         else
         {
@@ -239,7 +251,7 @@ public class FXMLCamViewController implements Initializable
         {
             this.timelineCam2.stop();
             this.lblPingC1Result.setText("Stream stopped on camera: " + MotionCamera2.getInstance().getName());
-            this.startImageInit("IMAGEPATH", pane2);
+            this.startImageInit("/offline.png", this.imageView2);
         }
         else
         {
@@ -425,13 +437,6 @@ public class FXMLCamViewController implements Initializable
         Webcam.setDriver(new IpCamDriver());
     }
 
-    //TODO(Dominik): move
-    private WritableImage image1;
-    private WritableImage image2;
-
-    private ImageView imageView1;
-    private ImageView imageView2;
-
     /**
      * This method has to be called only once
      *
@@ -528,8 +533,8 @@ public class FXMLCamViewController implements Initializable
     }
 
     /**
-     * 
-     * @param grabbedImage 
+     *
+     * @param grabbedImage
      */
     private void repaintImage1(BufferedImage grabbedImage)
     {
@@ -551,8 +556,8 @@ public class FXMLCamViewController implements Initializable
     }
 
     /**
-     * 
-     * @param grabbedImage 
+     *
+     * @param grabbedImage
      */
     private void repaintImage2(BufferedImage grabbedImage)
     {
@@ -610,7 +615,7 @@ public class FXMLCamViewController implements Initializable
     {
         this.image1 = new WritableImage((int) this.pane1.getWidth(), (int) this.pane1.getHeight());
         this.image2 = new WritableImage((int) this.pane2.getWidth(), (int) this.pane2.getHeight());
-     
+
         //Imageview 1
         this.imageView1 = new ImageView();
         this.imageView1.setImage(this.image1);
@@ -621,7 +626,7 @@ public class FXMLCamViewController implements Initializable
         this.imageView1.fitHeightProperty().bind(pane1.heightProperty());
 
         this.timelineCam1 = new Timeline();
-        
+
         this.pane1.setContent(this.imageView1);
 
         //ImageView 2
@@ -634,7 +639,7 @@ public class FXMLCamViewController implements Initializable
         this.imageView2.fitHeightProperty().bind(pane2.heightProperty());
 
         this.timelineCam2 = new Timeline();
-        
+
         this.pane2.setContent(this.imageView2);
     }
 
@@ -676,43 +681,9 @@ public class FXMLCamViewController implements Initializable
      * @param initImagePath
      * @return
      */
-    private ImageView startImageInit(String initImagePath, ScrollPane pane)
+    private void startImageInit(String initImagePath, ImageView imageView)
     {
-        if (new XMLCameraHandler().checkForXMLSave(initImagePath))
-        {
-            return new ImageView(new Image(initImagePath))
-            {
-                {
-                    setPreserveRatio(false);
-                    setSmooth(true);
-                    fitWidthProperty().bind(pane.widthProperty());
-                    fitHeightProperty().bind(pane.heightProperty());
-                }
-            };
-        }
-        else
-        {
-            System.err.println("No init image found ...");
-            return null;
-        }
-    }
-
-    //TODO(Dominik): remove later this was used for taking presentation screenshots
-    private ImageView loadStartupImageSlowlyOnWindowsNoChecking()
-    {
-        File file = new File("j://rpi/offline.png");
-        Image imageo = new Image(file.toURI().toString());
-        
-        return new ImageView(imageo)
-        {
-            {
-                setPreserveRatio(false);
-                setSmooth(true);
-
-                fitWidthProperty().bind(pane1.widthProperty());
-                fitHeightProperty().bind(pane1.heightProperty());
-            }
-        };
+        imageView.setImage(new Image(getClass().getResourceAsStream(initImagePath)));
     }
 
     /**
@@ -731,13 +702,13 @@ public class FXMLCamViewController implements Initializable
 
         Platform.runLater(() ->
         {
-            //setup application variables
+            //APPLICATION VARIABLES INITIALIZATION
             startInit();
 
+            //IMAGEVIEW INITIALIZATION
             initImageViews();
-            //INIT IMAGE LOADING
-            //this.startImageInit("IMAGEPATH", pane1);
-            //this.startImageInit("IMAGEPATH", pane2);
+
+            //TODO(Dominik): here maybe use the same technique as with loading image puting it into src folder?
             //SETTING UP PATHS FROM XML
             XMLCameraHandler xmlHandler = new XMLCameraHandler();
             if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
@@ -753,15 +724,18 @@ public class FXMLCamViewController implements Initializable
             MotionCamera1.getInstance().setURL("192.168.1.102");
             MotionCamera2.getInstance().setURL("192.168.1.102");
 
+            //CAMERA REGISTERING
             registerCameras();
             System.out.println(Webcam.getWebcams());
 
             //TODO(Dominik): not do at init
-            openWebcam(0);
+            //TODO(Dominik): test if it works like this and have to reregister cams when ip is changed and then reopen
+            //openWebcam(0);
             //openWebcam(1);
-
-            //this.pane1.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
-            //this.pane2.setContent(loadStartupImageSlowlyOnWindowsNoChecking());
+            
+            //LOADING INIT IMAGES
+            this.startImageInit("/offline.png", imageView1);
+            this.startImageInit("/offline.png", imageView2);
 
         });
     }
