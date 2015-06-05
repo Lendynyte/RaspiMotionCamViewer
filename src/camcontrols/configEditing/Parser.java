@@ -1,17 +1,20 @@
 package camcontrols.configEditing;
 
+import camcontrols.dependencies.ApplicationVariables;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
  *
  * @author Dominik Pauli
- * @version 0.5
+ * @version 0.6
  */
 public class Parser
 {
@@ -51,7 +54,7 @@ public class Parser
                 }
                 catch (IOException e)
                 {
-                    System.err.println("Creating file failed");
+                    System.err.println("Creating file failed ...");
                 }
                 finally
                 {
@@ -70,7 +73,7 @@ public class Parser
                     }
                     catch (IOException e)
                     {
-                        System.out.println("There was error closing streams");
+                        System.out.println("There was error closing streams ...");
                     }
                 }
             }
@@ -82,10 +85,10 @@ public class Parser
      * provided Arraylist.
      *
      * @param list This is output arraylist
-     * @param path This is a path of file we are parsing
+     * @param in This is a path of file we are parsing
      *
      */
-    public void loadConfLines(ArrayList<String> list, String path)
+    public void loadConfLines(ArrayList<String> list, InputStream in)
     {
         FileReader fr = null;
         BufferedReader br = null;
@@ -93,8 +96,9 @@ public class Parser
 
         try
         {
-            fr = new FileReader(path);
-            br = new BufferedReader(fr);
+            //fr = new FileReader(path);           
+            //InputStream in = getClass().getResourceAsStream("/cleanConfig.conf");
+            br = new BufferedReader(new InputStreamReader(in));
 
             while ((currentLine = br.readLine()) != null)
             {
@@ -103,7 +107,7 @@ public class Parser
         }
         catch (IOException e)
         {// file was not found 
-            System.err.println("File was not loaded");
+            System.err.println("File was not loaded ...");
         }
         finally
         {// if we cannot read we still close our streams

@@ -3,6 +3,106 @@
 
 
 
+switch (this.mainPane.getScene().getRoot().getId())
+        {
+            //TODO(Dominik): fix paths when i get the correct path in main moduel
+            case "1":
+                changeConfigItems(MotionCamera1.getInstance());
+                new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance(), 1);
+                break;
+            case "2":
+                changeConfigItems(MotionCamera2.getInstance());
+                new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance(), 2);
+                break;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (pingCamera())
+        {
+            //WINDOWS
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+                switch (this.mainPane.getScene().getRoot().getId())
+                {
+                    case "1":
+                        
+                       // "/home/pi/CamControls/src/save/cam"
+                        //        "C://CamControls/src/save/cam"
+                                
+                        //new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() +"/motion.conf", 10000);
+                        break;
+
+                    case "2":
+                        //new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        break;
+                }
+            }
+
+            //LINUX
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+                switch (this.mainPane.getScene().getRoot().getId())
+                {
+                    case "1":
+                        //new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        break;
+
+                    case "2":
+                        //new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
+                        break;
+                }
+            }
+            
+            //OTHER
+            else
+            {
+                System.err.println("Unknown operating system ...");
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //TODO(Dominik): remove later this was used for taking presentation screenshots

@@ -2,18 +2,17 @@ package camcontrols.configEditing;
 
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCameraInterface;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
  *
  * @author Dominik Pauli
- * @version 0.4
+ * @version 0.5
  */
 public class ConfigEditor
 {
 
-    //TODO(Dominik):create defaul config file
-    //TODO(Dominik):rewrite this using application variables path
     /**
      *
      * @param camHandle handle from gui to select camera fir editing
@@ -22,40 +21,61 @@ public class ConfigEditor
     {
         MotionCamera.getParsedConfig().clear();
 
-        parser.loadConfLines(MotionCamera.getParsedConfig(), MotionCamera.getConfigPath());
+        //TODO(Dominik): check if matters if i load deffault config file here
+        InputStream in = getClass().getResourceAsStream("/cleanConfig.conf");
+
+        parser.loadConfLines(MotionCamera.getParsedConfig(), in);
     }
 
     /**
      *
-     * @param defaultConfPath
      * @param parser
      * @param MotionCamera
      */
-    public void loadDefaultConfigFile(String defaultConfPath, Parser parser, MotionCameraInterface MotionCamera)
+    public void loadDefaultConfigFile(Parser parser, MotionCameraInterface MotionCamera)
     {
         MotionCamera.getParsedConfig().clear();
 
-        parser.loadConfLines(MotionCamera.getParsedConfig(), defaultConfPath);
+        InputStream in = getClass().getResourceAsStream("/cleanConfig.conf");
+
+        parser.loadConfLines(MotionCamera.getParsedConfig(), in);
     }
 
     /**
      *
      * @param parser
      * @param MotionCamera
+     * @param camId 1 for cam 1, 2 for cam 2
      */
-    public void createConfig(Parser parser, MotionCameraInterface MotionCamera)
+    public void createConfig(Parser parser, MotionCameraInterface MotionCamera, String camId)
     {
-        parser.createConfigFolders(MotionCamera.getConfigPath());
-        //TODO(Dominik): FIX
-        parser.createConfFile(MotionCamera.getParsedConfig(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cam1");
-        System.out.println("File created ...");
+        //WINDOWS
+        if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+        {
+            parser.createConfigFolders("C://CamControls/src/save/cam" + camId);
+            parser.createConfFile(MotionCamera.getParsedConfig(), "C://CamControls/src/save/cam" + camId);
+            System.out.println("File created ...");
+        }
+
+        //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+        else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+        {
+            parser.createConfigFolders("/home/pi/CamControls/src/save/cam" + camId);
+            parser.createConfFile(MotionCamera.getParsedConfig(), "/home/pi/CamControls/src/save/cam" + camId);
+            System.out.println("File created ...");
+        }
+
+        //UNKNOWN OPERATING SYSTEM
+        else
+        {
+            System.err.println("Cannot find install directory ...");
+        }
     }
 
     //TODO(Dominik): still needs rework
     /**
      *
      * @param parser
-     * @param defaultConfPath
      * @param MotionCamera
      * @param targetWidth
      * @param targetHeight
@@ -68,60 +88,62 @@ public class ConfigEditor
      * @param targetSaturation
      * @param targetQuality
      */
-    public void editConfigList(Parser parser, String defaultConfPath, MotionCameraInterface MotionCamera,
+    public void editConfigList(Parser parser, MotionCameraInterface MotionCamera,
             String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
             String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality)
     {
         //TODO(Dominik): HAVE TO FING WORKING RESOLUTIONS THESE CRASH MOTION
        /* if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
-        {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-        }
+         {
+         loadDefaultConfigFile(parser, MotionCamera);
+         }
 
-        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
-        {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
-        }*/
+         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
+         {
+         loadDefaultConfigFile(parser, MotionCamera);
+         }*/
+
+        InputStream in = getClass().getResourceAsStream("/cleanConfig.conf");
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "framerate", targetFramerate))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "auto_brightness", targetAutoBright))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "brightness", "auto_brightness", targetBrightness))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "contrast", targetContrast))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "hue", targetHue))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "saturation", targetSaturation))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
 
         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "quality", "stream_quality", targetQuality))
         {
-            loadDefaultConfigFile(defaultConfPath, parser, MotionCamera);
+            loadDefaultConfigFile(parser, MotionCamera);
         }
     }
 

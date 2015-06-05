@@ -229,13 +229,15 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonSave(final ActionEvent event)
     {
         applyToCamera();
-        //    saveToXMLSaveFile();
+        //TODO(Dominik): fix
+        saveToXMLSaveFile();
     }
 
     @FXML
     private void handleButtonLoad(final ActionEvent event)
     {
-        //  loadXMLSave();
+        loadXMLSave();
+        //TODO(Dominik): fix
         loadSingletonToForm();
     }
 
@@ -540,6 +542,10 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik): all values have to be set before doing this fix
+    
+    //TODO(Dominik): rework as other methods for paths as well as called methods to work and call right methods
+    
+    
     /**
      *
      */
@@ -778,17 +784,18 @@ public class FXMLOptionsController implements Initializable
         {
             case "1":
             {
-                loadXMLtoSingleton(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave1.xml", MotionCamera1.getInstance());
+                loadXMLtoSingleton(MotionCamera1.getInstance(), "1");
             }
             break;
             case "2":
             {
-                loadXMLtoSingleton(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave2.xml", MotionCamera2.getInstance());
+                loadXMLtoSingleton(MotionCamera2.getInstance(), "2");
             }
             break;
         }
     }
 
+    //TODO(Dominik): check this works after update
     /**
      * This method loads xml to for if xml save is not found it loads default
      * configuration
@@ -796,15 +803,45 @@ public class FXMLOptionsController implements Initializable
      * @param XMLPath
      * @param MotionCamera
      */
-    private void loadXMLtoSingleton(String XMLPath, MotionCameraInterface MotionCamera)
+    private void loadXMLtoSingleton(MotionCameraInterface MotionCamera, String camId)
     {
         XMLCameraHandler xmlHandler = new XMLCameraHandler();
-        if (xmlHandler.checkForXMLSave(XMLPath))
+
+        //WINDOWS
+        if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
         {
-            xmlHandler.LoadXMLFile(XMLPath, MotionCamera);
+            if (xmlHandler.checkForXMLSave("C://CamControls/src/cam" + camId + "Save.xml"))
+            {
+                xmlHandler.LoadXMLFile("C://CamControls/src/cam" + camId + "Save.xml", MotionCamera);
+            }
+            else
+            {
+                System.out.println("XML file not found loading default configuration ...");
+                this.setDefaultSingletonValues();
+                this.setDefaultValues();
+            }
         }
+
+        //LINUX
+        else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+        {
+
+            if (xmlHandler.checkForXMLSave("/home/pi/CamControls/src/cam" + camId + "Save.xml"))
+            {
+                xmlHandler.LoadXMLFile("/home/pi/CamControls/src/cam" + camId + "Save.xml", MotionCamera);
+            }
+            else
+            {
+                System.out.println("XML file not found loading default configuration ...");
+                this.setDefaultSingletonValues();
+                this.setDefaultValues();
+            }
+        }
+
+        //OTHER
         else
         {
+            System.err.println("Unknown operating system ...");
             System.out.println("XML file not found loading default configuration ...");
             this.setDefaultSingletonValues();
             this.setDefaultValues();
@@ -850,7 +887,7 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik):actually edit the config to work put values inside
-    private void changeConfigItems(MotionCameraInterface motionCamera, String savePath)
+    private void changeConfigItems(MotionCameraInterface motionCamera)
     {
         //TODO(Dominik): check
         String abr;
@@ -860,38 +897,22 @@ public class FXMLOptionsController implements Initializable
         }
         abr = "off";
 
-        new ConfigEditor().editConfigList(new Parser(), ApplicationVariables.getInstance().getInstallDirectoryPath() + savePath, motionCamera, motionCamera.getCamWidth() + "",
+        new ConfigEditor().editConfigList(new Parser(), motionCamera, motionCamera.getCamWidth() + "",
                 motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
                 motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
     }
 
-    /*
-    
-     public void editConfigList(Parser parser, String defaultConfPath, MotionCameraInterface MotionCamera,
-     String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
-     String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
-     String targetSaturation, String targetQuality)
-     {
-     */
+    //TODO(Dominik): check if this works after update
     /**
      * This method creates config for camera in path from MotionCamera URL
      */
     private void applyToConfigFile()
     {
-        switch (this.mainPane.getScene().getRoot().getId())
-        {
-            //TODO(Dominik): fix paths when i get the correct path in main moduel
-            case "1":
-                changeConfigItems(MotionCamera1.getInstance(), "/default.conf");
-                new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance());
-                break;
-            case "2":
-                changeConfigItems(MotionCamera2.getInstance(), "/default.conf");
-                new ConfigEditor().createConfig(new Parser(), MotionCamera2.getInstance());
-                break;
-        }
+        changeConfigItems(MotionCamera1.getInstance());
+        new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
     }
 
+    //TODO(Dominik): check if this works after update
     /**
      *
      */
@@ -899,16 +920,24 @@ public class FXMLOptionsController implements Initializable
     {
         if (pingCamera())
         {
-            switch (this.mainPane.getScene().getRoot().getId())
+            //WINDOWS
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
             {
-                case "1":
-                    new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
-                    break;
-
-                case "2":
-                    new SshCamerahandler().sendConfFile(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getInstallDirectoryPath() + "/cam1/motion.conf", 10000);
-                    break;
+                new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
             }
+
+            //LINUX
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+                new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
+            }
+
+            //OTHER
+            else
+            {
+                System.err.println("Unknown operating system ...");
+            }
+
         }
     }
 

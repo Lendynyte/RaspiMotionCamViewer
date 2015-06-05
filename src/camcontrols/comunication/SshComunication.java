@@ -71,12 +71,10 @@ public class SshComunication
                 catch (JSchException e)
                 {
                     System.err.println("Unable to run command exec ...");
-                    e.printStackTrace();
                 }
                 catch (IOException e)
                 {
                     System.err.println("Unable to create input stream ...");
-                    e.printStackTrace();
                 }
             }
         }.start();

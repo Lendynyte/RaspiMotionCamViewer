@@ -1,5 +1,6 @@
 package camcontrols.saving;
 
+import camcontrols.configEditing.Parser;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCameraInterface;
 import java.io.File;
@@ -113,8 +114,27 @@ public class XMLCameraHandler
             {
                 try
                 {
+                    File xmlFile;
                     System.out.println("Loading file ...");
-                    File xmlFile = new File(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/appSave.xml");
+                    // WINDOWS
+                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+                    {
+                        xmlFile = new File("C://CamControls/src/appSave.xml");
+                    }
+
+                    //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+                    {
+                        xmlFile = new File("/home/pi/CamControls/src/appSave.xml");
+                    }
+
+                    //UNKNOWN OPERATING SYSTEM
+                    else
+                    {
+                        System.err.println("Cannot find install directory ...");
+                        return;
+                    }
+
                     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                     Document dc = dBuilder.parse(xmlFile);
@@ -177,7 +197,28 @@ public class XMLCameraHandler
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer();
                     DOMSource dsource = new DOMSource(document);
-                    StreamResult result = new StreamResult(new File(ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/appSave.xml"));
+
+                    StreamResult result;
+
+                    //WINDOWS
+                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+                    {
+                        result = new StreamResult(new File("C://CamControls/src/appSave.xml"));
+                    }
+
+                    //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+                    {
+                        result = new StreamResult(new File("/home/pi/CamControls/src/appSave.xml"));
+                    }
+
+                    //UNKNOWN OPERATING SYSTEM
+                    else
+                    {
+                        System.err.println("Cannot find install directory ...");
+                        return;
+                    }
+
                     transformer.transform(dsource, result);
 
                     System.out.println("File saved! ...");
@@ -228,10 +269,10 @@ public class XMLCameraHandler
      * @param camQuality
      */
     public void createXMLFile(String savePath, String camName, String camHandle,
-                              String configPath, String camURL, String camRotation, String camWidth,
-                              String camHeight, String camFramerate, String camAutoBrightness,
-                              String camBrightness, String camContrast, String camHue,
-                              String camSaturation, String camQuality)
+            String configPath, String camURL, String camRotation, String camWidth,
+            String camHeight, String camFramerate, String camAutoBrightness,
+            String camBrightness, String camContrast, String camHue,
+            String camSaturation, String camQuality)
     {
         new Thread()
         {
@@ -329,7 +370,30 @@ public class XMLCameraHandler
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer();
                     DOMSource dsource = new DOMSource(document);
-                    StreamResult result = new StreamResult(new File(savePath));
+
+                    StreamResult result;
+
+                    //WINDOWS
+                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+                    {
+                        new Parser().createConfigFolders("C://CamControls/src");
+                        result = new StreamResult(new File("C://CamControls/src/appSave.xml"));
+                    }
+
+                    //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+                    {
+                        new Parser().createConfigFolders("/home/pi/CamControls/src");
+                        result = new StreamResult(new File("/home/pi/CamControls/src/appSave.xml"));
+                    }
+
+                    //UNKNOWN OPERATING SYSTEM
+                    else
+                    {
+                        System.err.println("Cannot find install directory ...");
+                        return;
+                    }
+
                     transformer.transform(dsource, result);
 
                     System.out.println("File saved! ...");
@@ -353,8 +417,27 @@ public class XMLCameraHandler
     {
         try
         {
+            File xmlFile;
             System.out.println("Loading file ...");
-            File xmlFile = new File(savePath);
+            // WINDOWS
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+                xmlFile = new File("C://CamControls/src/appSave.xml");
+            }
+
+            //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+                xmlFile = new File("/home/pi/CamControls/src/appSave.xml");
+            }
+
+            //UNKNOWN OPERATING SYSTEM
+            else
+            {
+                System.err.println("Cannot find install directory ...");
+                return;
+            }
+
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document dc = dBuilder.parse(xmlFile);
