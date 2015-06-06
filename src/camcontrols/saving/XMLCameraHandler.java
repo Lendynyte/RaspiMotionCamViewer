@@ -371,28 +371,7 @@ public class XMLCameraHandler
                     Transformer transformer = transformerFactory.newTransformer();
                     DOMSource dsource = new DOMSource(document);
 
-                    StreamResult result;
-
-                    //WINDOWS
-                    if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
-                    {
-                        new Parser().createConfigFolders("C://CamControls/src");
-                        result = new StreamResult(new File("C://CamControls/src/appSave.xml"));
-                    }
-
-                    //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
-                    else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
-                    {
-                        new Parser().createConfigFolders("/home/pi/CamControls/src");
-                        result = new StreamResult(new File("/home/pi/CamControls/src/appSave.xml"));
-                    }
-
-                    //UNKNOWN OPERATING SYSTEM
-                    else
-                    {
-                        System.err.println("Cannot find install directory ...");
-                        return;
-                    }
+                    StreamResult result = new StreamResult(new File(savePath));
 
                     transformer.transform(dsource, result);
 

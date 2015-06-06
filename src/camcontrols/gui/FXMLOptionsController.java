@@ -169,17 +169,18 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        if (pingCamera())
+       // if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
                 case "1":
                 {
                     applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
-                    saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    //saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera1.getInstance());
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    applySettingsToCamera(MotionCamera1.getInstance());
+                    //TODO(Dominik): uncomment
+                    //applySettingsToCamera(MotionCamera1.getInstance());
 
                     //TODO(Dominik): check if restart works this fast
                     // restartCameraAction();
@@ -191,10 +192,10 @@ public class FXMLOptionsController implements Initializable
                 case "2":
                 {
                     applyToCamera(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
-                    saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    //saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera2.getInstance());
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    applySettingsToCamera(MotionCamera2.getInstance());
+                    //applySettingsToCamera(MotionCamera2.getInstance());
 
                     //TODO(Dominik): check if restart works this fast
                     // restartCameraAction();
@@ -204,11 +205,11 @@ public class FXMLOptionsController implements Initializable
                 break;
             }
         }
-        else
+       /* else
         {
             // this.tfResult.setText("Unable to reach camera to apply settings ...");
             System.out.println("UNABLE to ping");
-        }
+        }*/
     }
 
     /**
@@ -601,12 +602,14 @@ public class FXMLOptionsController implements Initializable
 
         if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
         {
+            new Parser().createConfigFolders("C://CamControls/src/");
             createXMLSave(motionCamera, "C://CamControls/src/cam" + camId + "Save.xml");
         }
 
         //LINUX
         else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
         {
+            new Parser().createConfigFolders("/home/pi/CamControls/src/");
             createXMLSave(motionCamera, "/home/pi/CamControls/src/cam" + camId + "Save.xml");
         }
 
