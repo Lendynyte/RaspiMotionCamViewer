@@ -169,25 +169,46 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        //TODO(Dominik): use icmp for ping
-        // if (pingCamera())
+        if (pingCamera())
         {
-            applyToCamera();
-            //    saveToXMLSaveFile();
-            applyToConfigFile();
-//            this.tfResult.setText("Configuration applied to camera ...");
-            //TODO(Dominik): have to change url in conf this is here for now
-            MotionCamera1.getInstance().setURL("192.168.1.10");
+            switch (this.mainPane.getScene().getRoot().getId())
+            {
+                case "1":
+                {
+                    applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    applyToConfigFile(MotionCamera1.getInstance());
+                    //this.tfResult.setText("Configuration applied to camera ...");
+                    applySettingsToCamera(MotionCamera1.getInstance());
 
-            applySettingsToCamera();
+                    //TODO(Dominik): check if restart works this fast
+                    // restartCameraAction();
+                    //TODO(Dominik): have to change url in conf this is here for now
+                    MotionCamera1.getInstance().setURL("192.168.1.10");
 
-            // restartCameraAction();
+                }
+                break;
+                case "2":
+                {
+                    applyToCamera(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    applyToConfigFile(MotionCamera2.getInstance());
+                    //this.tfResult.setText("Configuration applied to camera ...");
+                    applySettingsToCamera(MotionCamera2.getInstance());
+
+                    //TODO(Dominik): check if restart works this fast
+                    // restartCameraAction();
+                    //TODO(Dominik): have to change url in conf this is here for now
+                    MotionCamera1.getInstance().setURL("192.168.1.10");
+                }
+                break;
+            }
         }
-        //else
-        //  {
-        // this.tfResult.setText("Unable to reach camera to apply settings ...");
-        //   System.out.println("UNABLE to ping");
-        //  }
+        else
+        {
+            // this.tfResult.setText("Unable to reach camera to apply settings ...");
+            System.out.println("UNABLE to ping");
+        }
     }
 
     /**
@@ -228,16 +249,28 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonSave(final ActionEvent event)
     {
-        applyToCamera();
-        //TODO(Dominik): fix
-        saveToXMLSaveFile();
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+                saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+
+            }
+            break;
+            case "2":
+            {
+                applyToCamera(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+                saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+            }
+            break;
+        }
     }
 
     @FXML
     private void handleButtonLoad(final ActionEvent event)
     {
         loadXMLSave();
-        //TODO(Dominik): fix
         loadSingletonToForm();
     }
 
@@ -337,7 +370,21 @@ public class FXMLOptionsController implements Initializable
      */
     private void setDefaultSingletonValues()
     {
-        applyToCamera();
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                new ConfigEditor().loadDefaultConfigFile(new Parser(), MotionCamera1.getInstance());
+                System.out.println("Default config file loaded ...");
+            }
+            break;
+            case "2":
+            {
+                new ConfigEditor().loadDefaultConfigFile(new Parser(), MotionCamera2.getInstance());
+                System.out.println("Default config file loaded ...");
+            }
+            break;
+        }
     }
 
     /**
@@ -542,27 +589,32 @@ public class FXMLOptionsController implements Initializable
     }
 
     //TODO(Dominik): all values have to be set before doing this fix
-    
-    //TODO(Dominik): rework as other methods for paths as well as called methods to work and call right methods
-    
-    
+    //TODO(Dominik): check if this works
     /**
      *
+     * @param motionCamera
+     * @param camId
      */
-    private void saveToXMLSaveFile()
+    private void saveToXMLSaveFile(MotionCameraInterface motionCamera, String camId)
     {
-        switch (this.mainPane.getScene().getRoot().getId())
+        XMLCameraHandler xmlHandler = new XMLCameraHandler();
+
+        if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
         {
-            case "1":
-            {
-                createXMLSave(MotionCamera1.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave1.xml");
-            }
-            break;
-            case "2":
-            {
-                createXMLSave(MotionCamera2.getInstance(), ApplicationVariables.getInstance().getXmlSaveDirectoryPath() + "/cSave2.xml");
-            }
-            break;
+            createXMLSave(motionCamera, "C://CamControls/src/cam" + camId + "Save.xml");
+        }
+
+        //LINUX
+        else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+        {
+            createXMLSave(motionCamera, "/home/pi/CamControls/src/cam" + camId + "Save.xml");
+        }
+
+        //OTHER
+        else
+        {
+            System.err.println("Unknown operating system ...");
+            System.err.println("Creating save file failed ...");
         }
     }
 
@@ -576,28 +628,18 @@ public class FXMLOptionsController implements Initializable
         new XMLCameraHandler().createCamSave(MotionCamera, savePath);
     }
 
+    //TODO(Dominik): check if works
     /**
      *
+     * @param motionCamera
+     * @param camId
      */
-    private void applyToCamera()
+    private void applyToCamera(MotionCameraInterface motionCamera, String camId)
     {
         if (!isError)
         {
-            switch (this.mainPane.getScene().getRoot().getId())
-            {
-                case "1":
-                {
-                    saveToCameraSingleton(MotionCamera1.getInstance(), "1");
-                    this.isError = false;
-                }
-                break;
-                case "2":
-                {
-                    saveToCameraSingleton(MotionCamera2.getInstance(), "2");
-                    this.isError = false;
-                }
-                break;
-            }
+            saveToCameraSingleton(motionCamera, camId);
+            this.isError = false;
         }
     }
 
@@ -886,10 +928,14 @@ public class FXMLOptionsController implements Initializable
         this.tfCamName.setText(MotionCamera.getName());
     }
 
-    //TODO(Dominik):actually edit the config to work put values inside
+    //TODO(Dominik): THESE THING NEEDS TO BE MADE FOR LINUX/WINDOWS AND I HAVE TO PICK RIGHT MOTIONCAMERA BASED ON THE RIGHT WINDOW LIKE THIS IT ONLY WORKS FOR CAM 1
+    /**
+     *
+     * @param motionCamera
+     */
     private void changeConfigItems(MotionCameraInterface motionCamera)
     {
-        //TODO(Dominik): check
+        //TODO(Dominik): check if this works
         String abr;
         if (motionCamera.isCamAutoBrightness())
         {
@@ -897,39 +943,64 @@ public class FXMLOptionsController implements Initializable
         }
         abr = "off";
 
-        new ConfigEditor().editConfigList(new Parser(), motionCamera, motionCamera.getCamWidth() + "",
-                motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
-                motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+        //WINDOWS
+        if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+        {
+
+            new ConfigEditor().editConfigList(new Parser(), motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                    motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+        }
+
+        //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+        else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+        {
+
+            new ConfigEditor().editConfigList(new Parser(), motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                    motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+        }
+
+        //UNKNOWN OPERATING SYSTEM
+        else
+        {
+            System.err.println("Cannot find install directory ...");
+        }
     }
 
     //TODO(Dominik): check if this works after update
     /**
      * This method creates config for camera in path from MotionCamera URL
+     *
+     * @param motionCamera
      */
-    private void applyToConfigFile()
+    private void applyToConfigFile(MotionCameraInterface motionCamera)
     {
-        changeConfigItems(MotionCamera1.getInstance());
-        new ConfigEditor().createConfig(new Parser(), MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+        changeConfigItems(motionCamera);
+        new ConfigEditor().createConfig(new Parser(), motionCamera, this.mainPane.getScene().getRoot().getId());
     }
 
     //TODO(Dominik): check if this works after update
+    //TODO(Dominik): check parameters 
     /**
      *
+     * @param motionCamera
      */
-    private void applySettingsToCamera()
+    private void applySettingsToCamera(MotionCameraInterface motionCamera)
     {
+        //TODO(Dominik): use interface or picj right camera
         if (pingCamera())
         {
             //WINDOWS
             if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
             {
-                new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
+                new SshCamerahandler().sendConfFile(motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
             }
 
             //LINUX
             else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
             {
-                new SshCamerahandler().sendConfFile(MotionCamera1.getInstance(), "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
+                new SshCamerahandler().sendConfFile(motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
             }
 
             //OTHER

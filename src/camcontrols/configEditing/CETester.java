@@ -36,7 +36,7 @@ public class CETester
        // System.out.println(MotionCamera1.getInstance().getConfigPath());
 
         
-        cfge.editConfigList(pars, MotionCamera1.getInstance(), "test", "test", "test", "test", "test", "brightnesstest", "test", "test", "test", "test");
+        //cfge.editConfigList(pars, MotionCamera1.getInstance(), PATH TO ::: C://, "test", "test", "test", "test", "test", "brightnesstest", "test", "test", "test", "test");
        // cfge.editConfigList(pars, "/destroyed.conf", MotionCamera1.getInstance(), "test", "test", "test", "test", "test", "brightnesstest", "test", "test", "test", "test");    
         
         cfge.createConfig(pars, MotionCamera1.getInstance(), "1");

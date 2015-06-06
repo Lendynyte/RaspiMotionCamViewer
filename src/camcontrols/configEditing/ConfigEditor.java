@@ -77,6 +77,7 @@ public class ConfigEditor
      *
      * @param parser
      * @param MotionCamera
+     * @param targetConfigPath
      * @param targetWidth
      * @param targetHeight
      * @param targetRotation
@@ -88,7 +89,7 @@ public class ConfigEditor
      * @param targetSaturation
      * @param targetQuality
      */
-    public void editConfigList(Parser parser, MotionCameraInterface MotionCamera,
+    public void editConfigList(Parser parser, MotionCameraInterface MotionCamera, String targetConfigPath,
             String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
             String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
             String targetSaturation, String targetQuality)
