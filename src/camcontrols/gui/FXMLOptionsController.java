@@ -169,47 +169,41 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-       // if (pingCamera())
+        if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
                 case "1":
                 {
                     applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
-                    //saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera1.getInstance());
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    //TODO(Dominik): uncomment
-                    //applySettingsToCamera(MotionCamera1.getInstance());
+                    applySettingsToCamera(MotionCamera1.getInstance());
 
                     //TODO(Dominik): check if restart works this fast
-                    // restartCameraAction();
-                    //TODO(Dominik): have to change url in conf this is here for now
-                    MotionCamera1.getInstance().setURL("192.168.1.10");
-
+                    restartCameraAction();
                 }
                 break;
                 case "2":
                 {
                     applyToCamera(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
-                    //saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
+                    saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera2.getInstance());
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    //applySettingsToCamera(MotionCamera2.getInstance());
+                    applySettingsToCamera(MotionCamera2.getInstance());
 
                     //TODO(Dominik): check if restart works this fast
-                    // restartCameraAction();
-                    //TODO(Dominik): have to change url in conf this is here for now
-                    MotionCamera1.getInstance().setURL("192.168.1.10");
+                    restartCameraAction();
                 }
                 break;
             }
         }
-       /* else
+        else
         {
             // this.tfResult.setText("Unable to reach camera to apply settings ...");
             System.out.println("UNABLE to ping");
-        }*/
+        }
     }
 
     /**
@@ -278,7 +272,6 @@ public class FXMLOptionsController implements Initializable
     //</editor-fold>
     //TODO(Dominik):lookup documentation for enable contrast etc....
     //TODO(Dominik):maybeoly 1 brightnesss checkbox
-    //TODO(Dominik):rewrite this one
     //SLIDER HANDLING START
     /**
      *
@@ -402,17 +395,16 @@ public class FXMLOptionsController implements Initializable
         this.sldrHue.disableProperty().setValue(Boolean.TRUE);
         this.sldrSaturation.disableProperty().setValue(Boolean.TRUE);
         this.cBoxResolution.getSelectionModel().selectFirst();
-        this.tfFramerate.setText(null);
+        this.tfFramerate.setText("2");
         this.chckAutoBrightness.selectedProperty().setValue(Boolean.FALSE);
         this.sldrBrightness.setValue(0);
         this.sldrContrast.setValue(0);
         this.sldrHue.setValue(0);
         this.sldrSaturation.setValue(0);
         this.sldrQuality.setValue(75);
-        this.tfCamName.setText(null);
-        this.tfCamURL.setText(null);
+        this.tfCamName.setText("Camera " + this.mainPane.getScene().getRoot().getId());
+        this.tfCamURL.setText("192.168.1.102");
         this.tfAlertEmail.setText(null);
-        this.tfFramerate.setText(null);
         this.tfremoteStoragePath.setText(null);
         this.chckAlerMail.selectedProperty().setValue(Boolean.FALSE);
         this.chckRemoteStore.selectedProperty().setValue(Boolean.FALSE);
@@ -661,7 +653,7 @@ public class FXMLOptionsController implements Initializable
         MotionCamera.setCamSaturation(getFXMLSldrSaturation());
 
         MotionCamera.setURL(getFXMLURL());
-        //TODO(Dominik): implement remote and emails
+        //TODO(Dominik): insert remote and emails
 
         MotionCamera.setName(getFXMLCamName(camNumberToName));
     }
@@ -729,7 +721,7 @@ public class FXMLOptionsController implements Initializable
      */
     private int getFXMLFramerate()
     {
-        //TODO(Dominik): mabe opnly parse once ?
+        //TODO(Dominik): mabe only parse once?
         int i = 2;
         String fromForm = this.tfFramerate.getText().trim();
         if (isNumber(fromForm))
@@ -1061,7 +1053,6 @@ public class FXMLOptionsController implements Initializable
         }
     }
 
-    //TODO(Dominik): PATHS ARE BROKEN HAVE TO FIX BUT IT WORKS I HAVE NO IDE HOW
     /**
      * Initializes the controller class.
      *
@@ -1071,30 +1062,31 @@ public class FXMLOptionsController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        //TODO(Dominik): remove later and load 
-        //WINDOWS
-        //  MotionCamera1.getInstance().setConfigPath("j://test/cam1");
-        //  MotionCamera2.getInstance().setConfigPath("j://test/cam2");
-        // ApplicationVariables.getInstance().setInstallDirectoryPath("j://test");
-        //  ApplicationVariables.getInstance().setXmlSaveDirectoryPath("j://test/cam1");
         //RASPBERRY PI 
-        MotionCamera1.getInstance().setConfigPath("/home/pi");
-        //MotionCamera1.getInstance().setConfigPath("/etc");
-        //MotionCamera2.getInstance().setConfigPath("/etc");
+        MotionCamera1.getInstance().setConfigPath("/etc");
+        MotionCamera2.getInstance().setConfigPath("/etc");
 
-        MotionCamera1.getInstance().setURL("192.168.1.10");
+        //THESE VALUES ARE SET DURING INITIALIZATION THEY ARE NOT CHANGED 
+        //TODO(Dominik): add a way to edit password and login from options menu
+        MotionCamera1.getInstance().setURL("192.168.1.102");
         MotionCamera1.getInstance().setCamLogin("pi");
         MotionCamera1.getInstance().setCamPassword("raspberry");
+        //NOT USED CURRENTLY
+        MotionCamera1.getInstance().setCamRotation(0);
+        
+        MotionCamera2.getInstance().setURL("192.168.1.102");
+        MotionCamera2.getInstance().setCamLogin("pi");
+        MotionCamera2.getInstance().setCamPassword("raspberry");
+        //NOT USED CURRENTLY
+        MotionCamera2.getInstance().setCamRotation(0);
 
-        ApplicationVariables.getInstance().setInstallDirectoryPath("/home/pi/CamControls");
-        ApplicationVariables.getInstance().setXmlSaveDirectoryPath("/home/pi/CamControls");
+        //ApplicationVariables.getInstance().setInstallDirectoryPath("/home/pi/CamControls");
+        //ApplicationVariables.getInstance().setXmlSaveDirectoryPath("/home/pi/CamControls");
 
         Platform.runLater(() ->
         {
             initializeTextBoxes();
             InitializeCBoxResolution();
-
-            //loadXMLSave();
         });
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }

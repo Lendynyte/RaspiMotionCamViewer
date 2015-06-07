@@ -103,8 +103,7 @@ public class FXMLCamViewController implements Initializable
     private Timeline timelineCam1;
 
     private Timeline timelineCam2;
-    
-    
+
     private WritableImage image1;
     private WritableImage image2;
 
@@ -206,8 +205,7 @@ public class FXMLCamViewController implements Initializable
     {
         if (pingCamera(MotionCamera2.getInstance()))
         {
-            //TODO(Dominik): change to for 2 cams
-            openWebcam(0);
+            openWebcam(1);
 
             timelineCam2 = startCamStream(1);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
@@ -696,7 +694,6 @@ public class FXMLCamViewController implements Initializable
     {
         //TODO(Dominik): handle when i cannot connect to not crash  
         //TODO(Dominik): currently cannot change ip when program is running if stop then load it will crash
-        //TODO(Dominik): remove testing
         //TODO(Dominik): have to do checking for cameras if i have only 1 to not load it etc...
 
         Platform.runLater(() ->
@@ -706,29 +703,55 @@ public class FXMLCamViewController implements Initializable
 
             //IMAGEVIEW INITIALIZATION
             initImageViews();
-
-            //TODO(Dominik): here maybe use the same technique as with loading image puting it into src folder?
-            //SETTING UP PATHS FROM XML
-            XMLCameraHandler xmlHandler = new XMLCameraHandler();
-            if (xmlHandler.checkForXMLSave(MotionCamera1.getInstance().getXMLSavePath() + "/cam1.xml"))
-            {
-                //  xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-            }
-            if (xmlHandler.checkForXMLSave(MotionCamera2.getInstance().getXMLSavePath() + "cam2.xml"))
-            {
-                //   xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), "/cam1.xml");
-            }
-
-            //STREAN PREPARATION
+          
+            //STREAN PREPARATION these ip adresses get used when no save is found
             MotionCamera1.getInstance().setURL("192.168.1.102");
             MotionCamera2.getInstance().setURL("192.168.1.102");
+            
+            //SETTING UP PATHS FROM XML           
+            XMLCameraHandler xmlHandler = new XMLCameraHandler();
+
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+                if (xmlHandler.checkForXMLSave("C://CamControls/src/cam1Save.xml"))
+                {
+                    xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), 1);
+                    System.out.println("Save file for camera 1 found and loaded ...");
+                }
+                if (xmlHandler.checkForXMLSave("C://CamControls/src/cam2Save.xml"))
+                {
+                    xmlHandler.loadCameraURLs(MotionCamera2.getInstance(), 2);
+                    System.out.println("Save file for camera 2 found and loaded ...");
+                }
+            }
+
+            //LINUX
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+                if (xmlHandler.checkForXMLSave("/home/pi/CamControls/src/cam1Save.xml"))
+                {
+                    xmlHandler.loadCameraURLs(MotionCamera1.getInstance(), 1);
+                    System.out.println("Save file for camera 1 found and loaded ...");
+                }
+                if (xmlHandler.checkForXMLSave("/home/pi/CamControls/src/cam2Save.xml"))
+                {
+                    xmlHandler.loadCameraURLs(MotionCamera2.getInstance(), 2);
+                    System.out.println("Save file for camera 2 found and loaded ...");
+                }
+            }
+
+            //OTHER
+            else
+            {
+                System.err.println("Unknown operating system ...");
+                System.err.println("Creating save file failed ...");
+            }
 
             //CAMERA REGISTERING
             registerCameras();
             System.out.println(Webcam.getWebcams());
 
-            //TODO(Dominik): not do at init
-            //TODO(Dominik): test if it works like this and have to reregister cams when ip is changed and then reopen
+            //TODO(Dominik): uncomment if cameras are not opening right
             //openWebcam(0);
             //openWebcam(1);
             

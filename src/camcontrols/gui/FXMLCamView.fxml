@@ -17,7 +17,6 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuApplicationSettings" text="Settings" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuToggleFullscreenAction" text="Toggle Fullscreen" />
                                 <MenuItem mnemonicParsing="false" onAction="#handleMenuCloseAction" text="Exit application" />
                             </items>

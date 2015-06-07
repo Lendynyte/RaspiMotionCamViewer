@@ -1,6 +1,5 @@
 package camcontrols.saving;
 
-import camcontrols.configEditing.Parser;
 import camcontrols.dependencies.ApplicationVariables;
 import camcontrols.dependencies.MotionCameraInterface;
 import java.io.File;
@@ -37,7 +36,14 @@ public class XMLCameraHandler
     public boolean checkForXMLSave(String path)
     {
         File file = new File(path);
-        return file.exists();
+        if (file.length() > 0)
+        {
+            return file.exists();
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -49,56 +55,49 @@ public class XMLCameraHandler
      */
     public void LoadXMLFile(String filePath, MotionCameraInterface MotionCamera)
     {
-        new Thread()
+        try
         {
+            System.out.println("Loading file ...");
+            File xmlFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document dc = dBuilder.parse(xmlFile);
 
-            @Override
-            public void run()
+            NodeList nodeList = dc.getElementsByTagName("camera");
+
+            for (int i = 0; i < nodeList.getLength(); i++)
             {
-                try
+                Node nNode = nodeList.item(i);
+
+                if (nNode.getNodeType() == Node.ELEMENT_NODE)
                 {
-                    System.out.println("Loading file ...");
-                    File xmlFile = new File(filePath);
-                    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                    Document dc = dBuilder.parse(xmlFile);
+                    Element eElement = (Element) nNode;
 
-                    NodeList nodeList = dc.getElementsByTagName("camera");
+                    MotionCamera.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
+                    MotionCamera.setHandle(eElement.getElementsByTagName("handle").item(0).getTextContent());
+                    MotionCamera.setConfigPath(eElement.getElementsByTagName("confPath").item(0).getTextContent());
+                    MotionCamera.setURL(eElement.getElementsByTagName("URL").item(0).getTextContent());
+                    MotionCamera.setCamWidth(Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent()));
+                    MotionCamera.setCamHeight(Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent()));
+                    MotionCamera.setCamFramerate(Integer.parseInt(eElement.getElementsByTagName("framerate").item(0).getTextContent()));
+                    MotionCamera.setCamAutoBrightness(Boolean.parseBoolean(eElement.getElementsByTagName("autoBrightness").item(0).getTextContent()));
+                    MotionCamera.setCamBrightness(Integer.parseInt(eElement.getElementsByTagName("brightness").item(0).getTextContent()));
+                    MotionCamera.setCamConstrast(Integer.parseInt(eElement.getElementsByTagName("contrast").item(0).getTextContent()));
+                    MotionCamera.setCamHue(Integer.parseInt(eElement.getElementsByTagName("hue").item(0).getTextContent()));
+                    MotionCamera.setCamSaturation(Integer.parseInt(eElement.getElementsByTagName("saturation").item(0).getTextContent()));
+                    MotionCamera.setCamQuality(Integer.parseInt(eElement.getElementsByTagName("quality").item(0).getTextContent()));
 
-                    for (int i = 0; i < nodeList.getLength(); i++)
-                    {
-                        Node nNode = nodeList.item(i);
-
-                        if (nNode.getNodeType() == Node.ELEMENT_NODE)
-                        {
-                            Element eElement = (Element) nNode;
-
-                            MotionCamera.setName(eElement.getElementsByTagName("name").item(0).getTextContent());
-                            MotionCamera.setHandle(eElement.getElementsByTagName("handle").item(0).getTextContent());
-                            MotionCamera.setConfigPath(eElement.getElementsByTagName("confPath").item(0).getTextContent());
-                            MotionCamera.setURL(eElement.getElementsByTagName("URL").item(0).getTextContent());
-
-                    //TODO(Dominik):uncoment after i put right values into save
-                   /* MotionCamera.setCamRotation(Integer.parseInt(eElement.getElementsByTagName("rotatinon").item(0).getTextContent()));
-                             MotionCamera.setCamWidth(Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent()));
-                             MotionCamera.setCamHeight(Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent()));
-                             MotionCamera.setCamFramerate(Integer.parseInt(eElement.getElementsByTagName("framerate").item(0).getTextContent()));
-                             MotionCamera.setCamAutoBrightness(Boolean.parseBoolean(eElement.getElementsByTagName("autoBrightness").item(0).getTextContent()));
-                             MotionCamera.setCamBrightness(Integer.parseInt(eElement.getElementsByTagName("brightness").item(0).getTextContent()));
-                             MotionCamera.setCamConstrast(Integer.parseInt(eElement.getElementsByTagName("contrast").item(0).getTextContent()));
-                             MotionCamera.setCamHue(Integer.parseInt(eElement.getElementsByTagName("hue").item(0).getTextContent()));
-                             MotionCamera.setCamSaturation(Integer.parseInt(eElement.getElementsByTagName("saturation").item(0).getTextContent()));
-                             MotionCamera.setCamQuality(Integer.parseInt(eElement.getElementsByTagName("quality").item(0).getTextContent()));*/
-                            //TODO(Dominik):add rest of options later
-                        }
-                    }
-                }
-                catch (ParserConfigurationException | SAXException | IOException e)
-                {
-                    System.err.println("Loading XML file failed");
+                    //NOT CURRENTLY USED PARAMETER
+                    //MotionCamera.setCamRotation(Integer.parseInt(eElement.getElementsByTagName("rotatinon").item(0).getTextContent()));
                 }
             }
-        }.start();
+            System.out.println("File loaded ...");
+        }
+        catch (ParserConfigurationException | SAXException | IOException e)
+        {
+            System.err.println("Loading XML file failed");
+        }
+
     }
 
     /**
@@ -239,9 +238,9 @@ public class XMLCameraHandler
      */
     public void createCamSave(MotionCameraInterface MotionCamera, String savePath)
     {
-        //TODO(Dominik): rewrite handle url config patj autobrightness
+        //TODO(Dominik): rewrite handle url config path autobrightness
         createXMLFile(savePath, MotionCamera.getName(),
-                MotionCamera.getHandle(), MotionCamera.getConfigPath(),
+                "handle", MotionCamera.getConfigPath(),
                 MotionCamera.getURL(), MotionCamera.getCamRotation() + "",
                 MotionCamera.getCamWidth() + "", MotionCamera.getCamHeight() + "",
                 MotionCamera.getCamFramerate() + "", MotionCamera.isCamAutoBrightness() + "",
@@ -370,9 +369,7 @@ public class XMLCameraHandler
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer();
                     DOMSource dsource = new DOMSource(document);
-
                     StreamResult result = new StreamResult(new File(savePath));
-
                     transformer.transform(dsource, result);
 
                     System.out.println("File saved! ...");
@@ -387,27 +384,53 @@ public class XMLCameraHandler
         }.start();
     }
 
+    //TODO(Dominik): rewrite with right save names
     /**
      *
      * @param motionCamera
-     * @param savePath
+     * @param camId
      */
-    public void loadCameraURLs(MotionCameraInterface motionCamera, String savePath)
+    public void loadCameraURLs(MotionCameraInterface motionCamera, int camId)
     {
         try
         {
-            File xmlFile;
+            File xmlFile = null;
             System.out.println("Loading file ...");
+
             // WINDOWS
             if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
             {
-                xmlFile = new File("C://CamControls/src/appSave.xml");
+                switch (camId)
+                {
+                    case 1:
+                    {
+                        xmlFile = new File("C://CamControls/src/cam1Save.xml");
+                        break;
+                    }
+                    case 2:
+                    {
+                        xmlFile = new File("C://CamControls/src/cam2Save.xml");
+                        break;
+                    }
+                }
             }
 
             //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
             else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
             {
-                xmlFile = new File("/home/pi/CamControls/src/appSave.xml");
+                switch (camId)
+                {
+                    case 1:
+                    {
+                        xmlFile = new File("/home/pi/CamControls/src/cam1Save.xml");
+                        break;
+                    }
+                    case 2:
+                    {
+                        xmlFile = new File("/home/pi/CamControls/src/cam2Save.xml");
+                        break;
+                    }
+                }
             }
 
             //UNKNOWN OPERATING SYSTEM

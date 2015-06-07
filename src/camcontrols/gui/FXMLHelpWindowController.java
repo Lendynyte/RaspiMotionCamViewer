@@ -52,9 +52,7 @@ public class FXMLHelpWindowController implements Initializable
     {
         String helpText;
 
-        helpText = "Hi, Im helping!\r\n";
-        helpText = helpText.concat("a new line\r\n");
-        //TODO(Dominik):write help
+        helpText = "Help not avaiable for alpha version of CamControls\r\n";
         return helpText;
     }
 
