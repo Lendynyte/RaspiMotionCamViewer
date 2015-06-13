@@ -274,7 +274,6 @@ public class FXMLOptionsController implements Initializable
             {
                 applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                 saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
-
             }
             break;
             case "2":
@@ -290,6 +289,19 @@ public class FXMLOptionsController implements Initializable
     private void handleButtonLoad(final ActionEvent event)
     {
         loadXMLSave();
+        switch (this.mainPane.getScene().getRoot().getId())
+        {
+            case "1":
+            {
+                recalculateXmlValues(MotionCamera1.getInstance());
+            }
+            break;
+            case "2":
+            {
+                recalculateXmlValues(MotionCamera2.getInstance());
+            }
+            break;
+        }
         loadSingletonToForm();
     }
 
@@ -381,6 +393,18 @@ public class FXMLOptionsController implements Initializable
     private int getValueFromPercentage(double percentage)
     {
         return (int) Math.floor(2.55 * percentage);
+    }
+
+    //TODO(Dominik): lossy conversions here maybe rethink the saving so there is no jitter
+    /**
+     *
+     * @param value 0 - 255
+     * @return percentage from value
+     */
+    private int getPercentageFromValue(int value)
+    {
+        double tmp = value;
+        return (int) ((tmp / 255) * 100);
     }
 
     /**
@@ -891,6 +915,18 @@ public class FXMLOptionsController implements Initializable
             }
             break;
         }
+    }
+
+    /**
+     *
+     * @param motionCamera
+     */
+    private void recalculateXmlValues(MotionCameraInterface motionCamera)
+    {
+        motionCamera.setCamBrightness(getPercentageFromValue(motionCamera.getCamBrightness()));
+        motionCamera.setCamConstrast(getPercentageFromValue(motionCamera.getCamConstrast()));
+        motionCamera.setCamHue(getPercentageFromValue(motionCamera.getCamHue()));
+        motionCamera.setCamSaturation(getPercentageFromValue(motionCamera.getCamSaturation()));
     }
 
     //TODO(Dominik): check this works after update
