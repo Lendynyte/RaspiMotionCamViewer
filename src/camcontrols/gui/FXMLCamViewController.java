@@ -185,6 +185,7 @@ public class FXMLCamViewController implements Initializable
         {
             openWebcam(0);
 
+            this.imageView1.setImage(this.image1);
             timelineCam1 = startCamStream(0);
             lblPingC1Result.setText("Stream started on camera: " + MotionCamera1.getInstance().getName());
             timelineCam1.setCycleCount(Animation.INDEFINITE);
@@ -207,6 +208,7 @@ public class FXMLCamViewController implements Initializable
         {
             openWebcam(1);
 
+            this.imageView2.setImage(this.image2);
             timelineCam2 = startCamStream(1);
             lblPingC2Result.setText("Stream started on camera: " + MotionCamera2.getInstance().getName());
             timelineCam2.setCycleCount(Animation.INDEFINITE);
@@ -598,7 +600,7 @@ public class FXMLCamViewController implements Initializable
                     Platform.runLater(() ->
                     {
                         //TODO(Dominik):change webcam number to 1 in get
-                        repaintImage2(Webcam.getWebcams().get(0).getImage());
+                        repaintImage2(Webcam.getWebcams().get(1).getImage());
                     });
                     break;
             }
@@ -705,7 +707,7 @@ public class FXMLCamViewController implements Initializable
             initImageViews();
           
             //STREAN PREPARATION these ip adresses get used when no save is found
-            MotionCamera1.getInstance().setURL("192.168.1.102");
+            MotionCamera1.getInstance().setURL("192.168.1.101");
             MotionCamera2.getInstance().setURL("192.168.1.102");
             
             //SETTING UP PATHS FROM XML           

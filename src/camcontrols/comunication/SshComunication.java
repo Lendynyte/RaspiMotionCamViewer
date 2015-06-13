@@ -34,50 +34,50 @@ public class SshComunication
      */
     public void runCommand(String login, String password, String ip, int sshPort, String command, int sshTimeout)
     {
-        new Thread()
+        /* new Thread()
+         {
+         @Override
+         public void run()
+         {*/
+        try
         {
-            @Override
-            public void run()
+            //creating ssh session
+            System.out.println("Creating new SSH session ...");
+            Session sshSession = new JSch().getSession(login, ip, sshPort);
+            sshSession.setPassword(password);
+            sshSession.setConfig("StrictHostKeyChecking", "no");
+            sshSession.connect(sshTimeout);
+            System.out.println("SSH session created ...");
+
+            //sending commands
+            ChannelExec channelExec = (ChannelExec) sshSession.openChannel("exec");
+            InputStream exec = channelExec.getInputStream();
+            channelExec.setCommand(command);
+            channelExec.connect(sshTimeout);
+
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(exec));
+            String line;
+
+            while ((line = bReader.readLine()) != null)
             {
-                try
-                {
-                    //creating ssh session
-                    System.out.println("Creating new SSH session ...");
-                    Session sshSession = new JSch().getSession(login, ip, sshPort);
-                    sshSession.setPassword(password);
-                    sshSession.setConfig("StrictHostKeyChecking", "no");
-                    sshSession.connect(sshTimeout);
-                    System.out.println("SSH session created ...");
-
-                    //sending commands
-                    ChannelExec channelExec = (ChannelExec) sshSession.openChannel("exec");
-                    InputStream exec = channelExec.getInputStream();
-                    channelExec.setCommand(command);
-                    channelExec.connect(sshTimeout);
-
-                    BufferedReader bReader = new BufferedReader(new InputStreamReader(exec));
-                    String line;
-
-                    while ((line = bReader.readLine()) != null)
-                    {
-                        System.out.println(line);
-                    }
-
-                    System.out.println("Command executed ...");
-
-                    channelExec.disconnect();
-                    sshSession.disconnect();
-                }
-                catch (JSchException e)
-                {
-                    System.err.println("Unable to run command exec ...");
-                }
-                catch (IOException e)
-                {
-                    System.err.println("Unable to create input stream ...");
-                }
+                System.out.println(line);
             }
-        }.start();
+
+            System.out.println("Command executed ...");
+
+            channelExec.disconnect();
+            sshSession.disconnect();
+        }
+        catch (JSchException e)
+        {
+            System.err.println("Unable to run command exec ...");
+        }
+        catch (IOException e)
+        {
+            System.err.println("Unable to create input stream ...");
+        }
+        /*       }
+         }.start();*/
     }
 
     /**
@@ -92,47 +92,47 @@ public class SshComunication
      */
     public void uploadFile(String login, String password, String ip, int sshPort, String remtoteConfigPath, File fileToSend, int sshTimeout)
     {
-        new Thread()
+        /*new Thread()
+         {
+         @Override
+         public void run()
+         {*/
+
+        try
         {
-            @Override
-            public void run()
-            {
+            //creating ssh session
+            System.out.println("Creating new SSH session ...");
+            Session sshSession = new JSch().getSession(login, ip, sshPort);
+            sshSession.setPassword(password);
+            sshSession.setConfig("StrictHostKeyChecking", "no");
+            sshSession.connect();
+            System.out.println("SSH session created ...");
 
-                try
-                {
-                    //creating ssh session
-                    System.out.println("Creating new SSH session ...");
-                    Session sshSession = new JSch().getSession(login, ip, sshPort);
-                    sshSession.setPassword(password);
-                    sshSession.setConfig("StrictHostKeyChecking", "no");
-                    sshSession.connect(sshTimeout);
-                    System.out.println("SSH session created ...");
-
-                    //sending files
-                    Channel channel = sshSession.openChannel("sftp");
-                    channel.connect(sshTimeout);
-                    ChannelSftp channelSFTP = (ChannelSftp) channel;
-                    channelSFTP.cd(remtoteConfigPath);
-                    System.out.println("Trying to send file ...");
-                    channelSFTP.put(new FileInputStream(fileToSend), fileToSend.getName());
-                    System.out.println("File succesfully send ...");
-                    channelSFTP.disconnect();
-                    sshSession.disconnect();
-                }
-                catch (JSchException e)
-                {
-                    System.err.println("Unable to create sftp session ...");
-                }
-                catch (SftpException e)
-                {
-                    System.err.println("Sending file failed ...");
-                }
-                catch (FileNotFoundException e)
-                {
-                    System.err.println("File to send does not exist ...");
-                }
-            }
-        }.start();
+            //sending files
+            Channel channel = sshSession.openChannel("sftp");
+            channel.connect();
+            ChannelSftp channelSFTP = (ChannelSftp) channel;
+            channelSFTP.cd(remtoteConfigPath);
+            System.out.println("Trying to send file ...");
+            channelSFTP.put(new FileInputStream(fileToSend), fileToSend.getName());
+            System.out.println("File succesfully send ...");
+            channelSFTP.disconnect();
+            sshSession.disconnect();
+        }
+        catch (JSchException e)
+        {
+            System.err.println("Unable to create sftp session ...");
+        }
+        catch (SftpException e)
+        {
+            System.err.println("Sending file failed ...");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.err.println("File to send does not exist ...");
+        }
+        /*  }
+         }.start();*/
     }
 
     //TODO(Dominik):test how log it takes to download large amount of files if it is too slow add some sort of status checking and make user be able to stop download

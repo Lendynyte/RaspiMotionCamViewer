@@ -90,9 +90,9 @@ public class ConfigEditor
      * @param targetQuality
      */
     public void editConfigList(Parser parser, MotionCameraInterface MotionCamera, String targetConfigPath,
-            String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
-            String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
-            String targetSaturation, String targetQuality)
+                               String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+                               String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+                               String targetSaturation, String targetQuality)
     {
         //TODO(Dominik): HAVE TO FING WORKING RESOLUTIONS THESE CRASH MOTION
        /* if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
@@ -146,6 +146,7 @@ public class ConfigEditor
         {
             loadDefaultConfigFile(parser, MotionCamera);
         }
+
     }
 
     /**
@@ -173,6 +174,85 @@ public class ConfigEditor
 
         parsedConfig.set(lineNumber, valueToChange + " " + targetValue);
         return true;
+    }
+
+    public void editConfigListEx(Parser parser, MotionCameraInterface MotionCamera, String targetConfigPath,
+                                 String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+                                 String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+                                 String targetSaturation, String targetQuality, Boolean mailEnable, String mail, String mailPass, 
+                                 Boolean FTPEnable, String FTPURL, String FTPLogin, String FTPPass)
+    {
+        //TODO(Dominik): HAVE TO FING WORKING RESOLUTIONS THESE CRASH MOTION
+       /* if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "width", targetWidth))
+         {
+         loadDefaultConfigFile(parser, MotionCamera);
+         }
+
+         if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "height", targetHeight))
+         {
+         loadDefaultConfigFile(parser, MotionCamera);
+         }*/
+
+        InputStream in = getClass().getResourceAsStream("/cleanConfig.conf");
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "rotate", targetRotation))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "framerate", targetFramerate))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "auto_brightness", targetAutoBright))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "brightness", "auto_brightness", targetBrightness))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "contrast", targetContrast))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "hue", targetHue))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "saturation", targetSaturation))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "quality", "stream_quality", targetQuality))
+        {
+            loadDefaultConfigFile(parser, MotionCamera);
+        }
+
+        //EXPERIMENTAL
+        if (FTPEnable)
+        {
+            if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "on_picture_save", "on_picture_save wput ftp://" + FTPLogin + ":" + FTPPass + "@" + FTPURL + " %f"))
+            {
+                loadDefaultConfigFile(parser, MotionCamera);
+            }
+        }
+
+        //EXPERIMENTAL
+        if (mailEnable)
+        {
+            //TODO(Dominik): edit message
+            if (!findChangeConfValue(parser, MotionCamera.getParsedConfig(), "on_event_start", "on_event_start sendEmail -f " + mail + "@gmail.com -t " + mail + "@gmail.com -u \"Movement detected\" -m \"Movement has been detected on: %d %m %Y. The time of the movement was: %H:%M (Hour:Minute).\" -s smtp.gmail.com:25 -xu " + mail + "@gmail.com -xp " + mailPass + ""))
+            {
+                loadDefaultConfigFile(parser, MotionCamera);
+            }
+        }
     }
 
     /**

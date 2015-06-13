@@ -1,6 +1,5 @@
 package camcontrols.configEditing;
 
-import camcontrols.dependencies.ApplicationVariables;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

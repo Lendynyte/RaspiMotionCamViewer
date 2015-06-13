@@ -3,6 +3,126 @@
 
 
 
+
+
+private void changeConfigItems(MotionCameraInterface motionCamera)
+    {
+        //TODO(Dominik): check if this works
+        String abr;
+        if (motionCamera.isCamAutoBrightness())
+        {
+            abr = "on";
+        }
+        abr = "off";
+
+        //TODO(Dominik): this need a little bit of work do not pass true just test checkboxes and then use this also dont pass just true
+        ///else{
+        if (!getMailLogin().equals("") && !getMailPassword().equals("") && !getFTPLogin().equals("") && !getFTPPassword().equals("") && !getFTPURL().equals(""))
+        {
+            //WINDOWS
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+
+                new ConfigEditor().editConfigListEx(new Parser(), motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                        motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                        motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "", true, this.getMailLogin(), this.getMailPassword(), true, this.getFTPURL(), this.getFTPLogin(), this.getFTPPassword());
+
+                
+                
+                
+                
+                /*
+                
+                   public void editConfigListEx(Parser parser, MotionCameraInterface MotionCamera, String targetConfigPath,
+                                 String targetWidth, String targetHeight, String targetRotation, String targetFramerate,
+                                 String targetAutoBright, String targetBrightness, String targetContrast, String targetHue,
+                                 String targetSaturation, String targetQuality, Boolean mailEnable, String mail, String mailPass, 
+                                 Boolean FTPEnable, String FTPURL, String FTPLogin, String FTPPass)
+                
+                */
+                
+                
+                
+                
+                
+            }
+
+            //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+
+                new ConfigEditor().editConfigListEx(new Parser(), motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                        motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                        motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "", true, this.getMailLogin(), this.getMailPassword(), true, this.getFTPURL(), this.getFTPLogin(), this.getFTPPassword());
+            }
+
+            //UNKNOWN OPERATING SYSTEM
+            else
+            {
+                System.err.println("Cannot find install directory ...");
+            }
+        }
+
+        //if (!isExperimental)
+        else
+        {
+            //WINDOWS
+            if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
+            {
+
+                new ConfigEditor().editConfigList(new Parser(), motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                        motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                        motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+            }
+
+            //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
+            else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
+            {
+
+                new ConfigEditor().editConfigList(new Parser(), motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+                        motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
+                        motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+            }
+
+            //UNKNOWN OPERATING SYSTEM
+            else
+            {
+                System.err.println("Cannot find install directory ...");
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 switch (this.mainPane.getScene().getRoot().getId())
         {
             //TODO(Dominik): fix paths when i get the correct path in main moduel

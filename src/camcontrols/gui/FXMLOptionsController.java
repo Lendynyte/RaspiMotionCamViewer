@@ -29,7 +29,7 @@ import javafx.scene.layout.AnchorPane;
  * FXML Controller class
  *
  * @author Dominik Pauli
- * @version 0.3
+ * @version 0.6
  */
 public class FXMLOptionsController implements Initializable
 {
@@ -113,8 +113,23 @@ public class FXMLOptionsController implements Initializable
 
     @FXML
     private TextField tfResult;
-//</editor-fold>
 
+    @FXML
+    private TextField tfMailLogin;
+
+    @FXML
+    private TextField tfMailPass;
+
+    @FXML
+    private TextField tfFTPURL;
+
+    @FXML
+    private TextField tfFTPLogin;
+
+    @FXML
+    private TextField tfFTPPass;
+
+//</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Sliders">
 //Slider for camera brightness
     @FXML
@@ -165,11 +180,14 @@ public class FXMLOptionsController implements Initializable
     //variable for checking data from form
     private boolean isError = false;
 
+    //variable for turning experimental values on/off
+    private boolean isExperimental;
+
     //<editor-fold defaultstate="collapsed" desc="Button handling">
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        if (pingCamera())
+        // if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
@@ -179,10 +197,12 @@ public class FXMLOptionsController implements Initializable
                     saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera1.getInstance());
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    applySettingsToCamera(MotionCamera1.getInstance());
+                    //applySettingsToCamera(MotionCamera1.getInstance());
 
+                    //  new SshCamerahandler().restartMotion(MotionCamera1.getInstance());
+                    //  new SshCamerahandler().runMotion(MotionCamera1.getInstance(), 1000000);
                     //TODO(Dominik): check if restart works this fast
-                    restartCameraAction();
+                    //restartCameraAction();
                 }
                 break;
                 case "2":
@@ -193,13 +213,16 @@ public class FXMLOptionsController implements Initializable
                     //this.tfResult.setText("Configuration applied to camera ...");
                     applySettingsToCamera(MotionCamera2.getInstance());
 
+                    new SshCamerahandler().restartMotion(MotionCamera2.getInstance());
+                    new SshCamerahandler().runMotion(MotionCamera2.getInstance(), 1000000);
+
                     //TODO(Dominik): check if restart works this fast
-                    restartCameraAction();
+                    //restartCameraAction();
                 }
                 break;
             }
         }
-        else
+        // else
         {
             // this.tfResult.setText("Unable to reach camera to apply settings ...");
             System.out.println("UNABLE to ping");
@@ -404,10 +427,12 @@ public class FXMLOptionsController implements Initializable
         this.sldrQuality.setValue(75);
         this.tfCamName.setText("Camera " + this.mainPane.getScene().getRoot().getId());
         this.tfCamURL.setText("192.168.1.102");
-        this.tfAlertEmail.setText(null);
-        this.tfremoteStoragePath.setText(null);
-        this.chckAlerMail.selectedProperty().setValue(Boolean.FALSE);
-        this.chckRemoteStore.selectedProperty().setValue(Boolean.FALSE);
+        this.tfMailLogin.setText(null);
+        this.tfMailPass.setText(null);
+        this.tfFTPLogin.setText(null);
+        this.tfFTPPass.setText(null);
+        this.tfFTPURL.setText(null);
+        initializeRemoteAndMail();
     }
 
     /**
@@ -427,46 +452,6 @@ public class FXMLOptionsController implements Initializable
         else
         {
             this.sldrBrightness.disableProperty().setValue(Boolean.FALSE);
-        }
-    }
-
-    /**
-     * This method enables automatic mailing and disables place for email adress
-     * if not selected
-     *
-     * @param event checkobox checked event
-     */
-    @FXML
-    private void handleCheckBoxSendAutoEmail(final ActionEvent event)
-    {
-        if (this.chckAlerMail.isSelected())
-        {
-            this.tfAlertEmail.disableProperty().setValue(Boolean.FALSE);
-            this.tfAlertEmail.textProperty().setValue(null);
-        }
-        else
-        {
-            this.tfAlertEmail.setText(null);
-            this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
-        }
-    }
-
-    /**
-     * This method enables remote storage or disables if unchecked
-     *
-     * @param event checkobox checked event
-     */
-    @FXML
-    private void handleCheckBoxRemoteImages(final ActionEvent event)
-    {
-        if (this.chckRemoteStore.isSelected())
-        {
-            this.tfremoteStoragePath.disableProperty().setValue(Boolean.FALSE);
-        }
-        else
-        {
-            this.tfremoteStoragePath.setText(null);
-            this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
         }
     }
 
@@ -540,6 +525,46 @@ public class FXMLOptionsController implements Initializable
     }
 
     /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableMail(final ActionEvent event)
+    {
+        if (this.chckAlerMail.isSelected())
+        {
+            this.tfMailLogin.disableProperty().setValue(Boolean.FALSE);
+            this.tfMailPass.disableProperty().setValue(Boolean.FALSE);
+        }
+        else
+        {
+            this.tfMailLogin.disableProperty().setValue(Boolean.TRUE);
+            this.tfMailPass.disableProperty().setValue(Boolean.TRUE);
+        }
+    }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    private void handleCheckBoxEnableRemoteStorage(final ActionEvent event)
+    {
+        if (this.chckRemoteStore.isSelected())
+        {
+            this.tfFTPLogin.disableProperty().setValue(Boolean.FALSE);
+            this.tfFTPPass.disableProperty().setValue(Boolean.FALSE);
+            this.tfFTPURL.disableProperty().setValue(Boolean.FALSE);
+        }
+        else
+        {
+            this.tfFTPLogin.disableProperty().setValue(Boolean.TRUE);
+            this.tfFTPPass.disableProperty().setValue(Boolean.TRUE);
+            this.tfFTPURL.disableProperty().setValue(Boolean.TRUE);
+        }
+    }
+
+    /**
      * This method initializes Combobox for picking resolution
      */
     private void InitializeCBoxResolution()
@@ -555,10 +580,7 @@ public class FXMLOptionsController implements Initializable
     private void initializeTextBoxes()
     {
         this.tfCamName.setText(getCameraName());
-        this.tfCamURL.setText("NO URL");
-        this.tfFramerate.setText("2");
-        this.tfAlertEmail.disableProperty().setValue(Boolean.TRUE);
-        this.tfremoteStoragePath.disableProperty().setValue(Boolean.TRUE);
+        this.tfFramerate.setText("10");
     }
 
     /**
@@ -581,8 +603,32 @@ public class FXMLOptionsController implements Initializable
         return "Unnamed Camera";
     }
 
+    private String getMailLogin()
+    {
+        return this.tfMailLogin.getText().trim();
+    }
+
+    private String getMailPassword()
+    {
+        return this.tfMailPass.getText().trim();
+    }
+
+    private String getFTPURL()
+    {
+        return this.tfFTPURL.getText().trim();
+    }
+
+    private String getFTPLogin()
+    {
+        return this.tfFTPLogin.getText().trim();
+    }
+
+    private String getFTPPassword()
+    {
+        return this.tfFTPPass.getText().trim();
+    }
+
     //TODO(Dominik): all values have to be set before doing this fix
-    //TODO(Dominik): check if this works
     /**
      *
      * @param motionCamera
@@ -623,7 +669,6 @@ public class FXMLOptionsController implements Initializable
         new XMLCameraHandler().createCamSave(MotionCamera, savePath);
     }
 
-    //TODO(Dominik): check if works
     /**
      *
      * @param motionCamera
@@ -653,8 +698,6 @@ public class FXMLOptionsController implements Initializable
         MotionCamera.setCamSaturation(getFXMLSldrSaturation());
 
         MotionCamera.setURL(getFXMLURL());
-        //TODO(Dominik): insert remote and emails
-
         MotionCamera.setName(getFXMLCamName(camNumberToName));
     }
 
@@ -790,6 +833,23 @@ public class FXMLOptionsController implements Initializable
         {
             return "Camera" + camNumber;
         }
+    }
+
+    /**
+     *
+     */
+    private void initializeRemoteAndMail()
+    {
+        //e-mail
+        this.chckAlerMail.selectedProperty().setValue(Boolean.FALSE);
+        this.tfMailLogin.disableProperty().setValue(Boolean.TRUE);
+        this.tfMailPass.disableProperty().setValue(Boolean.TRUE);
+
+        //remote storage
+        this.chckRemoteStore.selectedProperty().setValue(Boolean.FALSE);
+        this.tfFTPLogin.disableProperty().setValue(Boolean.TRUE);
+        this.tfFTPPass.disableProperty().setValue(Boolean.TRUE);
+        this.tfFTPURL.disableProperty().setValue(Boolean.TRUE);
     }
 
     /**
@@ -930,30 +990,42 @@ public class FXMLOptionsController implements Initializable
      */
     private void changeConfigItems(MotionCameraInterface motionCamera)
     {
-        //TODO(Dominik): check if this works
         String abr;
+        boolean ftpEnabled = false;
+        boolean emailEnabled = false;
+
         if (motionCamera.isCamAutoBrightness())
         {
             abr = "on";
         }
         abr = "off";
 
+        if (!getMailLogin().equals("") && !getMailPassword().equals(""))
+        {
+            emailEnabled = true;
+        }
+
+        if (!getFTPLogin().equals("") && !getFTPPassword().equals("") && !getFTPURL().equals(""))
+        {
+            ftpEnabled = true;
+        }
+
         //WINDOWS
         if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
         {
 
-            new ConfigEditor().editConfigList(new Parser(), motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+            new ConfigEditor().editConfigListEx(new Parser(), motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
                     motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
-                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "", emailEnabled, this.getMailLogin(), this.getMailPassword(), ftpEnabled, this.getFTPURL(), this.getFTPLogin(), this.getFTPPassword());
         }
 
         //LINUX MAINLY MADE FOR RASPBERRY PI USER PI
         else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
         {
 
-            new ConfigEditor().editConfigList(new Parser(), motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
+            new ConfigEditor().editConfigListEx(new Parser(), motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", motionCamera.getCamWidth() + "",
                     motionCamera.getCamHeight() + "", motionCamera.getCamRotation() + "", motionCamera.getCamFramerate() + "", abr, motionCamera.getCamBrightness() + "", motionCamera.getCamConstrast() + "",
-                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "");
+                    motionCamera.getCamHue() + "", motionCamera.getCamSaturation() + "", motionCamera.getCamQuality() + "", true, this.getMailLogin(), this.getMailPassword(), true, this.getFTPURL(), this.getFTPLogin(), this.getFTPPassword());
         }
 
         //UNKNOWN OPERATING SYSTEM
@@ -961,6 +1033,7 @@ public class FXMLOptionsController implements Initializable
         {
             System.err.println("Cannot find install directory ...");
         }
+
     }
 
     //TODO(Dominik): check if this works after update
@@ -975,27 +1048,26 @@ public class FXMLOptionsController implements Initializable
         new ConfigEditor().createConfig(new Parser(), motionCamera, this.mainPane.getScene().getRoot().getId());
     }
 
-    //TODO(Dominik): check if this works after update
-    //TODO(Dominik): check parameters 
+    //TODO(Dominik): test
     /**
      *
      * @param motionCamera
      */
     private void applySettingsToCamera(MotionCameraInterface motionCamera)
     {
-        //TODO(Dominik): use interface or picj right camera
         if (pingCamera())
         {
             //WINDOWS
             if (ApplicationVariables.getInstance().getOperatingSystem() == 1)
             {
-                new SshCamerahandler().sendConfFile(motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
+                new SshCamerahandler().sendConfFile(motionCamera, "C://CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 100000);
+                System.out.println("File send ...");
             }
 
             //LINUX
             else if (ApplicationVariables.getInstance().getOperatingSystem() == 2)
             {
-                new SshCamerahandler().sendConfFile(motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 10000);
+                new SshCamerahandler().sendConfFile(motionCamera, "/home/pi/CamControls/src/save/cam" + this.mainPane.getScene().getRoot().getId() + "/motion.conf", 100000);
             }
 
             //OTHER
@@ -1044,9 +1116,11 @@ public class FXMLOptionsController implements Initializable
         switch (this.mainPane.getScene().getRoot().getId())
         {
             case "1":
-                return new CameraAvailabilityTester().isReachable("http://" + MotionCamera1.getInstance().getURL(), 10000);
+                //return new CameraAvailabilityTester().isReachable("http://" + MotionCamera1.getInstance().getURL(), 1000000);
+                return new CameraAvailabilityTester().isReachable(MotionCamera1.getInstance().getURL(), 1000000);
             case "2":
-                return new CameraAvailabilityTester().isReachable("http://" + MotionCamera2.getInstance().getURL(), 10000);
+                //return new CameraAvailabilityTester().isReachable("http://" + MotionCamera2.getInstance().getURL(), 1000000);
+                return new CameraAvailabilityTester().isReachable(MotionCamera2.getInstance().getURL(), 1000000);
             default: //should never happen
                 System.err.println("Wrong window handle ...");
                 return false;
@@ -1073,7 +1147,7 @@ public class FXMLOptionsController implements Initializable
         MotionCamera1.getInstance().setCamPassword("raspberry");
         //NOT USED CURRENTLY
         MotionCamera1.getInstance().setCamRotation(0);
-        
+
         MotionCamera2.getInstance().setURL("192.168.1.102");
         MotionCamera2.getInstance().setCamLogin("pi");
         MotionCamera2.getInstance().setCamPassword("raspberry");
@@ -1082,12 +1156,16 @@ public class FXMLOptionsController implements Initializable
 
         //ApplicationVariables.getInstance().setInstallDirectoryPath("/home/pi/CamControls");
         //ApplicationVariables.getInstance().setXmlSaveDirectoryPath("/home/pi/CamControls");
+        //EXPERIMENTAL
+        this.isExperimental = true;
 
         Platform.runLater(() ->
         {
             initializeTextBoxes();
-            InitializeCBoxResolution();
+            initializeRemoteAndMail();
+            //InitializeCBoxResolution(); -- currently disabled beacause of config issues
         });
+
         ApplicationVariables.getInstance().setIsOptionsOpen(true);
     }
 

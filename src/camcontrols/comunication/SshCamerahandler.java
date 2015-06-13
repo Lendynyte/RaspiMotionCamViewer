@@ -42,6 +42,15 @@ public class SshCamerahandler
 
     /**
      *
+     * @param motionCamera
+     */
+    public void restartMotion(MotionCameraInterface motionCamera)
+    {
+        new SshComunication().runCommand(motionCamera.getCamLogin(), motionCamera.getCamPassword(), motionCamera.getURL(), 22, "sudo service motion restart", 1000000);
+    }
+
+    /**
+     *
      * @param MotionCamera
      * @param confFileLocation
      * @param sshTimeout
