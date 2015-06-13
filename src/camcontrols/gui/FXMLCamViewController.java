@@ -286,6 +286,8 @@ public class FXMLCamViewController implements Initializable
     private void handleMenuCam1OptionsMenu(final ActionEvent event)
     {
         new WindowMenuClass().createCamera1OptionsWindow();
+        //TODO(Dominik): remove after i fix cam not loading after restarting from options
+        this.handleBtnC1Stop(event);
     }
 
     /**
@@ -296,6 +298,8 @@ public class FXMLCamViewController implements Initializable
     private void handleMenuCam2OptionsMenu(final ActionEvent event)
     {
         new WindowMenuClass().createCamera2OptionsWindow();
+        //TODO(Dominik): remove after i fix cam not loading after restarting from options
+        this.handleBtnC2Stop(event);
     }
 
     /**
@@ -659,7 +663,7 @@ public class FXMLCamViewController implements Initializable
      */
     private void runMotion(MotionCameraInterface MotionCamera)
     {
-        new SshCamerahandler().runMotion(MotionCamera, 200);
+        new SshCamerahandler().runMotion(MotionCamera);
     }
 
     /**

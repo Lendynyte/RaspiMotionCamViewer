@@ -187,7 +187,7 @@ public class FXMLOptionsController implements Initializable
     @FXML
     private void handleButtonApply(final ActionEvent event)
     {
-        // if (pingCamera())
+        if (pingCamera())
         {
             switch (this.mainPane.getScene().getRoot().getId())
             {
@@ -196,13 +196,14 @@ public class FXMLOptionsController implements Initializable
                     applyToCamera(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                     saveToXMLSaveFile(MotionCamera1.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera1.getInstance());
+                    //TODO(Dominik): make informational text field
                     //this.tfResult.setText("Configuration applied to camera ...");
-                    //applySettingsToCamera(MotionCamera1.getInstance());
+                    applySettingsToCamera(MotionCamera1.getInstance());
 
-                    //  new SshCamerahandler().restartMotion(MotionCamera1.getInstance());
-                    //  new SshCamerahandler().runMotion(MotionCamera1.getInstance(), 1000000);
-                    //TODO(Dominik): check if restart works this fast
-                    //restartCameraAction();
+                    if (new SshCamerahandler().restartMotion(MotionCamera1.getInstance()))
+                    {
+                        new SshCamerahandler().runMotion(MotionCamera1.getInstance());
+                    }
                 }
                 break;
                 case "2":
@@ -210,19 +211,19 @@ public class FXMLOptionsController implements Initializable
                     applyToCamera(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
                     saveToXMLSaveFile(MotionCamera2.getInstance(), this.mainPane.getScene().getRoot().getId());
                     applyToConfigFile(MotionCamera2.getInstance());
+                    //TODO(Dominik): make informational text field
                     //this.tfResult.setText("Configuration applied to camera ...");
                     applySettingsToCamera(MotionCamera2.getInstance());
 
-                    new SshCamerahandler().restartMotion(MotionCamera2.getInstance());
-                    new SshCamerahandler().runMotion(MotionCamera2.getInstance(), 1000000);
-
-                    //TODO(Dominik): check if restart works this fast
-                    //restartCameraAction();
+                    if (new SshCamerahandler().restartMotion(MotionCamera2.getInstance()))
+                    {
+                        new SshCamerahandler().runMotion(MotionCamera2.getInstance());
+                    }
                 }
                 break;
             }
         }
-        // else
+        else
         {
             // this.tfResult.setText("Unable to reach camera to apply settings ...");
             System.out.println("UNABLE to ping");
@@ -418,7 +419,7 @@ public class FXMLOptionsController implements Initializable
         this.sldrHue.disableProperty().setValue(Boolean.TRUE);
         this.sldrSaturation.disableProperty().setValue(Boolean.TRUE);
         this.cBoxResolution.getSelectionModel().selectFirst();
-        this.tfFramerate.setText("2");
+        this.tfFramerate.setText("10");
         this.chckAutoBrightness.selectedProperty().setValue(Boolean.FALSE);
         this.sldrBrightness.setValue(0);
         this.sldrContrast.setValue(0);
@@ -427,11 +428,11 @@ public class FXMLOptionsController implements Initializable
         this.sldrQuality.setValue(75);
         this.tfCamName.setText("Camera " + this.mainPane.getScene().getRoot().getId());
         this.tfCamURL.setText("192.168.1.102");
-        this.tfMailLogin.setText(null);
-        this.tfMailPass.setText(null);
-        this.tfFTPLogin.setText(null);
-        this.tfFTPPass.setText(null);
-        this.tfFTPURL.setText(null);
+        this.tfMailLogin.setText("");
+        this.tfMailPass.setText("");
+        this.tfFTPLogin.setText("");
+        this.tfFTPPass.setText("");
+        this.tfFTPURL.setText("");
         initializeRemoteAndMail();
     }
 

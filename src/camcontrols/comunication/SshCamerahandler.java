@@ -6,7 +6,7 @@ import java.io.File;
 /**
  *
  * @author Dominik Pauli
- * @version 0.2
+ * @version 0.3
  */
 public class SshCamerahandler
 {
@@ -33,20 +33,21 @@ public class SshCamerahandler
     /**
      *
      * @param MotionCamera
-     * @param sshTimeout
+     * @return succes
      */
-    public void runMotion(MotionCameraInterface MotionCamera, int sshTimeout)
+    public boolean runMotion(MotionCameraInterface MotionCamera)
     {
-        new SshComunication().runCommand(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, "sudo motion", sshTimeout);
+        return new SshComunication().runCommand(MotionCamera.getCamLogin(), MotionCamera.getCamPassword(), MotionCamera.getURL(), 22, "sudo motion", 1000000);
     }
 
     /**
      *
      * @param motionCamera
+     * @return succes
      */
-    public void restartMotion(MotionCameraInterface motionCamera)
+    public boolean restartMotion(MotionCameraInterface motionCamera)
     {
-        new SshComunication().runCommand(motionCamera.getCamLogin(), motionCamera.getCamPassword(), motionCamera.getURL(), 22, "sudo service motion restart", 1000000);
+        return new SshComunication().runCommand(motionCamera.getCamLogin(), motionCamera.getCamPassword(), motionCamera.getURL(), 22, "sudo service motion restart", 1000000);
     }
 
     /**
