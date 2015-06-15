@@ -288,6 +288,9 @@ public class FXMLCamViewController implements Initializable
         new WindowMenuClass().createCamera1OptionsWindow();
         //TODO(Dominik): remove after i fix cam not loading after restarting from options
         this.handleBtnC1Stop(event);
+        
+        //EXPERIMENTAL COMMENT THIS LINE IF IT CRASHES ON MENU OPEN
+        this.closeWebcam(0);
     }
 
     /**
@@ -300,6 +303,9 @@ public class FXMLCamViewController implements Initializable
         new WindowMenuClass().createCamera2OptionsWindow();
         //TODO(Dominik): remove after i fix cam not loading after restarting from options
         this.handleBtnC2Stop(event);
+        
+        //EXPERIMENTAL COMMENT THIS LINE IF IT CRASHES ON MENU OPEN
+        this.closeWebcam(1);
     }
 
     /**
